@@ -6,8 +6,11 @@
     "start": "next start"
   },
   "dependencies": {
+    "material-ui": "^0.20.0",
     "next": "4.2.1",
+    "prop-types": "^15.6.0",
     "react": "16.2.0",
-    "react-dom": "16.2.0"
+    "react-dom": "16.2.0",
+    "react-tap-event-plugin": "^3.0.2"
   }
 }

@@ -1,10 +1,15 @@
 module.exports = {
-  webpack: (config) => {
-    // Fixes npm packages that depend on `fs` module
-    config.node = {
-      fs: 'empty'
-    }
+	webpack: config => {
+		// Remove minifed react aliases for material-ui so production builds work
+		if (config.resolve.alias) {
+			delete config.resolve.alias.react;
+			delete config.resolve.alias['react-dom'];
+		}
 
-    return config
-  }
-}
+		// Fixes npm packages that depend on `fs` module
+		config.node = {
+			fs: 'empty'
+		};
+		return config;
+	}
+};
