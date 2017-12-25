@@ -1,4 +1,5 @@
 import { createStore } from 'redux';
+import Cosmic from 'cosmicjs';
 import * as actionTypes from './actions';
 
 const initialState = {
