@@ -5,11 +5,11 @@ import Head from '../components/head';
 import Tour from '../components/Tour/Tour';
 import Wrapper from '../hoc/Wrapper';
 
-class Index extends Component {
+class TourDetail extends Component {
 	render() {
 		return (
 			<Wrapper>
-				<Head title="CosmicJs Tour Diary App" />
+				<Head title="Tour Details" />
 
 				<Tour />
 			</Wrapper>
@@ -17,4 +17,4 @@ class Index extends Component {
 	}
 }
 
-export default withRedux(initializeStore)(Index);
+export default withRedux(initializeStore)(TourDetail);
