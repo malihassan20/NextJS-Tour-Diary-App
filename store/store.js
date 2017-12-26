@@ -111,17 +111,23 @@ const reducer = (state = initialState, action) => {
 			});
 			return '';
 		case actionTypes.TOGGLE_TOUR_MODAL:
-			console.log('[DELETE_TOUR_DETAIL] Old: ' + state.toggleTourModal);
+			console.log('[TOGGLE_TOUR_MODAL] Old: ' + state.toggleTourModal);
+
 			const newTourModalState = !state.toggleTourModal;
-			console.log('[DELETE_TOUR_DETAIL] New: ' + newTourModalState);
+
+			console.log('[TOGGLE_TOUR_MODAL] New: ' + newTourModalState);
+
 			return {
 				...state,
 				toggleTourModal: newTourModalState,
 			};
 		case actionTypes.TOGGLE_TOUR_DETAIL_MODAL:
 			return console.log('[TOGGLE_TOUR_DETAIL_MODAL] Old: ' + state.toggleTourDetailModal);
+
 			const newTourDetailModalState = !state.toggleTourDetailModal;
+
 			console.log('[TOGGLE_TOUR_DETAIL_MODAL] New: ' + newTourDetailModalState);
+
 			return {
 				...state,
 				toggleTourDetailModal: newTourDetailModalState,

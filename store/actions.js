@@ -1,4 +1,4 @@
-import * as actionTypes from './actions';
+import * as actionTypes from './constants';
 
 export const getTour = () => ({
 	type: actionTypes.GET_TOUR,

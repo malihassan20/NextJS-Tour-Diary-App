@@ -1,63 +1,31 @@
 import React, { Component } from 'react';
+import TourModal from './TourModal';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-
-const styles = {
-	container: {
-		textAlign: 'center',
-		paddingTop: 200
-	}
-};
+import { toggleTourModal } from '../../store/actions';
 
 class Tour extends Component {
 	static getInitialProps({ req }) {}
 
-	constructor(props, context) {
-		super(props, context);
-
-		this.state = {
-			open: false
-		};
-	}
-
-	handleRequestClose = () => {
-		this.setState({
-			open: false
-		});
-	};
-
-	handleTouchTap = () => {
-		this.setState({
-			open: true
-		});
-	};
-
 	render() {
-		const standardActions = (
-			<FlatButton label="Ok" primary={Boolean(true)} onTouchTap={this.handleRequestClose} />
-		);
-
 		return (
-			<div style={styles.container}>
-				<Dialog
-					open={this.state.open}
-					title="Super Secret Password"
-					actions={standardActions}
-					onRequestClose={this.handleRequestClose}
-				>
-					1-2-3-4-5
-				</Dialog>
-				<h1>Material-UI</h1>
-				<h2>example project</h2>
-				<RaisedButton
-					label="Super Secret Password"
-					secondary
-					onTouchTap={this.handleTouchTap}
-				/>
+			<div>
+				<TourModal />
+				<RaisedButton label="Add Tour" secondary onTouchTap={this.props.onToggleTourModal} />
 			</div>
 		);
 	}
 }
 
-export default Tour;
+const mapStateToProps = (state, ownProps) => {
+	return {};
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+	return {
+		onToggleTourModal: () => dispatch(toggleTourModal()),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tour);

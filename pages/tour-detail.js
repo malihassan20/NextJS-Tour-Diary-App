@@ -3,7 +3,7 @@ import withRedux from 'next-redux-wrapper';
 import initializeStore from '../store/store';
 import Head from '../components/head';
 import Tour from '../components/Tour/Tour';
-import Wrapper from '../hoc/Wrapper';
+import Wrapper from '../layouts/Wrapper';
 
 class TourDetail extends Component {
 	render() {

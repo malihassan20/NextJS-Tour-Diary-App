@@ -13,8 +13,8 @@ if (!process.tapEventInjected) {
 
 const muiTheme = {
 	palette: {
-		accent1Color: deepOrange400
-	}
+		accent1Color: deepOrange400,
+	},
 };
 
 class Wrapper extends Component {
@@ -35,7 +35,7 @@ class Wrapper extends Component {
 
 		return (
 			<MuiThemeProvider muiTheme={getMuiTheme({ userAgent, ...muiTheme })}>
-				{this.props.children}
+				<div>{this.props.children}</div>
 			</MuiThemeProvider>
 		);
 	}
