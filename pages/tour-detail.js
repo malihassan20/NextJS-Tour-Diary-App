@@ -6,9 +6,20 @@ import Tour from '../components/Tour/Tour';
 import Wrapper from '../layouts/Wrapper';
 
 class TourDetail extends Component {
+	static getInitialProps({ req }) {
+		// Ensures material-ui renders the correct css prefixes server-side
+		let userAgent;
+		if (process.browser) {
+			userAgent = navigator.userAgent;
+		} else {
+			userAgent = req.headers['user-agent'];
+		}
+
+		return { userAgent };
+	}
 	render() {
 		return (
-			<Wrapper>
+			<Wrapper userAgent={this.props}>
 				<Head title="Tour Details" />
 
 				<Tour />

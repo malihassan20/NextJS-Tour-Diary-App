@@ -18,20 +18,8 @@ const muiTheme = {
 };
 
 class Wrapper extends Component {
-	static getInitialProps({ req }) {
-		// Ensures material-ui renders the correct css prefixes server-side
-		let userAgent;
-		if (process.browser) {
-			userAgent = navigator.userAgent;
-		} else {
-			userAgent = req.headers['user-agent'];
-		}
-
-		return { userAgent };
-	}
-
 	render() {
-		const { userAgent } = this.props;
+		const { userAgent } = this.props.userAgent;
 
 		return (
 			<MuiThemeProvider muiTheme={getMuiTheme({ userAgent, ...muiTheme })}>
