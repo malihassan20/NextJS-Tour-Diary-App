@@ -193,12 +193,12 @@ class TourModal extends Component {
 	}
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
 	toggleTourModalState: state.toggleTourModal,
 	tour: state.tour
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
 	onToggleTourModal: () => dispatch(toggleTourModal())
 });
 

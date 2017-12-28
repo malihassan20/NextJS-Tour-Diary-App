@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Button } from 'antd';
+import { Row, Col, Button, Icon } from 'antd';
 
 import TourModal from './TourModal';
 import { toggleTourModal } from '../../store/actions';
@@ -11,8 +11,13 @@ class Tour extends Component {
 		return (
 			<div>
 				<TourModal />
-				<Button type="primary" onClick={this.props.onToggleTourModal}>
-					Primary
+				<Button
+					type="primary"
+					size="large"
+					icon="plus"
+					onClick={this.props.onToggleTourModal}
+				>
+					Add Tour
 				</Button>
 				<Row gutter={this.gutters}>
 					<Col span={6} />
