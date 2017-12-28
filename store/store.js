@@ -4,7 +4,27 @@ import Cosmic from 'cosmicjs';
 import * as actionTypes from './constants';
 
 const initialState = {
+	// tour: {
+	// 	id: null,
+	// 	slug: '',
+	// 	title: '',
+	// 	content: '',
+	// 	featured_image: '',
+	// 	start_date: '',
+	// 	end_date: '',
+	// 	location: '',
+	// 	is_new: false,
+	// },
 	tours: [],
+	// tour_detail: {
+	// 	id: null,
+	// 	slug: '',
+	// 	title: '',
+	// 	date: '',
+	// 	image: '',
+	// 	tour_id: null,
+	// 	is_new: false,
+	// },
 	tour_details: [],
 	toggleTourModal: false,
 	toggleTourDetailModal: false,

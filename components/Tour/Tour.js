@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import TourModal from './TourModal';
 import { connect } from 'react-redux';
-import RaisedButton from 'material-ui/RaisedButton';
 import { toggleTourModal } from '../../store/actions';
 
 class Tour extends Component {
@@ -9,7 +8,6 @@ class Tour extends Component {
 		return (
 			<div>
 				<TourModal />
-				<RaisedButton label="Add Tour" secondary onTouchTap={this.props.onToggleTourModal} />
 			</div>
 		);
 	}
