@@ -1055,6 +1055,9 @@ const Layout = props => (
 				padding: 5px !important;
 				border-radius: 2px !important;
 			}
+			.ant-form-vertical .ant-form-item-label {
+				text-align: right;
+			}
 		`}</style>
 		{props.children}
 	</div>

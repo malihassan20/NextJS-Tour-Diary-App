@@ -104,8 +104,10 @@ class TourModal extends Component {
 			<div>
 				<Modal
 					title="Add New Tour"
+					width="60%"
 					visible={this.props.toggleTourModalState}
 					onOk={this.handleSubmit}
+					okText="Add"
 					onCancel={this.handleClose}
 				>
 					<Form layout="vertical">
@@ -125,7 +127,7 @@ class TourModal extends Component {
 								rules: [
 									{
 										required: true,
-										message: 'Please enter tour city/state',
+										message: 'Please enter location (city/state)',
 										whitespace: true
 									}
 								]
@@ -135,35 +137,54 @@ class TourModal extends Component {
 							{getFieldDecorator('range-picker', rangeConfig)(<RangePicker />)}
 						</FormItem>
 						<FormItem {...formItemLayout} label="Description">
-							<Editor
-								editorState={this.state.content}
-								image={false}
-								onEditorStateChange={this.onEditorStateChange}
-								toolbar={{
-									options: [
-										'inline',
-										'blockType',
-										'fontSize',
-										'fontFamily',
-										'list',
-										'textAlign',
-										'colorPicker',
-										'link',
-										'emoji',
-										'remove',
-										'history'
-									]
-								}}
-								wrapperClassName="demo-wrapper"
-								editorClassName="demo-editor"
-							/>
+							{getFieldDecorator('content', {
+								rules: [
+									{
+										required: true,
+										message: 'Please enter description',
+										whitespace: true
+									}
+								]
+							})(
+								<Editor
+									editorState={this.state.content}
+									image={false}
+									onEditorStateChange={this.onEditorStateChange}
+									toolbar={{
+										options: [
+											'inline',
+											'blockType',
+											'fontSize',
+											'fontFamily',
+											'list',
+											'textAlign',
+											'colorPicker',
+											'link',
+											'emoji',
+											'remove',
+											'history'
+										]
+									}}
+									wrapperClassName="demo-wrapper"
+									editorClassName="demo-editor"
+								/>
+							)}
 						</FormItem>
 						<FormItem {...formItemLayout} label="Image" extra="">
-							<Upload name="featured_image" {...props}>
-								<Button>
-									<Icon type="upload" /> Select File
-								</Button>
-							</Upload>
+							{getFieldDecorator('featured_image', {
+								rules: [
+									{
+										required: true,
+										message: 'Please select featured image'
+									}
+								]
+							})(
+								<Upload name="featured_image" {...props}>
+									<Button>
+										<Icon type="upload" /> Select File
+									</Button>
+								</Upload>
+							)}
 						</FormItem>
 					</Form>
 				</Modal>
