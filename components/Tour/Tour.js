@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Button, Icon } from 'antd';
+import { Layout, Row, Col, Button, Icon } from 'antd';
 
 import TourModal from './TourModal';
 import { toggleTourModal } from '../../store/actions';
@@ -11,25 +11,26 @@ class Tour extends Component {
 		return (
 			<div>
 				<TourModal />
-				<Button
-					type="primary"
-					size="large"
-					icon="plus"
-					onClick={this.props.onToggleTourModal}
-				>
-					Add Tour
-				</Button>
 				<Row gutter={this.gutters}>
-					<Col span={6} />
+					<Col span={24} style={{ textAlign: 'right' }}>
+						<Button
+							type="primary"
+							size="large"
+							icon="plus"
+							onClick={this.props.onToggleTourModal}
+						>
+							Add Tour
+						</Button>
+					</Col>
 				</Row>
 			</div>
 		);
 	}
 }
 
-const mapStateToProps = (state, ownProps) => ({});
+const mapStateToProps = state => ({});
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
 	onToggleTourModal: () => dispatch(toggleTourModal())
 });
 

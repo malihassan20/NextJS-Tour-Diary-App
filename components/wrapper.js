@@ -5,7 +5,7 @@ const defaultDescription = '';
 const defaultOGURL = '';
 const defaultOGImage = '';
 
-const Layout = props => (
+const Wrapper = props => (
 	<div>
 		<NextHead>
 			<meta charSet="UTF-8" />
@@ -1063,4 +1063,4 @@ const Layout = props => (
 	</div>
 );
 
-export default Layout;
+export default Wrapper;
