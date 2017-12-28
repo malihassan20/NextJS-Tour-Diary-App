@@ -12,10 +12,10 @@ const Wrapper = props => (
 			<title>{props.title || 'CosmicJs Tour Diary App'}</title>
 			<meta name="description" content="Created by Ali Hassan" />
 			<meta name="viewport" content="width=device-width, initial-scale=1" />
-			<link rel="icon" sizes="192x192" href="/static/touch-icon.png" />
-			<link rel="apple-touch-icon" href="/static/touch-icon.png" />
-			<link rel="mask-icon" href="/static/favicon-mask.svg" color="#49B882" />
-			<link rel="icon" href="/static/favicon.ico" />
+			<link rel="icon" sizes="192x192" href="/static/favicon.png" />
+			<link rel="apple-touch-icon" href="/static/favicon.png" />
+			<link rel="mask-icon" href="/static/favicon.png" color="#49B882" />
+			<link rel="icon" href="/static/favicon.png" />
 			<meta property="og:url" content={props.url || defaultOGURL} />
 			<meta property="og:title" content={props.title || ''} />
 			<meta property="og:description" content={props.description || defaultDescription} />
