@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Button, Icon, Card } from 'antd';
+import { Row, Col, Button, Icon, Card, Tooltip } from 'antd';
 import ReactHtmlParser from 'react-html-parser';
 
 import TourModal from './TourModal';
@@ -42,9 +42,15 @@ class Tour extends Component {
 									/>
 								}
 								actions={[
-									<Icon type="edit" />,
-									<Icon type="delete" />,
-									<Icon type="ellipsis" />
+									<Tooltip placement="top" title="Edit">
+										<Icon type="edit" />
+									</Tooltip>,
+									<Tooltip placement="top" title="Delete">
+										<Icon type="delete" />
+									</Tooltip>,
+									<Tooltip placement="top" title="View Detail">
+										<Icon type="ellipsis" />
+									</Tooltip>
 								]}
 							>
 								<Meta
