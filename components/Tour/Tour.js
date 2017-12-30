@@ -42,8 +42,8 @@ class Tour extends Component {
 									/>
 								}
 								actions={[
-									<Icon type="setting" />,
 									<Icon type="edit" />,
+									<Icon type="delete" />,
 									<Icon type="ellipsis" />
 								]}
 							>
