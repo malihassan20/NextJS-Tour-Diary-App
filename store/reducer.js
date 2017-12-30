@@ -17,7 +17,7 @@ function reducer(state = initialState, action) {
 			};
 		}
 		case actionTypes.GET_TOUR_SUCCESS: {
-			console.log(`GET_TOUR_SUCCESS: ${action.payloadData}`);
+			//console.log(`GET_TOUR_SUCCESS: ${action.payloadData}`);
 			return {
 				...state,
 				...{ tours: action.payloadData }
@@ -26,7 +26,7 @@ function reducer(state = initialState, action) {
 		case actionTypes.ADD_TOUR_SUCCESS: {
 			return {
 				...state,
-				...{ tours: action.payloadData }
+				...{ tours: state.tours.concat(action.payloadData) }
 			};
 		}
 		case actionTypes.EDIT_TOUR_SUCCESS: {

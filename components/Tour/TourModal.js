@@ -5,7 +5,7 @@ import { EditorState, convertToRaw, ContentState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
-import { toggleTourModal } from '../../store/actions';
+import { toggleTourModal, addTour } from '../../store/actions';
 
 const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
@@ -44,13 +44,34 @@ class TourModal extends Component {
 
 	handleClose = () => {
 		this.props.onToggleTourModal();
+		this.setState({
+			id: null,
+			slug: '',
+			title: '',
+			content: '',
+			featured_image: '',
+			start_date: '',
+			end_date: '',
+			location: '',
+			is_new: false,
+			fileList: []
+		});
 	};
 
 	handleSubmit = e => {
 		e.preventDefault();
-		this.props.form.validateFields((err, values) => {
+		this.props.form.validateFields((err, fieldsValue) => {
 			if (!err) {
+				const rangeValue = fieldsValue['start-end-date'];
+				const values = {
+					...fieldsValue,
+					content: draftToHtml(convertToRaw(this.state.content.getCurrentContent())),
+					start_date: rangeValue[0].format('YYYY-MM-DD'),
+					end_date: rangeValue[1].format('YYYY-MM-DD')
+				};
 				console.log('Received values of form: ', values);
+				this.props.onTourFormSubmit(values);
+				this.props.onToggleTourModal();
 			}
 		});
 	};
@@ -134,12 +155,13 @@ class TourModal extends Component {
 							})(<Input />)}
 						</FormItem>
 						<FormItem {...formItemLayout} label="Travel Date">
-							{getFieldDecorator('range-picker', rangeConfig)(<RangePicker />)}
+							{getFieldDecorator('start-end-date', rangeConfig)(<RangePicker />)}
 						</FormItem>
 						<FormItem {...formItemLayout} label="Description">
 							{getFieldDecorator('content', {
 								rules: [
 									{
+										type: 'object',
 										required: true,
 										message: 'Please enter description',
 										whitespace: true
@@ -199,7 +221,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	onToggleTourModal: () => dispatch(toggleTourModal())
+	onToggleTourModal: () => dispatch(toggleTourModal()),
+	onTourFormSubmit: payloadData => dispatch(addTour(payloadData))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(TourModal));

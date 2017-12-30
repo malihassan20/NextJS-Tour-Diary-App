@@ -58,6 +58,7 @@ class Tour extends Component {
 									description={ReactHtmlParser(tour.content)}
 								/>
 							</Card>
+							<br />
 						</Col>
 					))}
 				</Row>
