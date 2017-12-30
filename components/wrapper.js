@@ -25,12 +25,8 @@ const Wrapper = props => (
 			<meta property="og:image" content={props.ogImage || defaultOGImage} />
 			<meta property="og:image:width" content="1200" />
 			<meta property="og:image:height" content="630" />
-
-			<link
-				rel="stylesheet"
-				href="//cdnjs.cloudflare.com/ajax/libs/antd/2.9.3/antd.min.css"
-			/>
 		</NextHead>
+
 		<style jsx global>{`
 			.rdw-option-wrapper {
 				border: 1px solid #f1f1f1;
@@ -1055,10 +1051,26 @@ const Wrapper = props => (
 				padding: 5px !important;
 				border-radius: 2px !important;
 			}
-			.ant-form-vertical .ant-form-item-label {
-				text-align: right;
-			}
 		`}</style>
+
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/antd/3.1.0/antd.min.css" />
+
+		<style jsx global>
+			{`
+				.ant-card-meta-description {
+					display: block;
+					display: -webkit-box;
+					height: 60px;
+					margin: 0 auto;
+					line-height: 1.4;
+					-webkit-line-clamp: 3;
+					-webkit-box-orient: vertical;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+			`}
+		</style>
+
 		{props.children}
 	</div>
 );

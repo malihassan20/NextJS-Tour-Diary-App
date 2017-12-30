@@ -1,5 +1,8 @@
 {
 	"name": "create-next-example-app",
+	"description": "A Next.js project",
+	"version": "1.0.0",
+	"author": "Ali Hassan <malihassan20@gmail.com>",
 	"scripts": {
 		"dev": "next",
 		"build": "next build",
@@ -8,20 +11,25 @@
 	"dependencies": {
 		"antd": "^3.0.3",
 		"babel-plugin-import": "^1.6.3",
-		"cosmicjs": "^2.4.22",
 		"draft-js": "^0.10.4",
 		"draftjs-to-html": "^0.8.1",
+		"es6-promise": "^4.2.2",
 		"html-to-draftjs": "^1.1.1",
 		"immutable": "^3.8.2",
+		"isomorphic-fetch": "^2.2.1",
+		"lodash": "^4.17.4",
 		"next": "4.2.1",
+		"next-redux-saga": "^1.0.1",
 		"next-redux-wrapper": "^1.3.5",
 		"prop-types": "^15.6.0",
 		"react": "16.2.0",
 		"react-dom": "16.2.0",
 		"react-draft-wysiwyg": "^1.12.2",
+		"react-html-parser": "^2.0.2",
 		"react-redux": "^5.0.6",
 		"react-tap-event-plugin": "^3.0.2",
-		"redux": "^3.7.2"
+		"redux": "^3.7.2",
+		"redux-saga": "^0.16.0"
 	},
 	"devDependencies": {
 		"babel-plugin-transform-decorators-legacy": "^1.3.4"

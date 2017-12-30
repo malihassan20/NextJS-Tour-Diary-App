@@ -1,6 +1,8 @@
 /* Configuration for CosmicJs bucket
 ================================ */
-const config = {
+export const config = {
+	api_url: 'https://api.cosmicjs.com',
+	api_version: 'v1',
 	bucket: {
 		slug: 'tour-diary',
 		read_key: 'uen3jxDap4vvYpOQZVZrVFy53Yn4U93x2kOuA8Z9RnH4nJHbix', // add read_key if added to your Cosmic JS Bucket settings

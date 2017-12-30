@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import withRedux from 'next-redux-wrapper';
 import { Layout } from 'antd';
+import { withReduxSaga } from '../store/store';
+import { getTour } from '../store/actions';
 
-import initializeStore from '../store/store';
 import Wrapper from '../components/wrapper';
 import Tour from '../components/Tour/Tour';
 
-const { Content, Footer } = Layout;
+const { Content } = Layout;
 
 class Index extends Component {
-	static getInitialProps({ req }) {}
-
+	static async getInitialProps({ store }) {
+		store.dispatch(getTour());
+	}
 	render() {
 		return (
 			<Wrapper title="CosmicJs Tour Diary App">
@@ -24,4 +25,4 @@ class Index extends Component {
 	}
 }
 
-export default withRedux(initializeStore)(Index);
+export default withReduxSaga(Index);

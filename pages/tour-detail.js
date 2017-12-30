@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import withRedux from 'next-redux-wrapper';
 import { Layout } from 'antd';
 
-import initializeStore from '../store/store';
+import { withReduxSaga } from '../store/store';
 import Wrapper from '../components/wrapper';
 import Tour from '../components/Tour/Tour';
 
@@ -23,4 +22,4 @@ class TourDetail extends Component {
 	}
 }
 
-export default withRedux(initializeStore)(TourDetail);
+export default withReduxSaga(TourDetail);

@@ -1,162 +1,20 @@
-import { createStore } from 'redux';
-import config from '../cosmic/config';
-import Cosmic from 'cosmicjs';
-import * as actionTypes from './constants';
+import { createStore, applyMiddleware } from 'redux';
+import withRedux from 'next-redux-wrapper';
+import nextReduxSaga from 'next-redux-saga';
+import createSagaMiddleware from 'redux-saga';
 
-const initialState = {
-	// tour: {
-	// 	id: null,
-	// 	slug: '',
-	// 	title: '',
-	// 	content: '',
-	// 	featured_image: '',
-	// 	start_date: '',
-	// 	end_date: '',
-	// 	location: '',
-	// 	is_new: false,
-	// },
-	tours: [],
-	// tour_detail: {
-	// 	id: null,
-	// 	slug: '',
-	// 	title: '',
-	// 	date: '',
-	// 	image: '',
-	// 	tour_id: null,
-	// 	is_new: false,
-	// },
-	tour_details: [],
-	toggleTourModal: false,
-	toggleTourDetailModal: false,
-};
+import rootReducer, { initialState } from './reducer';
+import rootSaga from './saga';
 
-let params = null;
+const sagaMiddleware = createSagaMiddleware();
 
-const reducer = (state = initialState, action) => {
-	switch (action.type) {
-		case actionTypes.GET_TOUR:
-			params = {
-				read_key: config.bucket.read_key,
-				type_slug: 'tours',
-			};
-			Cosmic.getObject(config, params, (error, response) => {
-				console.log('[GET_TOUR] ' + response);
-			});
-			return '';
-		case actionTypes.ADD_TOUR:
-			params = {
-				write_key: config.bucket.write_key,
-				type_slug: 'tours',
-				title: action.payloadData.title,
-				content: action.payloadData.content,
-				start_date: action.payloadData.start_date,
-				end_date: action.payloadData.end_date,
-				location: action.payloadData.location,
-				featured_image: action.payloadData.featured_image,
-			};
-			Cosmic.addObject(config, params, (error, response) => {
-				console.log('[ADD_TOUR] ' + response);
-			});
-			return '';
-		case actionTypes.EDIT_TOUR:
-			params = {
-				write_key: config.bucket.write_key,
-				type_slug: 'tours',
-				slug: action.slug,
-				title: action.payloadData.title,
-				content: action.payloadData.content,
-				start_date: action.payloadData.start_date,
-				end_date: action.payloadData.end_date,
-				location: action.payloadData.location,
-				featured_image: action.payloadData.featured_image,
-			};
-			Cosmic.editObject(config, params, (error, response) => {
-				console.log('[EDIT_TOUR] ' + response);
-			});
-			return '';
-		case actionTypes.DELETE_TOUR:
-			params = {
-				write_key: config.bucket.write_key,
-				slug: action.slug,
-			};
-			Cosmic.deleteObject(config, params, (error, response) => {
-				console.log('[DELETE_TOUR] ' + response);
-			});
-			return '';
-		case actionTypes.GET_TOUR_DETAIL:
-			params = {
-				read_key: config.bucket.read_key,
-				type_slug: 'tour-details',
-				metafield_key: 'tour_id',
-				metafield_object_slug: action.search_params,
-			};
-			Cosmic.getObjectsBySearch(config, params, (error, response) => {
-				console.log('[GET_TOUR_DETAIL] ' + response);
-			});
-			return '';
-		case actionTypes.ADD_TOUR_DETAIL:
-			params = {
-				write_key: config.bucket.write_key,
-				type_slug: 'tour-details',
-				title: action.payloadData.title,
-				date: action.payloadData.date,
-				image: action.payloadData.image,
-				tour_id: action.payloadData.tour_id,
-			};
-			Cosmic.addObject(config, params, (error, response) => {
-				console.log('[ADD_TOUR_DETAIL] ' + response);
-			});
-			return '';
-		case actionTypes.EDIT_TOUR_DETAIL:
-			params = {
-				write_key: config.bucket.write_key,
-				type_slug: 'tour-details',
-				slug: action.slug,
-				title: action.payloadData.title,
-				date: action.payloadData.date,
-				image: action.payloadData.image,
-				tour_id: action.payloadData.tour_id,
-			};
-			Cosmic.editObject(config, params, (error, response) => {
-				console.log('[EDIT_TOUR_DETAIL] ' + response);
-			});
-			return '';
-		case actionTypes.DELETE_TOUR_DETAIL:
-			params = {
-				write_key: config.bucket.write_key,
-				slug: action.slug,
-			};
-			Cosmic.deleteObject(config, params, (error, response) => {
-				console.log('[DELETE_TOUR_DETAIL] ' + response);
-			});
-			return '';
-		case actionTypes.TOGGLE_TOUR_MODAL:
-			console.log('[TOGGLE_TOUR_MODAL] Old: ' + state.toggleTourModal);
+export function configureStore(state = initialState) {
+	const store = createStore(rootReducer, state, applyMiddleware(sagaMiddleware));
 
-			const newTourModalState = !state.toggleTourModal;
+	store.sagaTask = sagaMiddleware.run(rootSaga);
+	return store;
+}
 
-			console.log('[TOGGLE_TOUR_MODAL] New: ' + newTourModalState);
-
-			return {
-				...state,
-				toggleTourModal: newTourModalState,
-			};
-		case actionTypes.TOGGLE_TOUR_DETAIL_MODAL:
-			return console.log('[TOGGLE_TOUR_DETAIL_MODAL] Old: ' + state.toggleTourDetailModal);
-
-			const newTourDetailModalState = !state.toggleTourDetailModal;
-
-			console.log('[TOGGLE_TOUR_DETAIL_MODAL] New: ' + newTourDetailModalState);
-
-			return {
-				...state,
-				toggleTourDetailModal: newTourDetailModalState,
-			};
-		default:
-			return state;
-	}
-};
-
-const initializeStore = (state = initialState) => createStore(reducer, state);
-
-export default initializeStore;
+export function withReduxSaga(BaseComponent) {
+	return withRedux(configureStore)(nextReduxSaga(BaseComponent));
+}
