@@ -56,6 +56,7 @@ function reducer(state = initialState, action) {
 			};
 		}
 		case actionTypes.GET_TOUR_DETAIL_SUCCESS: {
+			console.log(`In GET_TOUR_DETAIL_SUCCESS: ${action.payloadData}`);
 			return {
 				...state,
 				...{ tour_details: action.payloadData }

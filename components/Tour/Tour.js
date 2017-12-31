@@ -59,7 +59,10 @@ class Tour extends Component {
 										/>
 									</Tooltip>,
 
-									<Link route="tour-detail" params={{ tour: tour.slug }}>
+									<Link
+										as={`/tour-detail/${tour.slug}`}
+										href={`/tour-detail?tour=${tour.slug}`}
+									>
 										<Tooltip placement="top" title="View Detail">
 											<Icon type="ellipsis" />
 										</Tooltip>

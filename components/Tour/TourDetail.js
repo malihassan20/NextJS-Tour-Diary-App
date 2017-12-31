@@ -27,7 +27,7 @@ class TourDetail extends Component {
 				</Row>
 				<Row gutter={gutters} style={{ marginBottom: '40px' }}>
 					<Timeline>
-						{this.props.tours.map(tour => (
+						{this.props.tour_details.map(tour => (
 							<Timeline.Item>
 								<Card
 									style={{ width: 300 }}
@@ -45,7 +45,7 @@ class TourDetail extends Component {
 }
 
 const mapStateToProps = state => ({
-	tours: state.tours
+	tour_details: state.tour_details
 });
 
 const mapDispatchToProps = dispatch => ({
