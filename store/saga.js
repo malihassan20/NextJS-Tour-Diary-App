@@ -202,12 +202,32 @@ function* updateTour(action) {
 	}
 }
 
+function* getTourDetail(action) {
+	try {
+		const endpoint = `${config.api_url}/${config.api_version}/${
+			config.bucket.slug
+		}/object-type/tour-details/search?metafield_key=tour_id&metafield_object_slug=${
+			action.payloadData
+		}&read_key=${config.bucket.read_key}`;
+
+		const res = yield fetch(endpoint);
+		const data = yield res.json();
+		console.log(data);
+		if (data.status === 'empty') yield put(getTourDetailSuccess([]));
+		else yield put(getTourDetailSuccess(data.objects));
+	} catch (err) {
+		console.log(err);
+		yield put(failure(err));
+	}
+}
+
 function* rootSaga() {
 	yield all([
 		takeEvery(GET_TOUR, getTourData),
 		takeEvery(ADD_TOUR, addNewTour),
 		takeEvery(DELETE_TOUR, deleteTour),
-		takeEvery(UPDATE_TOUR, updateTour)
+		takeEvery(UPDATE_TOUR, updateTour),
+		takeEvery(GET_TOUR_DETAIL, getTourDetail)
 	]);
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from '../../routes';
 import { Row, Col, Button, Icon, Card, Tooltip } from 'antd';
 import ReactHtmlParser from 'react-html-parser';
 
@@ -57,9 +58,12 @@ class Tour extends Component {
 											onClick={() => this.props.deleteTour(tour.slug)}
 										/>
 									</Tooltip>,
-									<Tooltip placement="top" title="View Detail">
-										<Icon type="ellipsis" />
-									</Tooltip>
+
+									<Link route="tour-detail" params={{ tour: tour.slug }}>
+										<Tooltip placement="top" title="View Detail">
+											<Icon type="ellipsis" />
+										</Tooltip>
+									</Link>
 								]}
 							>
 								<Meta
