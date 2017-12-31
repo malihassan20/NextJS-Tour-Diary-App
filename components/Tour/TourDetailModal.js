@@ -1,105 +1,78 @@
-import React, { Component, PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button, Form, Input, Icon, DatePicker, Upload } from 'antd';
-import { convertToRaw, ContentState, EditorState, convertFromHTML } from 'draft-js';
-import { Editor } from 'react-draft-wysiwyg';
-import draftToHtml from 'draftjs-to-html';
 import moment from 'moment';
 
-import { toggleTourModal, addTour, updateTour } from '../../store/actions';
+import { toggleTourDetailModal, addTourDetail, updateTourDetail } from '../../store/actions';
 
 const FormItem = Form.Item;
-const RangePicker = DatePicker.RangePicker;
 
 const today = new Date();
 const currDate = moment(`${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`);
 
-class TourModal extends PureComponent {
+class TourModal extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			slug: '',
 			title: '',
-			content: EditorState.createEmpty(),
-			featured_image: '',
-			start_date: currDate,
-			end_date: currDate,
-			location: '',
+			image: '',
+			date: currDate,
 			is_new: true,
 			fileList: [],
-			modalState: false
+			modalState: false,
+			parent_tour: props.parent_tour
 		};
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.tour !== null) {
-			const blocksFromHTML = convertFromHTML(nextProps.tour.content);
-			const edstate = ContentState.createFromBlockArray(
-				blocksFromHTML.contentBlocks,
-				blocksFromHTML.entityMap
-			);
+		if (nextProps.tour_detail !== null) {
 			this.setState({
-				slug: nextProps.tour.slug,
-				title: nextProps.tour.title,
-				content: EditorState.createWithContent(edstate),
-				start_date: nextProps.tour.metadata.start_date,
-				end_date: nextProps.tour.metadata.end_date,
-				location: nextProps.tour.metadata.location,
+				slug: nextProps.tour_detail.slug,
+				title: nextProps.tour_detail.title,
+				date: nextProps.tour_detail.metadata.date,
 				is_new: false,
-				modalState: nextProps.toggleTourModalState
+				modalState: nextProps.toggleTourDetailModalState
 			});
 		} else {
 			this.setState({
-				modalState: nextProps.toggleTourModalState
+				modalState: nextProps.toggleTourDetailModalState
 			});
 		}
 
-		console.log(`In componentWillReceiveProps: ${nextProps.tour}`);
+		console.log(`In componentWillReceiveProps: ${nextProps.tour_detail}`);
 		//console.log(nextProps.toggleTourModalState);
 	}
-
-	onEditorStateChange = editorState => {
-		//console.log(editorState);
-		this.setState({
-			content: editorState
-		});
-		console.log(this.state.content);
-	};
 
 	handleClose = () => {
 		this.setState({
 			slug: '',
 			title: '',
-			content: EditorState.createEmpty(),
-			featured_image: '',
-			start_date: currDate,
-			end_date: currDate,
-			location: '',
+			image: '',
+			date: currDate,
 			is_new: true,
 			fileList: [],
-			modalState: this.props.toggleTourModalState
+			modalState: this.props.toggleTourDetailModalState
 		});
 		this.props.form.resetFields();
-		this.props.onToggleTourModal();
+		this.props.onToggleTourDetailModal();
 	};
 
 	handleSubmit = e => {
 		e.preventDefault();
 		this.props.form.validateFields((err, fieldsValue) => {
 			if (!err) {
-				const rangeValue = fieldsValue.start_end_date;
 				const values = {
 					...fieldsValue,
-					content: draftToHtml(convertToRaw(this.state.content.getCurrentContent())),
-					start_date: rangeValue[0].format('YYYY-MM-DD'),
-					end_date: rangeValue[1].format('YYYY-MM-DD'),
-					slug: this.state.slug
+					date: fieldsValue.date.format('YYYY-MM-DD'),
+					slug: this.state.slug,
+					parent_tour: this.state.parent_tour
 				};
 				console.log('Received values of form: ', values);
 				if (this.state.is_new === true) {
-					this.props.onTourFormSubmit(values);
+					this.props.onTourDetailFormSubmit(values);
 				} else {
-					this.props.onTourUpdateFormSubmit(values);
+					this.props.onTourDetailUpdateFormSubmit(values);
 				}
 
 				this.handleClose();
@@ -109,19 +82,6 @@ class TourModal extends PureComponent {
 
 	render() {
 		const { getFieldDecorator } = this.props.form;
-		const rangeConfig = {
-			initialValue:
-				this.props.tour != null
-					? [moment(this.state.start_date), moment(this.state.end_date)]
-					: [currDate, currDate],
-			rules: [
-				{
-					type: 'array',
-					required: true,
-					message: 'Please select travel start and end date'
-				}
-			]
-		};
 		const formItemLayout = {
 			labelCol: {
 				xs: { span: 24 },
@@ -156,13 +116,13 @@ class TourModal extends PureComponent {
 			fileList: this.state.fileList,
 			accept: 'images/*',
 			supportServerRender: true,
-			name: 'featured_image'
+			name: 'image'
 		};
 
 		return (
 			<div>
 				<Modal
-					title="Add New Tour"
+					title="Add New Image"
 					width="60%"
 					visible={this.state.modalState}
 					onOk={this.handleSubmit}
@@ -170,84 +130,41 @@ class TourModal extends PureComponent {
 					onCancel={this.handleClose}
 				>
 					<Form layout="vertical">
-						<FormItem {...formItemLayout} label={<span>Title</span>}>
+						<FormItem {...formItemLayout} label={<span>Caption</span>}>
 							{getFieldDecorator('title', {
 								initialValue: this.state.title,
 								rules: [
 									{
 										required: true,
-										message: 'Please enter tour name',
+										message: 'Please enter image caption',
 										whitespace: true
 									}
 								]
 							})(<Input name="title" />)}
 						</FormItem>
-						<FormItem {...formItemLayout} label={<span>Location</span>}>
-							{getFieldDecorator('location', {
-								initialValue: this.state.location,
-								rules: [
-									{
-										required: true,
-										message: 'Please enter location (city/state)',
-										whitespace: true
-									}
-								]
-							})(<Input name="location" />)}
-						</FormItem>
-						<FormItem {...formItemLayout} label="Travel Date">
-							{getFieldDecorator('start_end_date', rangeConfig)(
-								<RangePicker name="start_end_date" />
-							)}
-						</FormItem>
-						<FormItem {...formItemLayout} label="Description">
-							{getFieldDecorator('content', {
-								//initialValue: this.state.content,
+						<FormItem {...formItemLayout} label={<span>Date</span>}>
+							{getFieldDecorator('date', {
+								initialValue: moment(this.state.date),
 								rules: [
 									{
 										type: 'object',
 										required: true,
-										message: 'Please enter description',
-										whitespace: true
+										message: 'Please enter image taken date'
 									}
 								]
-							})(
-								<Editor
-									//name="content"
-									//initialEditorState={this.state.content}
-									//defaultEditorState={this.state.content}
-									editorState={this.state.content}
-									image={false}
-									onEditorStateChange={this.onEditorStateChange}
-									toolbar={{
-										options: [
-											'inline',
-											'blockType',
-											'fontSize',
-											'fontFamily',
-											'list',
-											'textAlign',
-											'colorPicker',
-											'link',
-											'emoji',
-											'remove',
-											'history'
-										]
-									}}
-									wrapperClassName="demo-wrapper"
-									editorClassName="demo-editor"
-								/>
-							)}
+							})(<DatePicker name="date" />)}
 						</FormItem>
+
 						<FormItem {...formItemLayout} label="Image">
-							{getFieldDecorator('featured_image', {
+							{getFieldDecorator('image', {
 								rules: [
 									{
 										required: true,
-										message: 'Please select featured image'
+										message: 'Please select image'
 									}
 								]
 							})(
-								<Upload name="featured_image" {...fileProps}>
+								<Upload name="image" {...fileProps}>
 									<Button>
 										<Icon type="upload" /> Select File
 									</Button>
@@ -262,14 +179,14 @@ class TourModal extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-	toggleTourModalState: state.toggleTourModal,
-	tour: state.tour
+	toggleTourDetailModalState: state.toggleTourDetailModal,
+	tour_detail: state.tour_detail
 });
 
 const mapDispatchToProps = dispatch => ({
-	onToggleTourModal: () => dispatch(toggleTourModal()),
-	onTourFormSubmit: payloadData => dispatch(addTour(payloadData)),
-	onTourUpdateFormSubmit: payloadData => dispatch(updateTour(payloadData))
+	onToggleTourDetailModal: () => dispatch(toggleTourDetailModal()),
+	onTourDetailFormSubmit: payloadData => dispatch(addTourDetail(payloadData)),
+	onTourDetailUpdateFormSubmit: payloadData => dispatch(updateTourDetail(payloadData))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(TourModal));

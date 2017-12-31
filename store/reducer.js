@@ -56,16 +56,15 @@ function reducer(state = initialState, action) {
 			};
 		}
 		case actionTypes.GET_TOUR_DETAIL_SUCCESS: {
-			console.log(`In GET_TOUR_DETAIL_SUCCESS: ${action.payloadData}`);
 			return {
 				...state,
-				...{ tour_details: action.payloadData }
+				...{ tour_details: action.payloadData.result, tour: action.payloadData.parent_tour }
 			};
 		}
 		case actionTypes.ADD_TOUR_DETAIL_SUCCESS: {
 			return {
 				...state,
-				...{ tour_details: action.payloadData }
+				...{ tour_details: state.tour_details.concat(action.payloadData) }
 			};
 		}
 		case actionTypes.EDIT_TOUR_DETAIL: {
@@ -78,22 +77,24 @@ function reducer(state = initialState, action) {
 			};
 		}
 		case actionTypes.UPDATE_TOUR_DETAIL_SUCCESS: {
+			const filterData = state.tour_details.filter(
+				tourDetail => tourDetail.slug !== action.payloadData.slug
+			);
 			return {
 				...state,
-				...{
-					tour_details: action.payloadData,
-					tour_detail: null
-				}
+				...{ tour_details: filterData.concat(action.payloadData), tour_detail: null }
 			};
 		}
 		case actionTypes.DELETE_TOUR_DETAIL_SUCCESS: {
+			const updatedData = state.tour_details.filter(
+				tourDetail => tourDetail.slug !== action.slug
+			);
 			return {
 				...state,
-				...{ tour_details: action.payloadData }
+				...{ tour_details: updatedData }
 			};
 		}
 		case actionTypes.TOGGLE_TOUR_MODAL: {
-			//console.log(`TOGGLE_TOUR_MODAL: ${state.toggleTourModal}`);
 			if (state.tour != null) {
 				return {
 					...state,

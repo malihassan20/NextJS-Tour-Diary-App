@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Button, Timeline, Card } from 'antd';
+import { Row, Col, Button, Timeline, Card, Icon, Tooltip } from 'antd';
 
 import TourDetailModal from './TourDetailModal';
-import { toggleTourDetailModal } from '../../store/actions';
+import { toggleTourDetailModal, deleteTourDetail, editTourDetail } from '../../store/actions';
 
 const { Meta } = Card;
 class TourDetail extends Component {
@@ -12,7 +12,7 @@ class TourDetail extends Component {
 
 		return (
 			<div>
-				<TourDetailModal />
+				<TourDetailModal parent_tour={this.props.parent_tour} />
 				<Row gutter={gutters} style={{ marginBottom: '40px' }}>
 					<Col span={24} style={{ textAlign: 'right' }}>
 						<Button
@@ -21,22 +21,41 @@ class TourDetail extends Component {
 							icon="plus"
 							onClick={() => this.props.onToggleTourDetailModal()}
 						>
-							Add Tour
+							Add Image
 						</Button>
 					</Col>
 				</Row>
 				<Row gutter={gutters} style={{ marginBottom: '40px' }}>
 					<Timeline>
-						{this.props.tour_details.map(tour => (
-							<Timeline.Item>
-								<Card
-									style={{ width: 300 }}
-									cover={<img alt={tour.slug} src={tour.metadata.image.url} />}
-								>
-									<Meta title={tour.title} description={tour.metadata.date} />
-								</Card>
-							</Timeline.Item>
-						))}
+						{this.props.tour_details.length > 0 &&
+							this.props.tour_details.map(tour => (
+								<Timeline.Item key={tour.slug}>
+									<Card
+										style={{ width: 300 }}
+										cover={
+											<img alt={tour.slug} src={tour.metadata.image.url} />
+										}
+										actions={[
+											<Tooltip placement="top" title="Edit">
+												<Icon
+													type="edit"
+													onClick={() => this.props.editTourDetail(tour)}
+												/>
+											</Tooltip>,
+											<Tooltip placement="top" title="Delete">
+												<Icon
+													type="delete"
+													onClick={() =>
+														this.props.deleteTourDetail(tour.slug)
+													}
+												/>
+											</Tooltip>
+										]}
+									>
+										<Meta title={tour.title} description={tour.metadata.date} />
+									</Card>
+								</Timeline.Item>
+							))}
 					</Timeline>
 				</Row>
 			</div>
@@ -45,11 +64,14 @@ class TourDetail extends Component {
 }
 
 const mapStateToProps = state => ({
-	tour_details: state.tour_details
+	tour_details: state.tour_details,
+	parent_tour: state.tour
 });
 
 const mapDispatchToProps = dispatch => ({
-	onToggleTourDetailModal: () => dispatch(toggleTourDetailModal())
+	onToggleTourDetailModal: () => dispatch(toggleTourDetailModal()),
+	editTourDetail: tour => dispatch(editTourDetail(tour)),
+	deleteTourDetail: slug => dispatch(deleteTourDetail(slug))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TourDetail);

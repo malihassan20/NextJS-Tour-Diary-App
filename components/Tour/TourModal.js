@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button, Form, Input, Icon, DatePicker, Upload } from 'antd';
 import { convertToRaw, ContentState, EditorState, convertFromHTML } from 'draft-js';
@@ -14,7 +14,7 @@ const RangePicker = DatePicker.RangePicker;
 const today = new Date();
 const currDate = moment(`${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`);
 
-class TourModal extends PureComponent {
+class TourModal extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {

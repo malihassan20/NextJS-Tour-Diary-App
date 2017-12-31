@@ -69,21 +69,18 @@ export const addTourDetailSuccess = payloadData => ({
 	payloadData
 });
 
-export const editTourDetail = (slug, payloadData) => ({
+export const editTourDetail = payloadData => ({
 	type: actionTypes.EDIT_TOUR_DETAIL,
-	slug,
 	payloadData
 });
 
-export const updateTourDetail = (slug, payloadData) => ({
+export const updateTourDetail = payloadData => ({
 	type: actionTypes.UPDATE_TOUR_DETAIL,
-	slug,
 	payloadData
 });
 
-export const updateTourDetailSuccess = (slug, payloadData) => ({
+export const updateTourDetailSuccess = payloadData => ({
 	type: actionTypes.UPDATE_TOUR_DETAIL_SUCCESS,
-	slug,
 	payloadData
 });
 
