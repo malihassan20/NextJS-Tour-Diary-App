@@ -38,7 +38,8 @@ function* getTourData() {
 		const res = yield fetch(endpoint);
 		const data = yield res.json();
 		//console.log(data);
-		yield put(getTourSuccess(data.objects));
+		if (data.status === 'empty') yield put(getTourSuccess([]));
+		else yield put(getTourSuccess(data.objects));
 	} catch (err) {
 		//console.log(err);
 		yield put(failure(err));
@@ -135,14 +136,78 @@ function* deleteTour(action) {
 	}
 }
 
-function* updateTour(action) {}
+function* updateTour(action) {
+	try {
+		const mediaEndpoint = `${config.api_url}/${config.api_version}/${config.bucket.slug}/media`;
+		const formData = new FormData();
+		formData.append('media', action.payloadData.featured_image.file);
+		formData.append('write_key', config.bucket.write_key);
+		formData.append('folder', config.image_folder);
+		const mediaRes = yield superagent
+			.post(mediaEndpoint)
+			.send(formData)
+			.set('accept', 'json');
+		const mediaData = JSON.parse(yield mediaRes.text);
+
+		//update object
+		const endpoint = `${config.api_url}/${config.api_version}/${
+			config.bucket.slug
+		}/edit-object`;
+		const params = {
+			write_key: config.bucket.write_key,
+			slug: action.payloadData.slug,
+			title: action.payloadData.title,
+			content: action.payloadData.content,
+			metafields: [
+				{
+					value: action.payloadData.start_date,
+					type: 'text',
+					key: 'start_date',
+					title: 'Start Date'
+				},
+				{
+					value: action.payloadData.end_date,
+					type: 'text',
+					key: 'end_date',
+					title: 'End Date'
+				},
+				{
+					value: action.payloadData.location,
+					type: 'text',
+					key: 'location',
+					title: 'Location'
+				},
+				{
+					value: mediaData.media.name,
+					type: 'file',
+					key: 'featured_image',
+					title: 'Featured Image'
+				}
+			]
+		};
+		console.log(params);
+		const res = yield fetch(endpoint, {
+			method: 'PUT',
+			body: JSON.stringify(params),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
+		const data = yield res.json();
+		console.log(data.object);
+		yield put(updateTourSuccess(data.object));
+	} catch (err) {
+		console.log(err.message);
+		yield put(failure(err));
+	}
+}
 
 function* rootSaga() {
 	yield all([
 		takeEvery(GET_TOUR, getTourData),
 		takeEvery(ADD_TOUR, addNewTour),
-		takeEvery(DELETE_TOUR, deleteTour)
-		//takeEvery(UPDATE_TOUR, updateTour)
+		takeEvery(DELETE_TOUR, deleteTour),
+		takeEvery(UPDATE_TOUR, updateTour)
 	]);
 }
 

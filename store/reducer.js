@@ -32,7 +32,7 @@ function reducer(state = initialState, action) {
 			};
 		}
 		case actionTypes.EDIT_TOUR: {
-			console.log(`EDIT_TOUR: ${action.payloadData}`);
+			//console.log(`EDIT_TOUR: ${action.payloadData}`);
 			return {
 				...state,
 				...{
@@ -42,9 +42,10 @@ function reducer(state = initialState, action) {
 			};
 		}
 		case actionTypes.UPDATE_TOUR_SUCCESS: {
+			const updatedTours = state.tours.filter(tour => tour.slug !== action.payloadData.slug);
 			return {
 				...state,
-				...{ tours: action.payloadData, tour: null }
+				...{ tours: updatedTours.concat(action.payloadData) }
 			};
 		}
 		case actionTypes.DELETE_TOUR_SUCCESS: {
@@ -91,7 +92,7 @@ function reducer(state = initialState, action) {
 			};
 		}
 		case actionTypes.TOGGLE_TOUR_MODAL: {
-			console.log(`TOGGLE_TOUR_MODAL: ${state.toggleTourModal}`);
+			//console.log(`TOGGLE_TOUR_MODAL: ${state.toggleTourModal}`);
 			if (state.tour != null) {
 				return {
 					...state,

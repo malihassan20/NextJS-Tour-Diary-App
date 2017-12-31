@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button, Form, Input, Icon, DatePicker, Upload } from 'antd';
 import { convertToRaw, ContentState, EditorState, convertFromHTML } from 'draft-js';
@@ -6,7 +6,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import moment from 'moment';
 
-import { toggleTourModal, addTour } from '../../store/actions';
+import { toggleTourModal, addTour, updateTour } from '../../store/actions';
 
 const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
@@ -14,13 +14,13 @@ const RangePicker = DatePicker.RangePicker;
 const today = new Date();
 const currDate = moment(`${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`);
 
-class TourModal extends Component {
+class TourModal extends PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
 			slug: '',
 			title: '',
-			content: '',
+			content: EditorState.createEmpty(),
 			featured_image: '',
 			start_date: currDate,
 			end_date: currDate,
@@ -32,7 +32,7 @@ class TourModal extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.tour != null) {
+		if (nextProps.tour !== null) {
 			const blocksFromHTML = convertFromHTML(nextProps.tour.content);
 			const edstate = ContentState.createFromBlockArray(
 				blocksFromHTML.contentBlocks,
@@ -42,40 +42,43 @@ class TourModal extends Component {
 				slug: nextProps.tour.slug,
 				title: nextProps.tour.title,
 				content: EditorState.createWithContent(edstate),
-				featured_image: '', //this.props.tour.metadata.featured_image.url,
 				start_date: nextProps.tour.metadata.start_date,
 				end_date: nextProps.tour.metadata.end_date,
 				location: nextProps.tour.metadata.location,
 				is_new: false,
-				fileList: [],
 				modalState: nextProps.toggleTourModalState
 			});
 		} else {
 			this.setState({
-				slug: '',
-				title: '',
-				content: '',
-				featured_image: '',
-				start_date: currDate,
-				end_date: currDate,
-				location: '',
-				is_new: true,
-				fileList: [],
 				modalState: nextProps.toggleTourModalState
 			});
 		}
 
 		console.log(`In componentWillReceiveProps: ${nextProps.tour}`);
-		console.log(nextProps.toggleTourModalState);
+		//console.log(nextProps.toggleTourModalState);
 	}
 
 	onEditorStateChange = editorState => {
+		//console.log(editorState);
 		this.setState({
 			content: editorState
 		});
+		console.log(this.state.content);
 	};
 
 	handleClose = () => {
+		this.setState({
+			slug: '',
+			title: '',
+			content: EditorState.createEmpty(),
+			featured_image: '',
+			start_date: currDate,
+			end_date: currDate,
+			location: '',
+			is_new: true,
+			fileList: [],
+			modalState: this.props.toggleTourModalState
+		});
 		this.props.form.resetFields();
 		this.props.onToggleTourModal();
 	};
@@ -89,10 +92,16 @@ class TourModal extends Component {
 					...fieldsValue,
 					content: draftToHtml(convertToRaw(this.state.content.getCurrentContent())),
 					start_date: rangeValue[0].format('YYYY-MM-DD'),
-					end_date: rangeValue[1].format('YYYY-MM-DD')
+					end_date: rangeValue[1].format('YYYY-MM-DD'),
+					slug: this.state.slug
 				};
 				console.log('Received values of form: ', values);
-				this.props.onTourFormSubmit(values);
+				if (this.state.is_new === true) {
+					this.props.onTourFormSubmit(values);
+				} else {
+					this.props.onTourUpdateFormSubmit(values);
+				}
+
 				this.handleClose();
 			}
 		});
@@ -163,7 +172,7 @@ class TourModal extends Component {
 					<Form layout="vertical">
 						<FormItem {...formItemLayout} label={<span>Title</span>}>
 							{getFieldDecorator('title', {
-								initialValue: this.props.tour != null ? this.state.title : '',
+								initialValue: this.state.title,
 								rules: [
 									{
 										required: true,
@@ -175,7 +184,7 @@ class TourModal extends Component {
 						</FormItem>
 						<FormItem {...formItemLayout} label={<span>Location</span>}>
 							{getFieldDecorator('location', {
-								initialValue: this.props.tour != null ? this.state.location : '',
+								initialValue: this.state.location,
 								rules: [
 									{
 										required: true,
@@ -192,7 +201,7 @@ class TourModal extends Component {
 						</FormItem>
 						<FormItem {...formItemLayout} label="Description">
 							{getFieldDecorator('content', {
-								initialValue: this.props.tour != null ? this.state.content : '',
+								//initialValue: this.state.content,
 								rules: [
 									{
 										type: 'object',
@@ -203,10 +212,9 @@ class TourModal extends Component {
 								]
 							})(
 								<Editor
-									name="content"
-									defaultEditorState={
-										this.props.tour != null ? this.state.content : ''
-									}
+									//name="content"
+									//initialEditorState={this.state.content}
+									//defaultEditorState={this.state.content}
 									editorState={this.state.content}
 									image={false}
 									onEditorStateChange={this.onEditorStateChange}
@@ -230,7 +238,7 @@ class TourModal extends Component {
 								/>
 							)}
 						</FormItem>
-						<FormItem {...formItemLayout} label="Image" extra="">
+						<FormItem {...formItemLayout} label="Image">
 							{getFieldDecorator('featured_image', {
 								rules: [
 									{
@@ -260,7 +268,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	onToggleTourModal: () => dispatch(toggleTourModal()),
-	onTourFormSubmit: payloadData => dispatch(addTour(payloadData))
+	onTourFormSubmit: payloadData => dispatch(addTour(payloadData)),
+	onTourUpdateFormSubmit: payloadData => dispatch(updateTour(payloadData))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(TourModal));

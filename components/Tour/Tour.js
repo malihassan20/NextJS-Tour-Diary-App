@@ -64,8 +64,9 @@ class Tour extends Component {
 							>
 								<Meta
 									title={tour.title}
-									description={ReactHtmlParser(tour.content)}
+									//description={ReactHtmlParser(tour.content)}
 								/>
+								<Icon type="environment-o" /> {tour.metadata.location}
 							</Card>
 							<br />
 						</Col>
