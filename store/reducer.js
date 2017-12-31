@@ -2,7 +2,9 @@ import * as actionTypes from './constants';
 
 export const initialState = {
 	tours: null,
+	tour: null,
 	tour_details: null,
+	tour_detail: null,
 	toggleTourModal: false,
 	toggleTourDetailModal: false,
 	error: false
@@ -29,10 +31,20 @@ function reducer(state = initialState, action) {
 				...{ tours: state.tours.concat(action.payloadData) }
 			};
 		}
-		case actionTypes.EDIT_TOUR_SUCCESS: {
+		case actionTypes.EDIT_TOUR: {
+			console.log(`EDIT_TOUR: ${action.payloadData}`);
 			return {
 				...state,
-				...{ tours: action.payloadData }
+				...{
+					tour: action.payloadData,
+					toggleTourModal: !state.toggleTourModal
+				}
+			};
+		}
+		case actionTypes.UPDATE_TOUR_SUCCESS: {
+			return {
+				...state,
+				...{ tours: action.payloadData, tour: null }
 			};
 		}
 		case actionTypes.DELETE_TOUR_SUCCESS: {
@@ -54,10 +66,22 @@ function reducer(state = initialState, action) {
 				...{ tour_details: action.payloadData }
 			};
 		}
-		case actionTypes.EDIT_TOUR_DETAIL_SUCCESS: {
+		case actionTypes.EDIT_TOUR_DETAIL: {
 			return {
 				...state,
-				...{ tour_details: action.payloadData }
+				...{
+					tour_detail: action.payloadData,
+					toggleTourDetailModal: !state.toggleTourDetailModal
+				}
+			};
+		}
+		case actionTypes.UPDATE_TOUR_DETAIL_SUCCESS: {
+			return {
+				...state,
+				...{
+					tour_details: action.payloadData,
+					tour_detail: null
+				}
 			};
 		}
 		case actionTypes.DELETE_TOUR_DETAIL_SUCCESS: {
@@ -67,15 +91,38 @@ function reducer(state = initialState, action) {
 			};
 		}
 		case actionTypes.TOGGLE_TOUR_MODAL: {
+			console.log(`TOGGLE_TOUR_MODAL: ${state.toggleTourModal}`);
+			if (state.tour != null) {
+				return {
+					...state,
+					...{
+						toggleTourModal: !state.toggleTourModal,
+						tour: null
+					}
+				};
+			}
 			return {
 				...state,
-				...{ toggleTourModal: !state.toggleTourModal }
+				...{
+					toggleTourModal: !state.toggleTourModal
+				}
 			};
 		}
 		case actionTypes.TOGGLE_TOUR_DETAIL_MODAL: {
+			if (state.tour_detail != null) {
+				return {
+					...state,
+					...{
+						toggleTourDetailModal: !state.toggleTourDetailModal,
+						tour_detail: null
+					}
+				};
+			}
 			return {
 				...state,
-				...{ toggleTourDetailModal: !state.toggleTourDetailModal }
+				...{
+					toggleTourDetailModal: !state.toggleTourDetailModal
+				}
 			};
 		}
 		default:

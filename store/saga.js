@@ -7,23 +7,23 @@ import superagent from 'superagent';
 import { config } from '../cosmic/config';
 import {
 	ADD_TOUR,
-	EDIT_TOUR,
+	UPDATE_TOUR,
 	GET_TOUR,
 	DELETE_TOUR,
 	GET_TOUR_DETAIL,
 	ADD_TOUR_DETAIL,
-	EDIT_TOUR_DETAIL,
+	UPDATE_TOUR_DETAIL,
 	DELETE_TOUR_DETAILS
 } from './constants';
 import {
 	failure,
 	getTourSuccess,
 	addTourSuccess,
-	editTourSuccess,
+	updateTourSuccess,
 	deleteTourSuccess,
 	getTourDetailSuccess,
 	addTourDetailSuccess,
-	editTourDetailSuccess,
+	updateTourDetailSuccess,
 	deleteTourDetailSuccess
 } from './actions';
 
@@ -135,11 +135,14 @@ function* deleteTour(action) {
 	}
 }
 
+function* updateTour(action) {}
+
 function* rootSaga() {
 	yield all([
 		takeEvery(GET_TOUR, getTourData),
 		takeEvery(ADD_TOUR, addNewTour),
 		takeEvery(DELETE_TOUR, deleteTour)
+		//takeEvery(UPDATE_TOUR, updateTour)
 	]);
 }
 

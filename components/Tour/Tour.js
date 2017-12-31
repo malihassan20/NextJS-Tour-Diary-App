@@ -8,9 +8,6 @@ import { toggleTourModal, getTour, editTour, deleteTour } from '../../store/acti
 
 const { Meta } = Card;
 class Tour extends Component {
-	componentDidMount() {
-		//this.props.getTour();
-	}
 	render() {
 		const gutters = 16;
 
@@ -23,7 +20,7 @@ class Tour extends Component {
 							type="primary"
 							size="large"
 							icon="plus"
-							onClick={this.props.onToggleTourModal}
+							onClick={() => this.props.onToggleTourModal()}
 						>
 							Add Tour
 						</Button>
@@ -51,7 +48,7 @@ class Tour extends Component {
 									<Tooltip placement="top" title="Edit">
 										<Icon
 											type="edit"
-											onClick={() => this.props.editTour(tour.slug)}
+											onClick={() => this.props.editTour(tour)}
 										/>
 									</Tooltip>,
 									<Tooltip placement="top" title="Delete">
@@ -86,7 +83,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	onToggleTourModal: () => dispatch(toggleTourModal()),
 	getTour: () => dispatch(getTour()),
-	editTour: slug => dispatch(editTour(slug)),
+	editTour: tour => dispatch(editTour(tour)),
 	deleteTour: slug => dispatch(deleteTour(slug))
 });
 

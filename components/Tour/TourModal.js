@@ -1,30 +1,72 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button, Form, Input, Icon, DatePicker, Upload } from 'antd';
-import { convertToRaw } from 'draft-js';
+import { convertToRaw, ContentState, EditorState, convertFromHTML } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
+import moment from 'moment';
+
 import { toggleTourModal, addTour } from '../../store/actions';
 
 const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
 
+const today = new Date();
+const currDate = moment(`${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`);
+
 class TourModal extends Component {
 	constructor(props) {
 		super(props);
-
 		this.state = {
-			id: null,
 			slug: '',
 			title: '',
 			content: '',
 			featured_image: '',
-			start_date: '',
-			end_date: '',
+			start_date: currDate,
+			end_date: currDate,
 			location: '',
-			is_new: false,
-			fileList: []
+			is_new: true,
+			fileList: [],
+			modalState: false
 		};
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.tour != null) {
+			const blocksFromHTML = convertFromHTML(nextProps.tour.content);
+			const edstate = ContentState.createFromBlockArray(
+				blocksFromHTML.contentBlocks,
+				blocksFromHTML.entityMap
+			);
+			this.setState({
+				slug: nextProps.tour.slug,
+				title: nextProps.tour.title,
+				content: EditorState.createWithContent(edstate),
+				featured_image: '', //this.props.tour.metadata.featured_image.url,
+				start_date: nextProps.tour.metadata.start_date,
+				end_date: nextProps.tour.metadata.end_date,
+				location: nextProps.tour.metadata.location,
+				is_new: false,
+				fileList: [],
+				modalState: nextProps.toggleTourModalState
+			});
+		} else {
+			this.setState({
+				slug: '',
+				title: '',
+				content: '',
+				featured_image: '',
+				start_date: currDate,
+				end_date: currDate,
+				location: '',
+				is_new: true,
+				fileList: [],
+				modalState: nextProps.toggleTourModalState
+			});
+		}
+
+		console.log(`In componentWillReceiveProps: ${nextProps.tour}`);
+		console.log(nextProps.toggleTourModalState);
 	}
 
 	onEditorStateChange = editorState => {
@@ -34,18 +76,6 @@ class TourModal extends Component {
 	};
 
 	handleClose = () => {
-		this.setState({
-			id: null,
-			slug: '',
-			title: '',
-			content: '',
-			featured_image: '',
-			start_date: '',
-			end_date: '',
-			location: '',
-			is_new: false,
-			fileList: []
-		});
 		this.props.form.resetFields();
 		this.props.onToggleTourModal();
 	};
@@ -54,7 +84,7 @@ class TourModal extends Component {
 		e.preventDefault();
 		this.props.form.validateFields((err, fieldsValue) => {
 			if (!err) {
-				const rangeValue = fieldsValue['start-end-date'];
+				const rangeValue = fieldsValue.start_end_date;
 				const values = {
 					...fieldsValue,
 					content: draftToHtml(convertToRaw(this.state.content.getCurrentContent())),
@@ -71,6 +101,10 @@ class TourModal extends Component {
 	render() {
 		const { getFieldDecorator } = this.props.form;
 		const rangeConfig = {
+			initialValue:
+				this.props.tour != null
+					? [moment(this.state.start_date), moment(this.state.end_date)]
+					: [currDate, currDate],
 			rules: [
 				{
 					type: 'array',
@@ -90,7 +124,7 @@ class TourModal extends Component {
 			}
 		};
 
-		const props = {
+		const fileProps = {
 			action: '',
 			onRemove: file => {
 				this.setState(({ fileList }) => {
@@ -121,7 +155,7 @@ class TourModal extends Component {
 				<Modal
 					title="Add New Tour"
 					width="60%"
-					visible={this.props.toggleTourModalState}
+					visible={this.state.modalState}
 					onOk={this.handleSubmit}
 					okText="Add"
 					onCancel={this.handleClose}
@@ -129,6 +163,7 @@ class TourModal extends Component {
 					<Form layout="vertical">
 						<FormItem {...formItemLayout} label={<span>Title</span>}>
 							{getFieldDecorator('title', {
+								initialValue: this.props.tour != null ? this.state.title : '',
 								rules: [
 									{
 										required: true,
@@ -140,6 +175,7 @@ class TourModal extends Component {
 						</FormItem>
 						<FormItem {...formItemLayout} label={<span>Location</span>}>
 							{getFieldDecorator('location', {
+								initialValue: this.props.tour != null ? this.state.location : '',
 								rules: [
 									{
 										required: true,
@@ -150,12 +186,13 @@ class TourModal extends Component {
 							})(<Input name="location" />)}
 						</FormItem>
 						<FormItem {...formItemLayout} label="Travel Date">
-							{getFieldDecorator('start-end-date', rangeConfig)(
-								<RangePicker name="start-end-date" />
+							{getFieldDecorator('start_end_date', rangeConfig)(
+								<RangePicker name="start_end_date" />
 							)}
 						</FormItem>
 						<FormItem {...formItemLayout} label="Description">
 							{getFieldDecorator('content', {
+								initialValue: this.props.tour != null ? this.state.content : '',
 								rules: [
 									{
 										type: 'object',
@@ -167,6 +204,9 @@ class TourModal extends Component {
 							})(
 								<Editor
 									name="content"
+									defaultEditorState={
+										this.props.tour != null ? this.state.content : ''
+									}
 									editorState={this.state.content}
 									image={false}
 									onEditorStateChange={this.onEditorStateChange}
@@ -199,7 +239,7 @@ class TourModal extends Component {
 									}
 								]
 							})(
-								<Upload name="featured_image" {...props}>
+								<Upload name="featured_image" {...fileProps}>
 									<Button>
 										<Icon type="upload" /> Select File
 									</Button>
