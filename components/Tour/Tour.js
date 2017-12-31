@@ -4,12 +4,12 @@ import { Row, Col, Button, Icon, Card, Tooltip } from 'antd';
 import ReactHtmlParser from 'react-html-parser';
 
 import TourModal from './TourModal';
-import { toggleTourModal, getTour } from '../../store/actions';
+import { toggleTourModal, getTour, editTour, deleteTour } from '../../store/actions';
 
 const { Meta } = Card;
 class Tour extends Component {
 	componentDidMount() {
-		this.props.getTour();
+		//this.props.getTour();
 	}
 	render() {
 		const gutters = 16;
@@ -31,9 +31,15 @@ class Tour extends Component {
 				</Row>
 				<Row gutter={gutters}>
 					{this.props.tours.map(tour => (
-						<Col key={tour._id} span={6}>
+						<Col
+							key={tour.slug}
+							xs={{ span: 24 }}
+							sm={{ span: 24 }}
+							md={{ span: 8 }}
+							lg={{ span: 6 }}
+							xl={{ span: 6 }}
+						>
 							<Card
-								key={tour.slug}
 								cover={
 									<img
 										style={{ height: '250px' }}
@@ -43,10 +49,16 @@ class Tour extends Component {
 								}
 								actions={[
 									<Tooltip placement="top" title="Edit">
-										<Icon type="edit" />
+										<Icon
+											type="edit"
+											onClick={() => this.props.editTour(tour.slug)}
+										/>
 									</Tooltip>,
 									<Tooltip placement="top" title="Delete">
-										<Icon type="delete" />
+										<Icon
+											type="delete"
+											onClick={() => this.props.deleteTour(tour.slug)}
+										/>
 									</Tooltip>,
 									<Tooltip placement="top" title="View Detail">
 										<Icon type="ellipsis" />
@@ -73,7 +85,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	onToggleTourModal: () => dispatch(toggleTourModal()),
-	getTour: () => dispatch(getTour())
+	getTour: () => dispatch(getTour()),
+	editTour: slug => dispatch(editTour(slug)),
+	deleteTour: slug => dispatch(deleteTour(slug))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tour);

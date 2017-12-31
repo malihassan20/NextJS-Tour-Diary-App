@@ -36,9 +36,10 @@ function reducer(state = initialState, action) {
 			};
 		}
 		case actionTypes.DELETE_TOUR_SUCCESS: {
+			const updatedTours = state.tours.filter(tour => tour.slug !== action.slug);
 			return {
 				...state,
-				...{ tours: action.payloadData }
+				...{ tours: updatedTours }
 			};
 		}
 		case actionTypes.GET_TOUR_DETAIL_SUCCESS: {

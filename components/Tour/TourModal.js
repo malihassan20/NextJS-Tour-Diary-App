@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Modal, Button, Form, Input, Tooltip, Icon, Row, Col, DatePicker, Upload } from 'antd';
-import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import { Modal, Button, Form, Input, Icon, DatePicker, Upload } from 'antd';
+import { convertToRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
-import htmlToDraft from 'html-to-draftjs';
 import { toggleTourModal, addTour } from '../../store/actions';
 
 const FormItem = Form.Item;
@@ -34,16 +33,7 @@ class TourModal extends Component {
 		});
 	};
 
-	normFile = e => {
-		console.log('Upload event:', e);
-		if (Array.isArray(e)) {
-			return e;
-		}
-		return e && e.fileList;
-	};
-
 	handleClose = () => {
-		this.props.onToggleTourModal();
 		this.setState({
 			id: null,
 			slug: '',
@@ -56,6 +46,8 @@ class TourModal extends Component {
 			is_new: false,
 			fileList: []
 		});
+		this.props.form.resetFields();
+		this.props.onToggleTourModal();
 	};
 
 	handleSubmit = e => {
@@ -71,7 +63,7 @@ class TourModal extends Component {
 				};
 				console.log('Received values of form: ', values);
 				this.props.onTourFormSubmit(values);
-				this.props.onToggleTourModal();
+				this.handleClose();
 			}
 		});
 	};
@@ -118,7 +110,10 @@ class TourModal extends Component {
 					return false;
 				}
 			},
-			fileList: this.state.fileList
+			fileList: this.state.fileList,
+			accept: 'images/*',
+			supportServerRender: true,
+			name: 'featured_image'
 		};
 
 		return (
@@ -141,7 +136,7 @@ class TourModal extends Component {
 										whitespace: true
 									}
 								]
-							})(<Input />)}
+							})(<Input name="title" />)}
 						</FormItem>
 						<FormItem {...formItemLayout} label={<span>Location</span>}>
 							{getFieldDecorator('location', {
@@ -152,10 +147,12 @@ class TourModal extends Component {
 										whitespace: true
 									}
 								]
-							})(<Input />)}
+							})(<Input name="location" />)}
 						</FormItem>
 						<FormItem {...formItemLayout} label="Travel Date">
-							{getFieldDecorator('start-end-date', rangeConfig)(<RangePicker />)}
+							{getFieldDecorator('start-end-date', rangeConfig)(
+								<RangePicker name="start-end-date" />
+							)}
 						</FormItem>
 						<FormItem {...formItemLayout} label="Description">
 							{getFieldDecorator('content', {
@@ -169,6 +166,7 @@ class TourModal extends Component {
 								]
 							})(
 								<Editor
+									name="content"
 									editorState={this.state.content}
 									image={false}
 									onEditorStateChange={this.onEditorStateChange}

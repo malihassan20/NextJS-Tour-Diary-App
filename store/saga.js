@@ -1,6 +1,8 @@
 import { put, takeEvery, all } from 'redux-saga/effects';
 import es6promise from 'es6-promise';
 import fetch from 'isomorphic-fetch';
+import FormData from 'form-data';
+import superagent from 'superagent';
 
 import { config } from '../cosmic/config';
 import {
@@ -43,10 +45,24 @@ function* getTourData() {
 	}
 }
 
-function* AddNewTour(action) {
+function* addNewTour(action) {
 	try {
-		const endpoint = `${config.api_url}/${config.api_version}/${config.bucket.slug}/add-object`;
+		//first add the media
+		const mediaEndpoint = `${config.api_url}/${config.api_version}/${config.bucket.slug}/media`;
+		const formData = new FormData();
+		formData.append('media', action.payloadData.featured_image.file);
+		formData.append('write_key', config.bucket.write_key);
+		formData.append('folder', config.image_folder);
+		const mediaRes = yield superagent
+			.post(mediaEndpoint)
+			.send(formData)
+			.set('accept', 'json');
+		const mediaData = JSON.parse(yield mediaRes.text);
+		//console.log(mediaRes.text);
+		//console.log(mediaData.media.name);
 
+		//now add the data
+		const endpoint = `${config.api_url}/${config.api_version}/${config.bucket.slug}/add-object`;
 		const params = {
 			write_key: config.bucket.write_key,
 			type_slug: 'tours',
@@ -73,14 +89,14 @@ function* AddNewTour(action) {
 					title: 'Location'
 				},
 				{
-					value: action.payloadData.featured_image,
+					value: mediaData.media.name,
 					type: 'file',
 					key: 'featured_image',
 					title: 'Featured Image'
 				}
 			]
 		};
-		console.log(params);
+		//console.log(params);
 		const res = yield fetch(endpoint, {
 			method: 'POST',
 			body: JSON.stringify(params),
@@ -92,13 +108,39 @@ function* AddNewTour(action) {
 		console.log(data.object);
 		yield put(addTourSuccess(data.object));
 	} catch (err) {
-		console.log(err);
+		console.log(err.message);
+		yield put(failure(err));
+	}
+}
+
+function* deleteTour(action) {
+	try {
+		const endpoint = `${config.api_url}/${config.api_version}/${config.bucket.slug}/objects/${
+			action.slug
+		}`;
+
+		yield fetch(endpoint, {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				write_key: config.bucket.write_key
+			})
+		});
+		yield put(deleteTourSuccess(action.slug));
+	} catch (err) {
+		//console.log(err);
 		yield put(failure(err));
 	}
 }
 
 function* rootSaga() {
-	yield all([takeEvery(GET_TOUR, getTourData), takeEvery(ADD_TOUR, AddNewTour)]);
+	yield all([
+		takeEvery(GET_TOUR, getTourData),
+		takeEvery(ADD_TOUR, addNewTour),
+		takeEvery(DELETE_TOUR, deleteTour)
+	]);
 }
 
 export default rootSaga;
