@@ -361,7 +361,7 @@ function* updateTourDetail(action) {
 			}
 		});
 		const data = yield res.json();
-		console.log(data.object);
+		console.log('UDD'+ data.object);
 		yield put(updateTourDetailSuccess(data.object));
 	} catch (err) {
 		console.log(err.message);

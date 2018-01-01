@@ -21,7 +21,7 @@ class TourModal extends Component {
 			is_new: true,
 			fileList: [],
 			modalState: false,
-			parent_tour: props.parent_tour
+			parent_tour: this.props.tour
 		};
 	}
 
@@ -180,7 +180,8 @@ class TourModal extends Component {
 
 const mapStateToProps = state => ({
 	toggleTourDetailModalState: state.toggleTourDetailModal,
-	tour_detail: state.tour_detail
+	tour_detail: state.tour_detail,
+	tour: state.tour
 });
 
 const mapDispatchToProps = dispatch => ({

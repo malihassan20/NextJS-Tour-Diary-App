@@ -9,7 +9,7 @@ import TourDetails from '../components/Tour/TourDetail';
 const { Content } = Layout;
 
 class TourDetail extends Component {
-	static getInitialProps({ store, query }) {
+	static async getInitialProps({ store, query }) {
 		console.log(`Query Parameter : ${query.tour}`);
 		store.dispatch(getTourDetail(query.tour));
 	}

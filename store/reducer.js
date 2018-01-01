@@ -10,6 +10,8 @@ export const initialState = {
 	error: false
 };
 
+const sortArr = arr => arr.sort((a, b) => new Date(a.metadata.date) - new Date(b.metadata.date)); //ascending order
+
 function reducer(state = initialState, action) {
 	switch (action.type) {
 		case actionTypes.FAILURE: {
@@ -56,15 +58,19 @@ function reducer(state = initialState, action) {
 			};
 		}
 		case actionTypes.GET_TOUR_DETAIL_SUCCESS: {
+			console.log(sortArr(action.payloadData.result));
 			return {
 				...state,
-				...{ tour_details: action.payloadData.result, tour: action.payloadData.parent_tour }
+				...{
+					tour_details: sortArr(action.payloadData.result),
+					tour: action.payloadData.parent_tour
+				}
 			};
 		}
 		case actionTypes.ADD_TOUR_DETAIL_SUCCESS: {
 			return {
 				...state,
-				...{ tour_details: state.tour_details.concat(action.payloadData) }
+				...{ tour_details: sortArr(state.tour_details.concat(action.payloadData)) }
 			};
 		}
 		case actionTypes.EDIT_TOUR_DETAIL: {
@@ -82,7 +88,10 @@ function reducer(state = initialState, action) {
 			);
 			return {
 				...state,
-				...{ tour_details: filterData.concat(action.payloadData), tour_detail: null }
+				...{
+					tour_details: sortArr(filterData.concat(action.payloadData)),
+					tour_detail: null
+				}
 			};
 		}
 		case actionTypes.DELETE_TOUR_DETAIL_SUCCESS: {
