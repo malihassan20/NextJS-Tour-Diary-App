@@ -21,7 +21,7 @@ class TourModal extends Component {
 			is_new: true,
 			fileList: [],
 			modalState: false,
-			parent_tour: this.props.tour
+			tourId: this.props.tour._id
 		};
 	}
 
@@ -66,7 +66,7 @@ class TourModal extends Component {
 					...fieldsValue,
 					date: fieldsValue.date.format('YYYY-MM-DD'),
 					slug: this.state.slug,
-					parent_tour: this.state.parent_tour
+					tourId: this.state.tourId
 				};
 				console.log('Received values of form: ', values);
 				if (this.state.is_new === true) {

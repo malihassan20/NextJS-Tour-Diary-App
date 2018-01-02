@@ -55,13 +55,13 @@ class Tour extends Component {
 									<Tooltip placement="top" title="Delete">
 										<Icon
 											type="delete"
-											onClick={() => this.props.deleteTour(tour.slug)}
+											onClick={() => this.props.deleteTour(tour)}
 										/>
 									</Tooltip>,
 
 									<Link
 										as={`/tour-detail/${tour.slug}`}
-										href={`/tour-detail?tour=${tour.slug}`}
+										href={`/tour-detail?tourId=${tour._id}`}
 									>
 										<Tooltip placement="top" title="View Detail">
 											<Icon type="ellipsis" />

@@ -1,6 +1,6 @@
 /* Configuration for CosmicJs bucket
 ================================ */
-export const config = {
+export default {
 	api_url: 'https://api.cosmicjs.com',
 	api_version: 'v1',
 	bucket: {

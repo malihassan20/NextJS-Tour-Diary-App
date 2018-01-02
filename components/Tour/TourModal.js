@@ -206,8 +206,7 @@ class TourModal extends Component {
 									{
 										type: 'object',
 										required: true,
-										message: 'Please enter description',
-										whitespace: true
+										message: 'Please enter description'
 									}
 								]
 							})(

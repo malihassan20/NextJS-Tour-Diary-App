@@ -13,9 +13,9 @@ app
 		const server = express();
 		server.use(handler);
 
-		server.get('/tour-detail/:tour', (req, res) => {
+		server.get('/tour-detail/:tourId', (req, res) => {
 			const actualPage = '/tour-detail';
-			const queryParams = { tour: req.params.tour };
+			const queryParams = { tourId: req.params.tourId };
 			app.render(req, res, actualPage, queryParams);
 		});
 

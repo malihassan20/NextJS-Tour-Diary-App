@@ -39,9 +39,9 @@ export const updateTourSuccess = payloadData => ({
 	payloadData
 });
 
-export const deleteTour = slug => ({
+export const deleteTour = payloadData => ({
 	type: actionTypes.DELETE_TOUR,
-	slug
+	payloadData
 });
 
 export const deleteTourSuccess = slug => ({
@@ -49,9 +49,9 @@ export const deleteTourSuccess = slug => ({
 	slug
 });
 
-export const getTourDetail = payloadData => ({
+export const getTourDetail = tourId => ({
 	type: actionTypes.GET_TOUR_DETAIL,
-	payloadData
+	tourId
 });
 
 export const getTourDetailSuccess = payloadData => ({
@@ -84,9 +84,9 @@ export const updateTourDetailSuccess = payloadData => ({
 	payloadData
 });
 
-export const deleteTourDetail = slug => ({
+export const deleteTourDetail = payloadData => ({
 	type: actionTypes.DELETE_TOUR_DETAIL,
-	slug
+	payloadData
 });
 
 export const deleteTourDetailSuccess = slug => ({

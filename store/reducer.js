@@ -1,9 +1,9 @@
 import * as actionTypes from './constants';
 
 export const initialState = {
-	tours: null,
+	tours: [],
 	tour: null,
-	tour_details: null,
+	tour_details: [],
 	tour_detail: null,
 	toggleTourModal: false,
 	toggleTourDetailModal: false,
@@ -58,12 +58,12 @@ function reducer(state = initialState, action) {
 			};
 		}
 		case actionTypes.GET_TOUR_DETAIL_SUCCESS: {
-			console.log(sortArr(action.payloadData.result));
+			const parentTour = state.tours.filter(tour => tour._id === action.payloadData.tourId);
 			return {
 				...state,
 				...{
 					tour_details: sortArr(action.payloadData.result),
-					tour: action.payloadData.parent_tour
+					tour: parentTour
 				}
 			};
 		}
