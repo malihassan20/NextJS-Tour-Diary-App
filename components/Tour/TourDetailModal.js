@@ -21,10 +21,14 @@ class TourModal extends Component {
 			is_new: true,
 			fileList: [],
 			modalState: false,
-			tourId: this.props.tour._id
+			tourId: 0
 		};
 	}
-
+	componentDidMount() {
+		this.setState({
+			tourId: this.props.tour._id
+		});
+	}
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.tour_detail !== null) {
 			this.setState({

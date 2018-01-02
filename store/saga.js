@@ -97,7 +97,6 @@ function* addNewTour(action) {
 			yield put(failure(tour.err));
 		}
 	} catch (err) {
-		console.log(err.message);
 		yield put(failure(err));
 	}
 }
@@ -182,7 +181,7 @@ function* updateTour(action) {
 
 function* getTourDetail(action) {
 	try {
-		console.log(action.payloadData);
+		console.log(action.tourId);
 		const params = {
 			type_slug: 'tour-details',
 			metafield_key: 'tour_id',
@@ -252,7 +251,6 @@ function* addNewTourDetail(action) {
 			yield put(failure(response.err));
 		}
 	} catch (err) {
-		console.log(err.message);
 		yield put(failure(err));
 	}
 }
@@ -277,26 +275,33 @@ function* deleteTourDetail(action) {
 
 function* updateTourDetail(action) {
 	try {
-		const mediaEndpoint = `${config.api_url}/${config.api_version}/${config.bucket.slug}/media`;
-		const formData = new FormData();
-		formData.append('media', action.payloadData.image.file);
-		formData.append('write_key', config.bucket.write_key);
-		formData.append('folder', config.image_folder);
-		const mediaRes = yield superagent
-			.post(mediaEndpoint)
-			.send(formData)
-			.set('accept', 'json');
-		const mediaData = JSON.parse(yield mediaRes.text);
+		//delete old media
+		yield call(deleteMedia, action.payloadData.metafields[2].id);
 
-		//update object
-		const endpoint = `${config.api_url}/${config.api_version}/${
-			config.bucket.slug
-		}/edit-object`;
-		const params = {
+		let params = {
+			media: action.payloadData.image.file,
+			folder: config.image_folder,
+			write_key: config.bucket.write_key
+		};
+		//save new media
+		const mediaData = yield call(cosmic, 'ADD_MEDIA', params);
+		if (mediaData.err) {
+			yield put(failure(mediaData.err));
+		}
+
+		params = {
 			write_key: config.bucket.write_key,
 			slug: action.payloadData.slug,
 			title: action.payloadData.title,
 			metafields: [
+				{
+					object_type: 'tours',
+					value: action.payloadData.tourId,
+					key: 'tour_id',
+					title: 'Tour Id',
+					type: 'object',
+					object: true
+				},
 				{
 					value: action.payloadData.date,
 					type: 'text',
@@ -304,31 +309,19 @@ function* updateTourDetail(action) {
 					title: 'Date'
 				},
 				{
-					value: action.payloadData.parent_tour,
-					type: 'text',
-					key: 'tour_id',
-					title: 'Tour Id'
-				},
-				{
-					value: mediaData.media.name,
-					type: 'file',
 					key: 'image',
-					title: 'Image'
+					type: 'file',
+					value: mediaData.body.media.name,
+					id: mediaData.body.media._id
 				}
 			]
 		};
-		console.log(params);
-		const res = yield fetch(endpoint, {
-			method: 'PUT',
-			body: JSON.stringify(params),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
-		const data = yield res.json();
-		yield put(updateTourDetailSuccess(data.object));
+		//update data
+		const updatedTour = yield call(cosmic, 'EDIT', params);
+		if (!updatedTour.err) {
+			yield put(updateTourDetailSuccess(updatedTour.object));
+		}
 	} catch (err) {
-		console.log(err.message);
 		yield put(failure(err));
 	}
 }
