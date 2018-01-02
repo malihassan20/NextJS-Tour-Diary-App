@@ -20,15 +20,10 @@ class TourModal extends Component {
 			date: currDate,
 			is_new: true,
 			fileList: [],
-			modalState: false,
-			tourId: 0
+			modalState: false
 		};
 	}
-	componentDidMount() {
-		this.setState({
-			tourId: this.props.tour._id
-		});
-	}
+
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.tour_detail !== null) {
 			this.setState({
@@ -70,7 +65,7 @@ class TourModal extends Component {
 					...fieldsValue,
 					date: fieldsValue.date.format('YYYY-MM-DD'),
 					slug: this.state.slug,
-					tourId: this.state.tourId
+					tourId: this.props.tour._id
 				};
 				console.log('Received values of form: ', values);
 				if (this.state.is_new === true) {

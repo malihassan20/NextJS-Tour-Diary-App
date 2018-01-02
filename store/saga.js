@@ -196,7 +196,6 @@ function* getTourDetail(action) {
 			)
 		);
 	} catch (err) {
-		console.log(err);
 		yield put(failure(err));
 	}
 }

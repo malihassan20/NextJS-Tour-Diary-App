@@ -63,7 +63,7 @@ function reducer(state = initialState, action) {
 				...state,
 				...{
 					tour_details: sortArr(action.payloadData.result),
-					tour: parentTour
+					tour: parentTour[0]
 				}
 			};
 		}
