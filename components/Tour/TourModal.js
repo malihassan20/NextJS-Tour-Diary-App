@@ -27,7 +27,8 @@ class TourModal extends Component {
 			location: '',
 			is_new: true,
 			fileList: [],
-			modalState: false
+			modalState: false,
+			metafields: ''
 		};
 	}
 
@@ -46,7 +47,8 @@ class TourModal extends Component {
 				end_date: nextProps.tour.metadata.end_date,
 				location: nextProps.tour.metadata.location,
 				is_new: false,
-				modalState: nextProps.toggleTourModalState
+				modalState: nextProps.toggleTourModalState,
+				metafields: nextProps.tour.metafields
 			});
 		} else {
 			this.setState({
@@ -77,7 +79,8 @@ class TourModal extends Component {
 			location: '',
 			is_new: true,
 			fileList: [],
-			modalState: this.props.toggleTourModalState
+			modalState: this.props.toggleTourModalState,
+			metafields: ''
 		});
 		this.props.form.resetFields();
 		this.props.onToggleTourModal();
@@ -93,7 +96,8 @@ class TourModal extends Component {
 					content: draftToHtml(convertToRaw(this.state.content.getCurrentContent())),
 					start_date: rangeValue[0].format('YYYY-MM-DD'),
 					end_date: rangeValue[1].format('YYYY-MM-DD'),
-					slug: this.state.slug
+					slug: this.state.slug,
+					metafields: this.state.metafields
 				};
 				console.log('Received values of form: ', values);
 				if (this.state.is_new === true) {

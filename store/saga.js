@@ -29,8 +29,6 @@ import {
 	deleteTourDetailSuccess
 } from './actions';
 
-es6promise.polyfill();
-
 function* getTourData() {
 	try {
 		const params = {
@@ -315,12 +313,14 @@ function* updateTourDetail(action) {
 				}
 			]
 		};
+		console.log(params);
 		//update data
 		const updatedTour = yield call(cosmic, 'EDIT', params);
 		if (!updatedTour.err) {
 			yield put(updateTourDetailSuccess(updatedTour.object));
 		}
 	} catch (err) {
+		console.log(err);
 		yield put(failure(err));
 	}
 }

@@ -20,7 +20,9 @@ class TourModal extends Component {
 			date: currDate,
 			is_new: true,
 			fileList: [],
-			modalState: false
+			modalState: false,
+			tourId: 0,
+			metafields: ''
 		};
 	}
 
@@ -31,7 +33,9 @@ class TourModal extends Component {
 				title: nextProps.tour_detail.title,
 				date: nextProps.tour_detail.metadata.date,
 				is_new: false,
-				modalState: nextProps.toggleTourDetailModalState
+				modalState: nextProps.toggleTourDetailModalState,
+				tourId: nextProps.tour_detail.metadata.tour_id._id,
+				metafields: nextProps.tour_detail.metafields
 			});
 		} else {
 			this.setState({
@@ -51,7 +55,8 @@ class TourModal extends Component {
 			date: currDate,
 			is_new: true,
 			fileList: [],
-			modalState: this.props.toggleTourDetailModalState
+			modalState: this.props.toggleTourDetailModalState,
+			metafields: ''
 		});
 		this.props.form.resetFields();
 		this.props.onToggleTourDetailModal();
@@ -65,12 +70,14 @@ class TourModal extends Component {
 					...fieldsValue,
 					date: fieldsValue.date.format('YYYY-MM-DD'),
 					slug: this.state.slug,
-					tourId: this.props.tour._id
+					tourId: this.state.tourId,
+					metafields: this.state.metafields
 				};
 				console.log('Received values of form: ', values);
 				if (this.state.is_new === true) {
 					this.props.onTourDetailFormSubmit(values);
 				} else {
+					console.log(values);
 					this.props.onTourDetailUpdateFormSubmit(values);
 				}
 
@@ -179,8 +186,7 @@ class TourModal extends Component {
 
 const mapStateToProps = state => ({
 	toggleTourDetailModalState: state.toggleTourDetailModal,
-	tour_detail: state.tour_detail,
-	tour: state.tour
+	tour_detail: state.tour_detail
 });
 
 const mapDispatchToProps = dispatch => ({

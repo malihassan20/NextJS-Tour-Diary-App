@@ -59,6 +59,7 @@ function reducer(state = initialState, action) {
 		}
 		case actionTypes.GET_TOUR_DETAIL_SUCCESS: {
 			const parentTour = state.tours.filter(tour => tour._id === action.payloadData.tourId);
+			console.log(parentTour[0]);
 			return {
 				...state,
 				...{

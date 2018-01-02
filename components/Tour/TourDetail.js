@@ -12,7 +12,7 @@ class TourDetail extends Component {
 
 		return (
 			<div>
-				<TourDetailModal parent_tour={this.props.parent_tour} />
+				<TourDetailModal />
 				<Row gutter={gutters} style={{ marginBottom: '40px' }}>
 					<Col span={24} style={{ textAlign: 'right' }}>
 						<Button
@@ -65,7 +65,7 @@ class TourDetail extends Component {
 
 const mapStateToProps = state => ({
 	tour_details: state.tour_details,
-	parent_tour: state.tour
+	tour: state.tour
 });
 
 const mapDispatchToProps = dispatch => ({
