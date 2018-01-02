@@ -46,7 +46,7 @@ class TourDetail extends Component {
 												<Icon
 													type="delete"
 													onClick={() =>
-														this.props.deleteTourDetail(tour.slug)
+														this.props.deleteTourDetail(tour)
 													}
 												/>
 											</Tooltip>
