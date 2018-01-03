@@ -1,9 +1,4 @@
 import { put, call, takeEvery, all } from 'redux-saga/effects';
-import es6promise from 'es6-promise';
-import fetch from 'isomorphic-fetch';
-import FormData from 'form-data';
-import superagent from 'superagent';
-import Cosmic from 'cosmicjs';
 
 import config from '../cosmic/config';
 import cosmic from '../cosmic/cosmic';
@@ -179,7 +174,6 @@ function* updateTour(action) {
 
 function* getTourDetail(action) {
 	try {
-		console.log(action.tourId);
 		const params = {
 			type_slug: 'tour-details',
 			metafield_key: 'tour_id',

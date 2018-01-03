@@ -14,13 +14,10 @@
 		"cosmicjs": "^2.4.22",
 		"draft-js": "^0.10.4",
 		"draftjs-to-html": "^0.8.1",
-		"es6-promise": "^4.2.2",
 		"eslint": "^4.14.0",
 		"express": "^4.16.2",
-		"form-data": "^2.3.1",
 		"html-to-draftjs": "^1.1.1",
 		"immutable": "^3.8.2",
-		"isomorphic-fetch": "^2.2.1",
 		"lodash": "^4.17.4",
 		"moment": "^2.20.1",
 		"next": "4.2.1",
@@ -35,8 +32,7 @@
 		"react-redux": "^5.0.6",
 		"react-tap-event-plugin": "^3.0.2",
 		"redux": "^3.7.2",
-		"redux-saga": "^0.16.0",
-		"superagent": "^3.8.2"
+		"redux-saga": "^0.16.0"
 	},
 	"devDependencies": {
 		"babel-plugin-transform-decorators-legacy": "^1.3.4",

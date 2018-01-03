@@ -70,7 +70,7 @@ class TourModal extends Component {
 					...fieldsValue,
 					date: fieldsValue.date.format('YYYY-MM-DD'),
 					slug: this.state.slug,
-					tourId: this.state.tourId,
+					tourId: this.props.tour._id,
 					metafields: this.state.metafields
 				};
 				console.log('Received values of form: ', values);
@@ -186,7 +186,8 @@ class TourModal extends Component {
 
 const mapStateToProps = state => ({
 	toggleTourDetailModalState: state.toggleTourDetailModal,
-	tour_detail: state.tour_detail
+	tour_detail: state.tour_detail,
+	tour: state.tour
 });
 
 const mapDispatchToProps = dispatch => ({
