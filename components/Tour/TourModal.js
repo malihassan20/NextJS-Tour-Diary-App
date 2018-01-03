@@ -18,7 +18,6 @@ class TourModal extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			slug: '',
 			title: '',
 			content: EditorState.createEmpty(),
 			featured_image: '',
@@ -28,28 +27,35 @@ class TourModal extends Component {
 			is_new: true,
 			fileList: [],
 			modalState: false,
-			metafields: ''
+			metafields: '',
+			tourOldData: ''
 		};
 	}
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.tour !== null) {
-			const blocksFromHTML = convertFromHTML(nextProps.tour.content);
-			const edstate = ContentState.createFromBlockArray(
-				blocksFromHTML.contentBlocks,
-				blocksFromHTML.entityMap
-			);
 			this.setState({
-				slug: nextProps.tour.slug,
 				title: nextProps.tour.title,
-				content: EditorState.createWithContent(edstate),
 				start_date: nextProps.tour.metadata.start_date,
 				end_date: nextProps.tour.metadata.end_date,
 				location: nextProps.tour.metadata.location,
 				is_new: false,
 				modalState: nextProps.toggleTourModalState,
-				metafields: nextProps.tour.metafields
+				metafields: nextProps.tour.metafields,
+				tourOldData: nextProps.tour
 			});
+
+			const blocksFromHTML = convertFromHTML(nextProps.tour.content);
+			const edstate = ContentState.createFromBlockArray(
+				blocksFromHTML.contentBlocks,
+				blocksFromHTML.entityMap
+			);
+			const editorNewProps = EditorState.createWithContent(edstate);
+			if (this.state.content !== editorNewProps) {
+				this.setState({
+					content: editorNewProps
+				});
+			}
 		} else {
 			this.setState({
 				modalState: nextProps.toggleTourModalState
@@ -57,20 +63,19 @@ class TourModal extends Component {
 		}
 
 		console.log(`In componentWillReceiveProps: ${nextProps.tour}`);
-		//console.log(nextProps.toggleTourModalState);
+		console.log(nextProps);
 	}
 
 	onEditorStateChange = editorState => {
 		//console.log(editorState);
-		this.setState({
-			content: editorState
-		});
+		// this.setState({
+		// 	content: editorState
+		// });
 		console.log(this.state.content);
 	};
 
 	handleClose = () => {
 		this.setState({
-			slug: '',
 			title: '',
 			content: EditorState.createEmpty(),
 			featured_image: '',
@@ -80,7 +85,8 @@ class TourModal extends Component {
 			is_new: true,
 			fileList: [],
 			modalState: this.props.toggleTourModalState,
-			metafields: ''
+			metafields: '',
+			tourOldData: ''
 		});
 		this.props.form.resetFields();
 		this.props.onToggleTourModal();
@@ -96,8 +102,8 @@ class TourModal extends Component {
 					content: draftToHtml(convertToRaw(this.state.content.getCurrentContent())),
 					start_date: rangeValue[0].format('YYYY-MM-DD'),
 					end_date: rangeValue[1].format('YYYY-MM-DD'),
-					slug: this.state.slug,
-					metafields: this.state.metafields
+					metafields: this.state.metafields,
+					tourOldData: this.state.tourOldData
 				};
 				console.log('Received values of form: ', values);
 				if (this.state.is_new === true) {
@@ -245,7 +251,7 @@ class TourModal extends Component {
 							{getFieldDecorator('featured_image', {
 								rules: [
 									{
-										required: true,
+										required: !!this.state.is_new,
 										message: 'Please select featured image'
 									}
 								]

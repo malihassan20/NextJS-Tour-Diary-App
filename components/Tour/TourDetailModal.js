@@ -14,7 +14,7 @@ class TourModal extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			slug: '',
+			tour_detail: '',
 			title: '',
 			image: '',
 			date: currDate,
@@ -29,12 +29,12 @@ class TourModal extends Component {
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.tour_detail !== null) {
 			this.setState({
-				slug: nextProps.tour_detail.slug,
 				title: nextProps.tour_detail.title,
 				date: nextProps.tour_detail.metadata.date,
 				is_new: false,
 				modalState: nextProps.toggleTourDetailModalState,
 				tourId: nextProps.tour_detail.metadata.tour_id._id,
+				tour_detail: nextProps.tour_detail,
 				metafields: nextProps.tour_detail.metafields
 			});
 		} else {
@@ -49,7 +49,7 @@ class TourModal extends Component {
 
 	handleClose = () => {
 		this.setState({
-			slug: '',
+			tour_detail: '',
 			title: '',
 			image: '',
 			date: currDate,
@@ -69,15 +69,14 @@ class TourModal extends Component {
 				const values = {
 					...fieldsValue,
 					date: fieldsValue.date.format('YYYY-MM-DD'),
-					slug: this.state.slug,
 					tourId: this.props.tour._id,
+					tour_detail: this.state.tour_detail,
 					metafields: this.state.metafields
 				};
 				console.log('Received values of form: ', values);
 				if (this.state.is_new === true) {
 					this.props.onTourDetailFormSubmit(values);
 				} else {
-					console.log(values);
 					this.props.onTourDetailUpdateFormSubmit(values);
 				}
 
@@ -165,7 +164,7 @@ class TourModal extends Component {
 							{getFieldDecorator('image', {
 								rules: [
 									{
-										required: true,
+										required: !!this.state.is_new,
 										message: 'Please select image'
 									}
 								]

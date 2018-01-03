@@ -78,7 +78,9 @@ function* addNewTour(action) {
 					key: 'featured_image',
 					type: 'file',
 					value: mediaData.body.media.name,
-					id: mediaData.body.media._id
+					id: mediaData.body.media._id,
+					url: mediaData.body.media.url,
+					imgix_url: mediaData.body.media.imgix_url
 				}
 			]
 		};
@@ -115,23 +117,40 @@ function* deleteTour(action) {
 
 function* updateTour(action) {
 	try {
-		//delete old media
-		yield call(deleteMedia, action.payloadData.metafields[3].id);
+		let params;
+		let imageData;
+		if (action.payloadData.featured_image) {
+			//delete old media
+			yield call(deleteMedia, action.payloadData.metafields[3].id);
 
-		let params = {
-			media: action.payloadData.featured_image.file,
-			folder: config.image_folder,
-			write_key: config.bucket.write_key
-		};
-		//save new media
-		const mediaData = yield call(cosmic, 'ADD_MEDIA', params);
-		if (mediaData.err) {
-			yield put(failure(mediaData.err));
+			params = {
+				media: action.payloadData.featured_image.file,
+				folder: config.image_folder,
+				write_key: config.bucket.write_key
+			};
+			//save new media
+			const mediaData = yield call(cosmic, 'ADD_MEDIA', params);
+			if (mediaData.err) {
+				yield put(failure(mediaData.err));
+			}
+			imageData = {
+				value: mediaData.body.media.name,
+				id: mediaData.body.media._id,
+				url: mediaData.body.media.url,
+				imgixUrl: mediaData.body.media.imgix_url
+			};
+		} else {
+			imageData = {
+				value: action.payloadData.metafields[3].value,
+				id: action.payloadData.metafields[3].id,
+				url: action.payloadData.tour.metadata.image.url,
+				imgixUrl: action.payloadData.tour.metadata.image.imgix_url
+			};
 		}
-
+		console.log(imageData);
 		params = {
 			write_key: config.bucket.write_key,
-			slug: action.payloadData.slug,
+			slug: action.payloadData.tour.slug,
 			title: action.payloadData.title,
 			content: action.payloadData.content,
 			metafields: [
@@ -154,10 +173,13 @@ function* updateTour(action) {
 					title: 'Location'
 				},
 				{
-					value: mediaData.media.name,
 					type: 'file',
 					key: 'featured_image',
-					title: 'Featured Image'
+					title: 'Featured Image',
+					value: imageData.value,
+					id: imageData.id,
+					url: imageData.url,
+					imgix_url: imageData.imgixUrl
 				}
 			]
 		};
@@ -229,7 +251,9 @@ function* addNewTourDetail(action) {
 					key: 'image',
 					type: 'file',
 					value: mediaData.body.media.name,
-					id: mediaData.body.media._id
+					id: mediaData.body.media._id,
+					url: mediaData.body.media.url,
+					imgix_url: mediaData.body.media.imgix_url
 				}
 			]
 		};
@@ -266,23 +290,40 @@ function* deleteTourDetail(action) {
 
 function* updateTourDetail(action) {
 	try {
-		//delete old media
-		yield call(deleteMedia, action.payloadData.metafields[2].id);
+		let params;
+		let imageData;
+		if (action.payloadData.image) {
+			//delete old media
+			yield call(deleteMedia, action.payloadData.metafields[2].id);
 
-		let params = {
-			media: action.payloadData.image.file,
-			folder: config.image_folder,
-			write_key: config.bucket.write_key
-		};
-		//save new media
-		const mediaData = yield call(cosmic, 'ADD_MEDIA', params);
-		if (mediaData.err) {
-			yield put(failure(mediaData.err));
+			params = {
+				media: action.payloadData.image.file,
+				folder: config.image_folder,
+				write_key: config.bucket.write_key
+			};
+			//save new media
+			const mediaData = yield call(cosmic, 'ADD_MEDIA', params);
+			if (mediaData.err) {
+				yield put(failure(mediaData.err));
+			}
+			imageData = {
+				value: mediaData.body.media.name,
+				id: mediaData.body.media._id,
+				url: mediaData.body.media.url,
+				imgixUrl: mediaData.body.media.imgix_url
+			};
+		} else {
+			imageData = {
+				value: action.payloadData.metafields[2].value,
+				id: action.payloadData.metafields[2].id,
+				url: action.payloadData.tour_detail.metadata.image.url,
+				imgixUrl: action.payloadData.tour_detail.metadata.image.imgix_url
+			};
 		}
-
+		console.log(imageData);
 		params = {
 			write_key: config.bucket.write_key,
-			slug: action.payloadData.slug,
+			slug: action.payloadData.tour_detail.slug,
 			title: action.payloadData.title,
 			metafields: [
 				{
@@ -302,11 +343,14 @@ function* updateTourDetail(action) {
 				{
 					key: 'image',
 					type: 'file',
-					value: mediaData.body.media.name,
-					id: mediaData.body.media._id
+					value: imageData.value,
+					id: imageData.id,
+					url: imageData.url,
+					imgix_url: imageData.imgixUrl
 				}
 			]
 		};
+
 		console.log(params);
 		//update data
 		const updatedTour = yield call(cosmic, 'EDIT', params);
