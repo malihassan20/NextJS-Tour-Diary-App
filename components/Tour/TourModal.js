@@ -27,25 +27,23 @@ class TourModal extends Component {
 			is_new: true,
 			fileList: [],
 			modalState: false,
-			metafields: '',
 			tourOldData: ''
 		};
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.tour !== null) {
+		if (nextProps.tourOldData !== null && this.state.is_new !== false) {
 			this.setState({
-				title: nextProps.tour.title,
-				start_date: nextProps.tour.metadata.start_date,
-				end_date: nextProps.tour.metadata.end_date,
-				location: nextProps.tour.metadata.location,
+				title: nextProps.tourOldData.title,
+				start_date: nextProps.tourOldData.metadata.start_date,
+				end_date: nextProps.tourOldData.metadata.end_date,
+				location: nextProps.tourOldData.metadata.location,
 				is_new: false,
 				modalState: nextProps.toggleTourModalState,
-				metafields: nextProps.tour.metafields,
-				tourOldData: nextProps.tour
+				tourOldData: nextProps.tourOldData
 			});
 
-			const blocksFromHTML = convertFromHTML(nextProps.tour.content);
+			const blocksFromHTML = convertFromHTML(nextProps.tourOldData.content);
 			const edstate = ContentState.createFromBlockArray(
 				blocksFromHTML.contentBlocks,
 				blocksFromHTML.entityMap
@@ -62,15 +60,15 @@ class TourModal extends Component {
 			});
 		}
 
-		console.log(`In componentWillReceiveProps: ${nextProps.tour}`);
+		console.log(`In componentWillReceiveProps: ${nextProps.tourOldData}`);
 		console.log(nextProps);
 	}
 
 	onEditorStateChange = editorState => {
 		//console.log(editorState);
-		// this.setState({
-		// 	content: editorState
-		// });
+		this.setState({
+			content: editorState
+		});
 		console.log(this.state.content);
 	};
 
@@ -85,7 +83,6 @@ class TourModal extends Component {
 			is_new: true,
 			fileList: [],
 			modalState: this.props.toggleTourModalState,
-			metafields: '',
 			tourOldData: ''
 		});
 		this.props.form.resetFields();
@@ -102,7 +99,6 @@ class TourModal extends Component {
 					content: draftToHtml(convertToRaw(this.state.content.getCurrentContent())),
 					start_date: rangeValue[0].format('YYYY-MM-DD'),
 					end_date: rangeValue[1].format('YYYY-MM-DD'),
-					metafields: this.state.metafields,
 					tourOldData: this.state.tourOldData
 				};
 				console.log('Received values of form: ', values);
@@ -211,7 +207,6 @@ class TourModal extends Component {
 						</FormItem>
 						<FormItem {...formItemLayout} label="Description">
 							{getFieldDecorator('content', {
-								//initialValue: this.state.content,
 								rules: [
 									{
 										type: 'object',
@@ -221,9 +216,7 @@ class TourModal extends Component {
 								]
 							})(
 								<Editor
-									//name="content"
-									//initialEditorState={this.state.content}
-									//defaultEditorState={this.state.content}
+									name="content"
 									editorState={this.state.content}
 									image={false}
 									onEditorStateChange={this.onEditorStateChange}
@@ -238,8 +231,7 @@ class TourModal extends Component {
 											'colorPicker',
 											'link',
 											'emoji',
-											'remove',
-											'history'
+											'remove'
 										]
 									}}
 									wrapperClassName="demo-wrapper"
@@ -272,7 +264,7 @@ class TourModal extends Component {
 
 const mapStateToProps = state => ({
 	toggleTourModalState: state.toggleTourModal,
-	tour: state.tour
+	tourOldData: state.tour
 });
 
 const mapDispatchToProps = dispatch => ({

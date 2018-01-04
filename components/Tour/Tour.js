@@ -47,22 +47,13 @@ class Tour extends Component {
 								}
 								actions={[
 									<Tooltip placement="top" title="Edit">
-										<Icon
-											type="edit"
-											onClick={() => this.props.editTour(tour)}
-										/>
+										<Icon type="edit" onClick={() => this.props.editTour(tour)} />
 									</Tooltip>,
 									<Tooltip placement="top" title="Delete">
-										<Icon
-											type="delete"
-											onClick={() => this.props.deleteTour(tour)}
-										/>
+										<Icon type="delete" onClick={() => this.props.deleteTour(tour)} />
 									</Tooltip>,
 
-									<Link
-										as={`/tour-detail/${tour.slug}`}
-										href={`/tour-detail?tourId=${tour._id}`}
-									>
+									<Link as={`/tour-detail/${tour.slug}`} href={`/tour-detail?tourId=${tour._id}`}>
 										<Tooltip placement="top" title="View Detail">
 											<Icon type="ellipsis" />
 										</Tooltip>
@@ -92,7 +83,7 @@ const mapDispatchToProps = dispatch => ({
 	onToggleTourModal: () => dispatch(toggleTourModal()),
 	getTour: () => dispatch(getTour()),
 	editTour: tour => dispatch(editTour(tour)),
-	deleteTour: slug => dispatch(deleteTour(slug))
+	deleteTour: tour => dispatch(deleteTour(tour))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tour);

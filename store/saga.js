@@ -117,11 +117,12 @@ function* deleteTour(action) {
 
 function* updateTour(action) {
 	try {
+		console.log(action.payloadData);
 		let params;
 		let imageData;
 		if (action.payloadData.featured_image) {
 			//delete old media
-			yield call(deleteMedia, action.payloadData.metafields[3].id);
+			yield call(deleteMedia, action.payloadData.tourOldData.metafields[3].id);
 
 			params = {
 				media: action.payloadData.featured_image.file,
@@ -141,16 +142,16 @@ function* updateTour(action) {
 			};
 		} else {
 			imageData = {
-				value: action.payloadData.metafields[3].value,
-				id: action.payloadData.metafields[3].id,
-				url: action.payloadData.tour.metadata.image.url,
-				imgixUrl: action.payloadData.tour.metadata.image.imgix_url
+				value: action.payloadData.tourOldData.metafields[3].value,
+				id: action.payloadData.tourOldData.metafields[3].id,
+				url: action.payloadData.tourOldData.metadata.featured_image.url,
+				imgixUrl: action.payloadData.tourOldData.metadata.featured_image.imgix_url
 			};
 		}
 		console.log(imageData);
 		params = {
 			write_key: config.bucket.write_key,
-			slug: action.payloadData.tour.slug,
+			slug: action.payloadData.tourOldData.slug,
 			title: action.payloadData.title,
 			content: action.payloadData.content,
 			metafields: [
