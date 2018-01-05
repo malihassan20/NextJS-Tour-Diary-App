@@ -5,7 +5,6 @@ export default function cosmic(type, params) {
 	if (type === 'GET_TYPE') {
 		return new Promise((resolve, reject) => {
 			Cosmic.getObjectType(config, params, (err, res) => {
-				console.log(res);
 				if (!err) {
 					resolve(res.objects.all);
 				} else {
