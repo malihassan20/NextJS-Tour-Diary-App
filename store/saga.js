@@ -110,14 +110,12 @@ function* deleteTour(action) {
 			yield put(deleteTourSuccess(action.payloadData.slug));
 		}
 	} catch (err) {
-		//console.log(err);
 		yield put(failure(err));
 	}
 }
 
 function* updateTour(action) {
 	try {
-		console.log(action.payloadData);
 		let params;
 		let imageData;
 		if (action.payloadData.featured_image) {
@@ -148,7 +146,6 @@ function* updateTour(action) {
 				imgixUrl: action.payloadData.tourOldData.metadata.featured_image.imgix_url
 			};
 		}
-		console.log(imageData);
 		params = {
 			write_key: config.bucket.write_key,
 			slug: action.payloadData.tourOldData.slug,
@@ -190,7 +187,6 @@ function* updateTour(action) {
 			yield put(updateTourSuccess(updatedTour.object));
 		}
 	} catch (err) {
-		console.log(err.message);
 		yield put(failure(err));
 	}
 }
@@ -321,7 +317,6 @@ function* updateTourDetail(action) {
 				imgixUrl: action.payloadData.tour_detail.metadata.image.imgix_url
 			};
 		}
-		console.log(imageData);
 		params = {
 			write_key: config.bucket.write_key,
 			slug: action.payloadData.tour_detail.slug,
@@ -352,14 +347,12 @@ function* updateTourDetail(action) {
 			]
 		};
 
-		console.log(params);
 		//update data
 		const updatedTour = yield call(cosmic, 'EDIT', params);
 		if (!updatedTour.err) {
 			yield put(updateTourDetailSuccess(updatedTour.object));
 		}
 	} catch (err) {
-		console.log(err);
 		yield put(failure(err));
 	}
 }

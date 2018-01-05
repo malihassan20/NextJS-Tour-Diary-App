@@ -6,14 +6,13 @@ import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import moment from 'moment';
 
+import { getCurrentDate } from '../../Helper/Helper';
 import { toggleTourModal, addTour, updateTour } from '../../store/actions';
 
 const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
 
-const today = new Date();
-const currDate = moment(`${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`);
-
+const currDate = moment(getCurrentDate);
 class TourModal extends Component {
 	constructor(props) {
 		super(props);
@@ -59,17 +58,12 @@ class TourModal extends Component {
 				modalState: nextProps.toggleTourModalState
 			});
 		}
-
-		console.log(`In componentWillReceiveProps: ${nextProps.tourOldData}`);
-		console.log(nextProps);
 	}
 
 	onEditorStateChange = editorState => {
-		//console.log(editorState);
 		this.setState({
 			content: editorState
 		});
-		console.log(this.state.content);
 	};
 
 	handleClose = () => {
@@ -101,7 +95,6 @@ class TourModal extends Component {
 					end_date: rangeValue[1].format('YYYY-MM-DD'),
 					tourOldData: this.state.tourOldData
 				};
-				console.log('Received values of form: ', values);
 				if (this.state.is_new === true) {
 					this.props.onTourFormSubmit(values);
 				} else {

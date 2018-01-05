@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { Modal, Button, Form, Input, Icon, DatePicker, Upload } from 'antd';
 import moment from 'moment';
 
+import { getCurrentDate } from '../../Helper/Helper';
 import { toggleTourDetailModal, addTourDetail, updateTourDetail } from '../../store/actions';
 
 const FormItem = Form.Item;
 
-const today = new Date();
-const currDate = moment(`${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`);
+const currDate = moment(getCurrentDate);
 
 class TourModal extends Component {
 	constructor(props) {
@@ -42,9 +42,6 @@ class TourModal extends Component {
 				modalState: nextProps.toggleTourDetailModalState
 			});
 		}
-
-		console.log(`In componentWillReceiveProps: ${nextProps.tour_detail}`);
-		//console.log(nextProps.toggleTourModalState);
 	}
 
 	handleClose = () => {
@@ -73,7 +70,6 @@ class TourModal extends Component {
 					tour_detail: this.state.tour_detail,
 					metafields: this.state.metafields
 				};
-				console.log('Received values of form: ', values);
 				if (this.state.is_new === true) {
 					this.props.onTourDetailFormSubmit(values);
 				} else {
