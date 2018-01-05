@@ -1,8 +1,11 @@
 import * as actionTypes from './constants';
 
-export const failure = error => ({
-	type: actionTypes.FAILURE,
-	error
+export const success = () => ({
+	type: actionTypes.SUCCESS
+});
+
+export const failure = () => ({
+	type: actionTypes.FAILURE
 });
 
 export const getTour = () => ({

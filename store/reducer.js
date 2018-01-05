@@ -8,6 +8,7 @@ export const initialState = {
 	toggleTourModal: false,
 	toggleTourDetailModal: false,
 	error: false,
+	success: false,
 	loading: false
 };
 
@@ -18,7 +19,21 @@ function reducer(state = initialState, action) {
 		case actionTypes.FAILURE: {
 			return {
 				...state,
-				...{ error: action.error }
+				...{ error: !state.error }
+			};
+		}
+		case actionTypes.SUCCESS: {
+			return {
+				...state,
+				...{ success: !state.success }
+			};
+		}
+		case actionTypes.TOGGLE_LOADER: {
+			return {
+				...state,
+				...{
+					loading: !state.loading
+				}
 			};
 		}
 		case actionTypes.GET_TOUR_SUCCESS: {
@@ -131,14 +146,6 @@ function reducer(state = initialState, action) {
 				...state,
 				...{
 					toggleTourDetailModal: !state.toggleTourDetailModal
-				}
-			};
-		}
-		case actionTypes.TOGGLE_LOADER: {
-			return {
-				...state,
-				...{
-					loading: !state.loading
 				}
 			};
 		}

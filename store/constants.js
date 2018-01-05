@@ -1,4 +1,5 @@
 export const FAILURE = 'FAILURE';
+export const SUCCESS = 'SUCCESS';
 
 export const GET_TOUR = 'GET_TOUR';
 export const GET_TOUR_SUCCESS = 'GET_TOUR_SUCCESS';
