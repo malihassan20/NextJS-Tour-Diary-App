@@ -13,7 +13,7 @@ class TourDetail extends Component {
 		return (
 			<div>
 				<TourDetailModal />
-				<Row gutter={gutters} style={{ marginBottom: '40px' }}>
+				<Row className="main-row-stl">
 					<Col span={24} style={{ textAlign: 'right' }}>
 						<Button
 							type="primary"
@@ -32,23 +32,13 @@ class TourDetail extends Component {
 								<Timeline.Item key={tour.slug}>
 									<Card
 										style={{ width: 300 }}
-										cover={
-											<img alt={tour.slug} src={tour.metadata.image.url} />
-										}
+										cover={<img alt={tour.slug} src={tour.metadata.image.url} />}
 										actions={[
 											<Tooltip placement="top" title="Edit">
-												<Icon
-													type="edit"
-													onClick={() => this.props.editTourDetail(tour)}
-												/>
+												<Icon type="edit" onClick={() => this.props.editTourDetail(tour)} />
 											</Tooltip>,
 											<Tooltip placement="top" title="Delete">
-												<Icon
-													type="delete"
-													onClick={() =>
-														this.props.deleteTourDetail(tour)
-													}
-												/>
+												<Icon type="delete" onClick={() => this.props.deleteTourDetail(tour)} />
 											</Tooltip>
 										]}
 									>

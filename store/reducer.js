@@ -7,7 +7,8 @@ export const initialState = {
 	tour_detail: null,
 	toggleTourModal: false,
 	toggleTourDetailModal: false,
-	error: false
+	error: false,
+	loading: false
 };
 
 const sortArr = arr => arr.sort((a, b) => new Date(a.metadata.date) - new Date(b.metadata.date)); //ascending order
@@ -93,9 +94,7 @@ function reducer(state = initialState, action) {
 			};
 		}
 		case actionTypes.DELETE_TOUR_DETAIL_SUCCESS: {
-			const updatedData = state.tour_details.filter(
-				tourDetail => tourDetail.slug !== action.slug
-			);
+			const updatedData = state.tour_details.filter(tourDetail => tourDetail.slug !== action.slug);
 			return {
 				...state,
 				...{ tour_details: updatedData }
@@ -132,6 +131,14 @@ function reducer(state = initialState, action) {
 				...state,
 				...{
 					toggleTourDetailModal: !state.toggleTourDetailModal
+				}
+			};
+		}
+		case actionTypes.TOGGLE_LOADER: {
+			return {
+				...state,
+				...{
+					loading: !state.loading
 				}
 			};
 		}

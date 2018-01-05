@@ -16,7 +16,7 @@ class TourDetail extends Component {
 		return (
 			<Wrapper title="Tour Detail">
 				<Layout className="layout" style={{ backgroundColor: 'white', padding: '0 50px' }}>
-					<Content style={{ padding: '20px 50px' }}>
+					<Content>
 						<TourDetails />
 					</Content>
 				</Layout>

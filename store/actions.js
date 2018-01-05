@@ -101,3 +101,7 @@ export const toggleTourModal = () => ({
 export const toggleTourDetailModal = () => ({
 	type: actionTypes.TOGGLE_TOUR_DETAIL_MODAL
 });
+
+export const toggleLoader = () => ({
+	type: actionTypes.TOGGLE_LOADER
+});

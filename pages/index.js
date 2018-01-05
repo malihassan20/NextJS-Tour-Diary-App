@@ -16,7 +16,7 @@ class Index extends Component {
 		return (
 			<Wrapper title="CosmicJs Tour Diary App">
 				<Layout className="layout" style={{ backgroundColor: 'white', padding: '0 50px' }}>
-					<Content style={{ padding: '20px 50px' }}>
+					<Content>
 						<Tour />
 					</Content>
 				</Layout>

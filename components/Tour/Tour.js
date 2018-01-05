@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from '../../routes';
 import { Row, Col, Button, Icon, Card, Tooltip } from 'antd';
-import ReactHtmlParser from 'react-html-parser';
 
+import { Link } from '../../routes';
 import TourModal from './TourModal';
 import { toggleTourModal, getTour, editTour, deleteTour } from '../../store/actions';
 
@@ -15,7 +14,7 @@ class Tour extends Component {
 		return (
 			<div>
 				<TourModal />
-				<Row gutter={gutters} style={{ marginBottom: '40px' }}>
+				<Row className="main-row-stl">
 					<Col span={24} style={{ textAlign: 'right' }}>
 						<Button
 							type="primary"
@@ -30,18 +29,20 @@ class Tour extends Component {
 				<Row gutter={gutters}>
 					{this.props.tours.map(tour => (
 						<Col
+							className="gutter-row"
 							key={tour.slug}
-							xs={{ span: 24 }}
-							sm={{ span: 24 }}
-							md={{ span: 8 }}
-							lg={{ span: 6 }}
-							xl={{ span: 6 }}
+							xxl={5}
+							xl={5}
+							lg={5}
+							md={7}
+							sm={24}
+							xs={24}
 						>
 							<Card
 								cover={
 									<img
-										style={{ height: '250px' }}
 										alt="feature_img"
+										style={{ height: '200px', objectFit: 'cover' }}
 										src={tour.metadata.featured_image.url}
 									/>
 								}
@@ -64,6 +65,7 @@ class Tour extends Component {
 									title={tour.title}
 									//description={ReactHtmlParser(tour.content)}
 								/>
+								<br />
 								<Icon type="environment-o" /> {tour.metadata.location}
 							</Card>
 							<br />

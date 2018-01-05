@@ -1068,6 +1068,11 @@ const Wrapper = props => (
 					overflow: hidden;
 					text-overflow: ellipsis;
 				}
+
+				.main-row-stl {
+					margin-bottom: 40px;
+					padding-top: 50px;
+				}
 			`}
 		</style>
 
