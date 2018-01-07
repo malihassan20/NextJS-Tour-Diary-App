@@ -1,4 +1,5 @@
 import * as actionTypes from './constants';
+import { sortArr } from '../Helper/Helper';
 
 export const initialState = {
 	tours: [],
@@ -7,45 +8,122 @@ export const initialState = {
 	tour_detail: null,
 	toggleTourModal: false,
 	toggleTourDetailModal: false,
-	error: false,
-	success: false,
-	loading: false
+	getTourStatus: {
+		loading: false,
+		success: false,
+		error: false
+	},
+	addTourStatus: {
+		loading: false,
+		success: false,
+		error: false
+	},
+	updateTourStatus: {
+		loading: false,
+		success: false,
+		error: false
+	},
+	deleteTourStatus: {
+		loading: false,
+		success: false,
+		error: false
+	},
+	getTourDetailStatus: {
+		loading: false,
+		success: false,
+		error: false
+	},
+	addTourDetailStatus: {
+		loading: false,
+		success: false,
+		error: false
+	},
+	updateTourDetailStatus: {
+		loading: false,
+		success: false,
+		error: false
+	},
+	deleteTourDetailStatus: {
+		loading: false,
+		success: false,
+		error: false
+	}
 };
-
-const sortArr = arr => arr.sort((a, b) => new Date(a.metadata.date) - new Date(b.metadata.date)); //ascending order
 
 function reducer(state = initialState, action) {
 	switch (action.type) {
-		case actionTypes.FAILURE: {
-			return {
-				...state,
-				...{ error: !state.error }
-			};
-		}
-		case actionTypes.SUCCESS: {
-			return {
-				...state,
-				...{ success: !state.success }
-			};
-		}
-		case actionTypes.TOGGLE_LOADER: {
+		case actionTypes.GET_TOUR: {
 			return {
 				...state,
 				...{
-					loading: !state.loading
+					getTourStatus: {
+						loading: true,
+						success: false,
+						error: false
+					}
 				}
 			};
 		}
 		case actionTypes.GET_TOUR_SUCCESS: {
 			return {
 				...state,
-				...{ tours: action.payloadData, success: true }
+				...{
+					tours: action.payloadData,
+					getTourStatus: {
+						loading: false,
+						success: true,
+						error: false
+					}
+				}
+			};
+		}
+		case actionTypes.GET_TOUR_FAIL: {
+			return {
+				...state,
+				...{
+					getTourStatus: {
+						loading: false,
+						success: false,
+						error: true
+					}
+				}
+			};
+		}
+		case actionTypes.ADD_TOUR: {
+			return {
+				...state,
+				...{
+					addTourStatus: {
+						loading: true,
+						success: false,
+						error: false
+					}
+				}
 			};
 		}
 		case actionTypes.ADD_TOUR_SUCCESS: {
 			return {
 				...state,
-				...{ tours: state.tours.concat(action.payloadData), success: true }
+				...{
+					tours: state.tours.concat(action.payloadData),
+					addTourStatus: {
+						loading: false,
+						success: true,
+						error: false
+					}
+				}
+			};
+		}
+		case actionTypes.ADD_TOUR_FAIL: {
+			return {
+				...state,
+				...{
+					addTourStatus: {
+						loading: false,
+						success: false,
+						error: true
+					}
+				}
 			};
 		}
 		case actionTypes.EDIT_TOUR: {
@@ -53,8 +131,19 @@ function reducer(state = initialState, action) {
 				...state,
 				...{
 					tour: action.payloadData,
-					toggleTourModal: !state.toggleTourModal,
-					success: true
+					toggleTourModal: !state.toggleTourModal
+				}
+			};
+		}
+		case actionTypes.UPDATE_TOUR: {
+			return {
+				...state,
+				...{
+					updateTourStatus: {
+						loading: true,
+						success: false,
+						error: false
+					}
 				}
 			};
 		}
@@ -62,14 +151,76 @@ function reducer(state = initialState, action) {
 			const updatedTours = state.tours.filter(tour => tour.slug !== action.payloadData.slug);
 			return {
 				...state,
-				...{ tours: updatedTours.concat(action.payloadData), success: true }
+				...{
+					tours: updatedTours.concat(action.payloadData),
+					updateTourStatus: {
+						loading: false,
+						success: true,
+						error: false
+					}
+				}
+			};
+		}
+		case actionTypes.UPDATE_TOUR_FAIL: {
+			return {
+				...state,
+				...{
+					updateTourStatus: {
+						loading: false,
+						success: false,
+						error: true
+					}
+				}
+			};
+		}
+		case actionTypes.DELETE_TOUR: {
+			return {
+				...state,
+				...{
+					deleteTourStatus: {
+						loading: true,
+						success: false,
+						error: false
+					}
+				}
 			};
 		}
 		case actionTypes.DELETE_TOUR_SUCCESS: {
 			const updatedTours = state.tours.filter(tour => tour.slug !== action.slug);
 			return {
 				...state,
-				...{ tours: updatedTours, success: true }
+				...{
+					tours: updatedTours,
+					deleteTourStatus: {
+						loading: false,
+						success: true,
+						error: false
+					}
+				}
+			};
+		}
+		case actionTypes.DELETE_TOUR_FAIL: {
+			return {
+				...state,
+				...{
+					deleteTourStatus: {
+						loading: false,
+						success: false,
+						error: true
+					}
+				}
+			};
+		}
+		case actionTypes.GET_TOUR_DETAIL: {
+			return {
+				...state,
+				...{
+					getTourDetailStatus: {
+						loading: true,
+						success: false,
+						error: false
+					}
+				}
 			};
 		}
 		case actionTypes.GET_TOUR_DETAIL_SUCCESS: {
@@ -79,14 +230,61 @@ function reducer(state = initialState, action) {
 				...{
 					tour_details: sortArr(action.payloadData.result),
 					tour: parentTour[0],
-					success: true
+					getTourDetailStatus: {
+						loading: false,
+						success: true,
+						error: false
+					}
+				}
+			};
+		}
+		case actionTypes.GET_TOUR_DETAIL_FAIL: {
+			return {
+				...state,
+				...{
+					getTourDetailStatus: {
+						loading: false,
+						success: false,
+						error: true
+					}
+				}
+			};
+		}
+		case actionTypes.ADD_TOUR_DETAIL: {
+			return {
+				...state,
+				...{
+					addTourDetailStatus: {
+						loading: true,
+						success: false,
+						error: false
+					}
 				}
 			};
 		}
 		case actionTypes.ADD_TOUR_DETAIL_SUCCESS: {
 			return {
 				...state,
-				...{ tour_details: sortArr(state.tour_details.concat(action.payloadData)), success: true }
+				...{
+					tour_details: sortArr(state.tour_details.concat(action.payloadData)),
+					addTourDetailStatus: {
+						loading: false,
+						success: true,
+						error: false
+					}
+				}
+			};
+		}
+		case actionTypes.ADD_TOUR_DETAIL_FAIL: {
+			return {
+				...state,
+				...{
+					addTourDetailStatus: {
+						loading: false,
+						success: false,
+						error: true
+					}
+				}
 			};
 		}
 		case actionTypes.EDIT_TOUR_DETAIL: {
@@ -94,8 +292,19 @@ function reducer(state = initialState, action) {
 				...state,
 				...{
 					tour_detail: action.payloadData,
-					toggleTourDetailModal: !state.toggleTourDetailModal,
-					success: true
+					toggleTourDetailModal: !state.toggleTourDetailModal
+				}
+			};
+		}
+		case actionTypes.UPDATE_TOUR_DETAIL: {
+			return {
+				...state,
+				...{
+					updateTourDetailStatus: {
+						loading: true,
+						success: false,
+						error: false
+					}
 				}
 			};
 		}
@@ -108,7 +317,35 @@ function reducer(state = initialState, action) {
 				...{
 					tour_details: sortArr(filterData.concat(action.payloadData)),
 					tour_detail: null,
-					success: true
+					updateTourDetailStatus: {
+						loading: false,
+						success: true,
+						error: false
+					}
+				}
+			};
+		}
+		case actionTypes.UPDATE_TOUR_DETAIL_FAIL: {
+			return {
+				...state,
+				...{
+					updateTourDetailStatus: {
+						loading: false,
+						success: false,
+						error: true
+					}
+				}
+			};
+		}
+		case actionTypes.DELETE_TOUR_DETAIL: {
+			return {
+				...state,
+				...{
+					deleteTourDetailStatus: {
+						loading: true,
+						success: false,
+						error: false
+					}
 				}
 			};
 		}
@@ -116,7 +353,26 @@ function reducer(state = initialState, action) {
 			const updatedData = state.tour_details.filter(tourDetail => tourDetail.slug !== action.slug);
 			return {
 				...state,
-				...{ tour_details: updatedData, success: true }
+				...{
+					tour_details: updatedData,
+					deleteTourDetailStatus: {
+						loading: false,
+						success: true,
+						error: false
+					}
+				}
+			};
+		}
+		case actionTypes.DELETE_TOUR_DETAIL_FAIL: {
+			return {
+				...state,
+				...{
+					deleteTourDetailStatus: {
+						loading: false,
+						success: false,
+						error: true
+					}
+				}
 			};
 		}
 		case actionTypes.TOGGLE_TOUR_MODAL: {

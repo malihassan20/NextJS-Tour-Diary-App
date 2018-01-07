@@ -13,17 +13,22 @@ import {
 	DELETE_TOUR_DETAIL
 } from './constants';
 import {
-	failure,
-	success,
-	toggleLoader,
 	getTourSuccess,
+	getTourFail,
 	addTourSuccess,
+	addTourFail,
 	updateTourSuccess,
+	updateTourFail,
 	deleteTourSuccess,
+	deleteTourFail,
 	getTourDetailSuccess,
+	getTourDetailFail,
 	addTourDetailSuccess,
+	addTourDetailFail,
 	updateTourDetailSuccess,
-	deleteTourDetailSuccess
+	updateTourDetailFail,
+	deleteTourDetailSuccess,
+	deleteTourDetailFail
 } from './actions';
 
 function* getTourData() {
@@ -34,7 +39,7 @@ function* getTourData() {
 		const tour = yield call(cosmic, 'GET_TYPE', params);
 		yield put(getTourSuccess(tour !== undefined ? tour : []));
 	} catch (err) {
-		yield put(failure());
+		yield put(getTourFail());
 	}
 }
 
@@ -48,7 +53,7 @@ function* addNewTour(action) {
 
 		const mediaData = yield call(cosmic, 'ADD_MEDIA', params);
 		if (mediaData.err) {
-			yield put(failure());
+			yield put(addTourFail());
 		}
 
 		params = {
@@ -91,10 +96,10 @@ function* addNewTour(action) {
 		if (!tour.err) {
 			yield put(addTourSuccess(tour.object));
 		} else {
-			yield put(failure());
+			yield put(addTourFail());
 		}
 	} catch (err) {
-		yield put(failure());
+		yield put(addTourFail());
 	}
 }
 
@@ -112,7 +117,7 @@ function* deleteTour(action) {
 			yield put(deleteTourSuccess(action.payloadData.slug));
 		}
 	} catch (err) {
-		yield put(failure());
+		yield put(deleteTourFail());
 	}
 }
 
@@ -132,7 +137,7 @@ function* updateTour(action) {
 			//save new media
 			const mediaData = yield call(cosmic, 'ADD_MEDIA', params);
 			if (mediaData.err) {
-				yield put(failure(mediaData.err));
+				yield put(updateTourFail());
 			}
 			imageData = {
 				value: mediaData.body.media.name,
@@ -189,7 +194,7 @@ function* updateTour(action) {
 			yield put(updateTourSuccess(updatedTour.object));
 		}
 	} catch (err) {
-		yield put(failure());
+		yield put(updateTourFail());
 	}
 }
 
@@ -209,7 +214,7 @@ function* getTourDetail(action) {
 			)
 		);
 	} catch (err) {
-		yield put(failure());
+		yield put(getTourDetailFail());
 	}
 }
 
@@ -223,7 +228,7 @@ function* addNewTourDetail(action) {
 
 		const mediaData = yield call(cosmic, 'ADD_MEDIA', params);
 		if (mediaData.err) {
-			yield put(failure());
+			yield put(addTourDetailFail());
 		}
 
 		params = {
@@ -262,10 +267,10 @@ function* addNewTourDetail(action) {
 		if (!response.err) {
 			yield put(addTourDetailSuccess(response.object));
 		} else {
-			yield put(failure());
+			yield put(addTourDetailFail());
 		}
 	} catch (err) {
-		yield put(failure());
+		yield put(addTourDetailFail());
 	}
 }
 
@@ -283,7 +288,7 @@ function* deleteTourDetail(action) {
 			yield put(deleteTourDetailSuccess(action.payloadData.slug));
 		}
 	} catch (err) {
-		yield put(failure());
+		yield put(deleteTourDetailFail());
 	}
 }
 
@@ -303,7 +308,7 @@ function* updateTourDetail(action) {
 			//save new media
 			const mediaData = yield call(cosmic, 'ADD_MEDIA', params);
 			if (mediaData.err) {
-				yield put(failure());
+				yield put(updateTourDetailFail());
 			}
 			imageData = {
 				value: mediaData.body.media.name,
@@ -355,7 +360,7 @@ function* updateTourDetail(action) {
 			yield put(updateTourDetailSuccess(updatedTour.object));
 		}
 	} catch (err) {
-		yield put(failure());
+		yield put(updateTourDetailFail());
 	}
 }
 

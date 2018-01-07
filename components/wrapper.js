@@ -80,6 +80,9 @@ const Wrapper = props => (
 				.icon-pad {
 					padding-right: 20px;
 				}
+				.ant-spin-container {
+					overflow: visible !important;
+				}
 
 				.timeline-img {
 					width: 300px;

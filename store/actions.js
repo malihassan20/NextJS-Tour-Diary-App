@@ -1,13 +1,5 @@
 import * as actionTypes from './constants';
 
-export const success = () => ({
-	type: actionTypes.SUCCESS
-});
-
-export const failure = () => ({
-	type: actionTypes.FAILURE
-});
-
 export const getTour = () => ({
 	type: actionTypes.GET_TOUR
 });
@@ -15,6 +7,10 @@ export const getTour = () => ({
 export const getTourSuccess = payloadData => ({
 	type: actionTypes.GET_TOUR_SUCCESS,
 	payloadData
+});
+
+export const getTourFail = () => ({
+	type: actionTypes.GET_TOUR_FAIL
 });
 
 export const addTour = payloadData => ({
@@ -25,6 +21,10 @@ export const addTour = payloadData => ({
 export const addTourSuccess = payloadData => ({
 	type: actionTypes.ADD_TOUR_SUCCESS,
 	payloadData
+});
+
+export const addTourFail = () => ({
+	type: actionTypes.ADD_TOUR_FAIL
 });
 
 export const editTour = payloadData => ({
@@ -42,6 +42,10 @@ export const updateTourSuccess = payloadData => ({
 	payloadData
 });
 
+export const updateTourFail = () => ({
+	type: actionTypes.UPDATE_TOUR_FAIL
+});
+
 export const deleteTour = payloadData => ({
 	type: actionTypes.DELETE_TOUR,
 	payloadData
@@ -50,6 +54,10 @@ export const deleteTour = payloadData => ({
 export const deleteTourSuccess = slug => ({
 	type: actionTypes.DELETE_TOUR_SUCCESS,
 	slug
+});
+
+export const deleteTourFail = () => ({
+	type: actionTypes.DELETE_TOUR_FAIL
 });
 
 export const getTourDetail = tourId => ({
@@ -62,6 +70,10 @@ export const getTourDetailSuccess = payloadData => ({
 	payloadData
 });
 
+export const getTourDetailFail = () => ({
+	type: actionTypes.GET_TOUR_DETAIL_FAIL
+});
+
 export const addTourDetail = payloadData => ({
 	type: actionTypes.ADD_TOUR_DETAIL,
 	payloadData
@@ -70,6 +82,10 @@ export const addTourDetail = payloadData => ({
 export const addTourDetailSuccess = payloadData => ({
 	type: actionTypes.ADD_TOUR_DETAIL_SUCCESS,
 	payloadData
+});
+
+export const addTourDetailFail = () => ({
+	type: actionTypes.ADD_TOUR_DETAIL_FAIL
 });
 
 export const editTourDetail = payloadData => ({
@@ -87,6 +103,10 @@ export const updateTourDetailSuccess = payloadData => ({
 	payloadData
 });
 
+export const updateTourDetailFail = () => ({
+	type: actionTypes.UPDATE_TOUR_DETAIL_FAIL
+});
+
 export const deleteTourDetail = payloadData => ({
 	type: actionTypes.DELETE_TOUR_DETAIL,
 	payloadData
@@ -97,14 +117,14 @@ export const deleteTourDetailSuccess = slug => ({
 	slug
 });
 
+export const deleteTourDetailFail = () => ({
+	type: actionTypes.DELETE_TOUR_DETAIL_FAIL
+});
+
 export const toggleTourModal = () => ({
 	type: actionTypes.TOGGLE_TOUR_MODAL
 });
 
 export const toggleTourDetailModal = () => ({
 	type: actionTypes.TOGGLE_TOUR_DETAIL_MODAL
-});
-
-export const toggleLoader = () => ({
-	type: actionTypes.TOGGLE_LOADER
 });

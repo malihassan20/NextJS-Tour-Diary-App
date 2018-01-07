@@ -222,9 +222,7 @@ class TourModal extends Component {
 											'list',
 											'textAlign',
 											'colorPicker',
-											'link',
-											'emoji',
-											'remove'
+											'link'
 										]
 									}}
 									wrapperClassName="demo-wrapper"

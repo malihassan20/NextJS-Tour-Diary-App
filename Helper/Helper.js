@@ -17,3 +17,8 @@ export function getCurrentDate() {
 export function disabledDate(current) {
 	return current && current.valueOf() < Date.now();
 }
+
+export function sortArr(arr) {
+	//ascending order
+	return arr.sort((a, b) => new Date(a.metadata.date) - new Date(b.metadata.date));
+}
