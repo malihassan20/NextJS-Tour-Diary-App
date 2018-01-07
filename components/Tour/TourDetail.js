@@ -25,28 +25,45 @@ class TourDetail extends Component {
 						</Button>
 					</Col>
 				</Row>
-				<Row gutter={gutters} style={{ marginBottom: '40px' }}>
-					<Timeline>
-						{this.props.tour_details.length > 0 &&
-							this.props.tour_details.map(tour => (
-								<Timeline.Item key={tour.slug}>
-									<Card
-										style={{ width: 300 }}
-										cover={<img alt={tour.slug} src={tour.metadata.image.url} />}
-										actions={[
-											<Tooltip placement="top" title="Edit">
-												<Icon type="edit" onClick={() => this.props.editTourDetail(tour)} />
-											</Tooltip>,
-											<Tooltip placement="top" title="Delete">
-												<Icon type="delete" onClick={() => this.props.deleteTourDetail(tour)} />
-											</Tooltip>
-										]}
-									>
-										<Meta title={tour.title} description={tour.metadata.date} />
-									</Card>
-								</Timeline.Item>
-							))}
-					</Timeline>
+				<Row className="middle-row" gutter={gutters} style={{ marginBottom: '40px' }}>
+					<section className="timeline">
+						<ul>
+							{this.props.tour_details.length > 0 &&
+								this.props.tour_details.map(tour => (
+									<li key={tour.slug}>
+										<div style={{ width: 300, background: 'white' }}>
+											<img
+												style={{ width: 300, objectFit: 'contain' }}
+												alt={tour.slug}
+												src={tour.metadata.image.url}
+											/>
+											<p style={{ paddingTop: '15px', paddingLeft: '15px', marginBottom: '5px' }}>
+												<b>{tour.title}</b>{' '}
+												<span style={{ float: 'right' }}>
+													<Tooltip className="icon-pad" placement="top" title="Edit">
+														<Icon
+															className="icon-pad"
+															type="form"
+															onClick={() => this.props.editTourDetail(tour)}
+														/>
+													</Tooltip>{' '}
+													<Tooltip className="icon-pad" placement="top" title="Delete">
+														<Icon
+															className="icon-pad"
+															type="delete"
+															onClick={() => this.props.deleteTourDetail(tour)}
+														/>
+													</Tooltip>
+												</span>
+											</p>
+											<p style={{ paddingBottom: '15px', paddingLeft: '15px' }}>
+												{tour.metadata.date}
+											</p>
+										</div>
+									</li>
+								))}
+						</ul>
+					</section>
 				</Row>
 			</div>
 		);

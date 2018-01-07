@@ -15,7 +15,7 @@ class TourDetail extends Component {
 	render() {
 		return (
 			<Wrapper title="Tour Detail">
-				<Layout className="layout" style={{ backgroundColor: 'white', padding: '0 50px' }}>
+				<Layout className="layout">
 					<Content>
 						<TourDetails />
 					</Content>

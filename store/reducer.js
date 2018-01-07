@@ -39,13 +39,13 @@ function reducer(state = initialState, action) {
 		case actionTypes.GET_TOUR_SUCCESS: {
 			return {
 				...state,
-				...{ tours: action.payloadData }
+				...{ tours: action.payloadData, success: true }
 			};
 		}
 		case actionTypes.ADD_TOUR_SUCCESS: {
 			return {
 				...state,
-				...{ tours: state.tours.concat(action.payloadData) }
+				...{ tours: state.tours.concat(action.payloadData), success: true }
 			};
 		}
 		case actionTypes.EDIT_TOUR: {
@@ -53,7 +53,8 @@ function reducer(state = initialState, action) {
 				...state,
 				...{
 					tour: action.payloadData,
-					toggleTourModal: !state.toggleTourModal
+					toggleTourModal: !state.toggleTourModal,
+					success: true
 				}
 			};
 		}
@@ -61,14 +62,14 @@ function reducer(state = initialState, action) {
 			const updatedTours = state.tours.filter(tour => tour.slug !== action.payloadData.slug);
 			return {
 				...state,
-				...{ tours: updatedTours.concat(action.payloadData) }
+				...{ tours: updatedTours.concat(action.payloadData), success: true }
 			};
 		}
 		case actionTypes.DELETE_TOUR_SUCCESS: {
 			const updatedTours = state.tours.filter(tour => tour.slug !== action.slug);
 			return {
 				...state,
-				...{ tours: updatedTours }
+				...{ tours: updatedTours, success: true }
 			};
 		}
 		case actionTypes.GET_TOUR_DETAIL_SUCCESS: {
@@ -77,14 +78,15 @@ function reducer(state = initialState, action) {
 				...state,
 				...{
 					tour_details: sortArr(action.payloadData.result),
-					tour: parentTour[0]
+					tour: parentTour[0],
+					success: true
 				}
 			};
 		}
 		case actionTypes.ADD_TOUR_DETAIL_SUCCESS: {
 			return {
 				...state,
-				...{ tour_details: sortArr(state.tour_details.concat(action.payloadData)) }
+				...{ tour_details: sortArr(state.tour_details.concat(action.payloadData)), success: true }
 			};
 		}
 		case actionTypes.EDIT_TOUR_DETAIL: {
@@ -92,7 +94,8 @@ function reducer(state = initialState, action) {
 				...state,
 				...{
 					tour_detail: action.payloadData,
-					toggleTourDetailModal: !state.toggleTourDetailModal
+					toggleTourDetailModal: !state.toggleTourDetailModal,
+					success: true
 				}
 			};
 		}
@@ -104,7 +107,8 @@ function reducer(state = initialState, action) {
 				...state,
 				...{
 					tour_details: sortArr(filterData.concat(action.payloadData)),
-					tour_detail: null
+					tour_detail: null,
+					success: true
 				}
 			};
 		}
@@ -112,7 +116,7 @@ function reducer(state = initialState, action) {
 			const updatedData = state.tour_details.filter(tourDetail => tourDetail.slug !== action.slug);
 			return {
 				...state,
-				...{ tour_details: updatedData }
+				...{ tour_details: updatedData, success: true }
 			};
 		}
 		case actionTypes.TOGGLE_TOUR_MODAL: {

@@ -3,10 +3,13 @@
 	"plugins": [
 		"transform-decorators-legacy",
 		[
+			"inline-import",
+			{
+				"extensions": [".css"]
+			},
 			"import",
 			{
-				"libraryName": "antd",
-				"style": false
+				"libraryName": "antd"
 			}
 		]
 	]
