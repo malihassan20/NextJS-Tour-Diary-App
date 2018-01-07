@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Button, Icon, Tooltip, notification, Spin } from 'antd';
+import ImageZoom from 'react-medium-image-zoom';
 
 import TourModal from './TourModal';
 import TourDetailModal from './TourDetailModal';
@@ -121,10 +122,18 @@ class TourDetail extends Component {
 									this.props.tour_details.map(tour => (
 										<li key={tour.slug}>
 											<div style={{ width: 300, background: 'white' }}>
-												<img
-													className="timeline-img"
-													alt={tour.slug}
-													src={tour.metadata.image.url}
+												<ImageZoom
+													image={{
+														src: tour.metadata.image.url,
+														alt: tour.slug,
+														className: 'timeline-img'
+													}}
+													defaultStyles={{
+														overlay: {
+															opacity: 0.9,
+															backgroundColor: 'black'
+														}
+													}}
 												/>
 												<p style={{ paddingTop: '15px', paddingLeft: '15px', marginBottom: '5px' }}>
 													<b>{tour.title}</b>{' '}

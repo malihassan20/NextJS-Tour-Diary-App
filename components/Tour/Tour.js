@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Button, Icon, Card, Tooltip, notification, Spin } from 'antd';
-
+import ImageZoom from 'react-medium-image-zoom';
 import { Link } from '../../routes';
 import TourModal from './TourModal';
 import { toggleTourModal, getTour, editTour, deleteTour } from '../../store/actions';
@@ -152,10 +152,18 @@ class Tour extends Component {
 							>
 								<Card
 									cover={
-										<img
-											alt="feature_img"
-											style={{ height: '200px', objectFit: 'cover' }}
-											src={tour.metadata.featured_image.url}
+										<ImageZoom
+											image={{
+												src: tour.metadata.featured_image.url,
+												alt: 'feature_img',
+												style: { height: '200px', objectFit: 'cover' }
+											}}
+											defaultStyles={{
+												overlay: {
+													opacity: 0.9,
+													backgroundColor: 'black'
+												}
+											}}
 										/>
 									}
 									actions={[
