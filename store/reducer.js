@@ -149,6 +149,7 @@ function reducer(state = initialState, action) {
 			};
 		}
 		case actionTypes.UPDATE_TOUR_SUCCESS: {
+			cookie.save('tour', action.payloadData);
 			const updatedTours = state.tours.filter(tour => tour.slug !== action.payloadData.slug);
 			return {
 				...state,

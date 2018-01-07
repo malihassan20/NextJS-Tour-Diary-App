@@ -97,18 +97,54 @@ class Tour extends Component {
 			>
 				<div>
 					<TourModal />
-					<Row className="main-row-stl">
-						<Col span={24} style={{ textAlign: 'right' }}>
-							<Button
-								type="primary"
-								size="large"
-								icon="plus"
-								onClick={() => this.props.onToggleTourModal()}
-							>
-								Add Tour
-							</Button>
-						</Col>
-					</Row>
+
+					{this.props.tours.length === 0 && (
+						<Row className="main-row-stl">
+							<Col span={24}>
+								<h1
+									style={{
+										textAlign: 'center',
+										fontSize: '30px',
+										color: 'white',
+										paddingTop: '20%'
+									}}
+								>
+									{' '}
+									<b>Sart adding Tours to your diary!</b>
+								</h1>
+								<p
+									style={{
+										textAlign: 'center',
+										paddingTop: '20px'
+									}}
+								>
+									<Button
+										type="primary"
+										size="large"
+										icon="plus"
+										onClick={() => this.props.onToggleTourModal()}
+									>
+										Add Tour
+									</Button>
+								</p>
+							</Col>
+						</Row>
+					)}
+					{this.props.tours.length > 0 && (
+						<Row className="main-row-stl">
+							<Col span={24} style={{ textAlign: 'right' }}>
+								<Button
+									type="primary"
+									size="large"
+									icon="plus"
+									onClick={() => this.props.onToggleTourModal()}
+								>
+									Add Tour
+								</Button>
+							</Col>
+						</Row>
+					)}
+
 					<Row gutter={gutters}>
 						{this.props.tours.map(tour => (
 							<Col

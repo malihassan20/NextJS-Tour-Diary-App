@@ -2,8 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Button, Icon, Tooltip, notification, Spin } from 'antd';
 
+import TourModal from './TourModal';
 import TourDetailModal from './TourDetailModal';
-import { toggleTourDetailModal, deleteTourDetail, editTourDetail } from '../../store/actions';
+import {
+	toggleTourDetailModal,
+	editTour,
+	deleteTourDetail,
+	editTourDetail
+} from '../../store/actions';
 
 class TourDetail extends Component {
 	componentWillReceiveProps(nextProps) {
@@ -93,6 +99,7 @@ class TourDetail extends Component {
 				}
 			>
 				<div>
+					<TourModal />
 					<TourDetailModal />
 					<Row className="main-row-stl">
 						<Col span={24} style={{ textAlign: 'right' }}>
@@ -156,6 +163,7 @@ class TourDetail extends Component {
 const mapStateToProps = state => ({
 	tour_details: state.tour_details,
 	tour: state.tour,
+	updateTourStatus: state.updateTourStatus,
 	getTourDetailStatus: state.getTourDetailStatus,
 	addTourDetailStatus: state.addTourDetailStatus,
 	updateTourDetailStatus: state.updateTourDetailStatus,
@@ -164,6 +172,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	onToggleTourDetailModal: () => dispatch(toggleTourDetailModal()),
+	editTour: tour => dispatch(editTour(tour)),
 	editTourDetail: tour => dispatch(editTourDetail(tour)),
 	deleteTourDetail: slug => dispatch(deleteTourDetail(slug))
 });
