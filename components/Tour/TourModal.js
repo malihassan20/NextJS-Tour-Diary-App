@@ -195,7 +195,7 @@ class TourModal extends Component {
 						</FormItem>
 						<FormItem {...formItemLayout} label="Travel Date">
 							{getFieldDecorator('start_end_date', rangeConfig)(
-								<RangePicker disabledDate={disabledDate()} name="start_end_date" />
+								<RangePicker disabledDate={disabledDate} name="start_end_date" />
 							)}
 						</FormItem>
 						<FormItem {...formItemLayout} label="Description">

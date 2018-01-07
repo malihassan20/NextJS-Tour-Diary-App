@@ -4,7 +4,7 @@ import { Modal, Button, Form, Input, Icon, DatePicker, Upload } from 'antd';
 import moment from 'moment';
 import cookie from 'react-cookies';
 
-import { getCurrentDate } from '../../Helper/Helper';
+import { getCurrentDate, disabledDate } from '../../Helper/Helper';
 import { toggleTourDetailModal, addTourDetail, updateTourDetail } from '../../store/actions';
 
 const FormItem = Form.Item;
@@ -160,7 +160,7 @@ class TourModal extends Component {
 										message: 'Please enter image taken date'
 									}
 								]
-							})(<DatePicker name="date" />)}
+							})(<DatePicker disabledDate={disabledDate} name="date" />)}
 						</FormItem>
 
 						<FormItem {...formItemLayout} label="Image">

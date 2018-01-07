@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export function getCurrentDate() {
 	const today = new Date();
 	let dd = today.getDate();
@@ -15,7 +17,8 @@ export function getCurrentDate() {
 }
 
 export function disabledDate(current) {
-	return current && current.valueOf() < Date.now();
+	//disable future dates
+	return current && current.valueOf() > Date.now();
 }
 
 export function sortArr(arr) {
