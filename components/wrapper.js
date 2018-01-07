@@ -71,6 +71,13 @@ const Wrapper = props => (
 					border-radius: 2px !important;
 				}
 
+				.adding-content-header {
+					text-align: center;
+					font-size: 30px;
+					color: white;
+					padding-top: 15%;
+				}
+
 				.anticon-delete:hover,
 				.anticon-edit:hover,
 				.anticon-form:hover {

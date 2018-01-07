@@ -101,14 +101,7 @@ class Tour extends Component {
 					{this.props.tours.length === 0 && (
 						<Row className="main-row-stl">
 							<Col span={24}>
-								<h1
-									style={{
-										textAlign: 'center',
-										fontSize: '30px',
-										color: 'white',
-										paddingTop: '20%'
-									}}
-								>
+								<h1 className="adding-content-header">
 									{' '}
 									<b>Sart adding Tours to your diary!</b>
 								</h1>
