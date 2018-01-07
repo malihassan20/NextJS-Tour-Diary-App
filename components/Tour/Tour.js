@@ -31,11 +31,11 @@ class Tour extends Component {
 						<Col
 							className="gutter-row"
 							key={tour.slug}
-							xxl={5}
-							xl={5}
-							lg={5}
+							xxl={6}
+							xl={6}
+							lg={6}
 							md={7}
-							sm={24}
+							sm={12}
 							xs={24}
 						>
 							<Card

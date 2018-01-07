@@ -1,4 +1,4 @@
-export default function getCurrentDate() {
+export function getCurrentDate() {
 	const today = new Date();
 	let dd = today.getDate();
 	let mm = today.getMonth() + 1; //January is 0!
@@ -12,4 +12,8 @@ export default function getCurrentDate() {
 		mm = `0${mm}`;
 	}
 	return `${yyyy}-${mm}-${dd}`;
+}
+
+export function disabledDate(current) {
+	return current && current.valueOf() < Date.now();
 }

@@ -81,6 +81,12 @@ const Wrapper = props => (
 					padding-right: 20px;
 				}
 
+				.timeline-img {
+					width: 300px;
+					object-fit: fill;
+					height: 230px;
+				}
+
 				.timeline ul li {
 					list-style-type: none;
 					position: relative;

@@ -6,13 +6,13 @@ import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import moment from 'moment';
 
-import { getCurrentDate } from '../../Helper/Helper';
+import { getCurrentDate, disabledDate } from '../../Helper/Helper';
 import { toggleTourModal, addTour, updateTour } from '../../store/actions';
 
 const FormItem = Form.Item;
 const RangePicker = DatePicker.RangePicker;
 
-const currDate = moment(getCurrentDate);
+const currDate = moment(getCurrentDate());
 class TourModal extends Component {
 	constructor(props) {
 		super(props);
@@ -195,7 +195,7 @@ class TourModal extends Component {
 						</FormItem>
 						<FormItem {...formItemLayout} label="Travel Date">
 							{getFieldDecorator('start_end_date', rangeConfig)(
-								<RangePicker name="start_end_date" />
+								<RangePicker disabledDate={disabledDate()} name="start_end_date" />
 							)}
 						</FormItem>
 						<FormItem {...formItemLayout} label="Description">

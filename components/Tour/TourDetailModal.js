@@ -8,7 +8,7 @@ import { toggleTourDetailModal, addTourDetail, updateTourDetail } from '../../st
 
 const FormItem = Form.Item;
 
-const currDate = moment(getCurrentDate);
+const currDate = moment(getCurrentDate());
 
 class TourModal extends Component {
 	constructor(props) {
@@ -66,7 +66,7 @@ class TourModal extends Component {
 				const values = {
 					...fieldsValue,
 					date: fieldsValue.date.format('YYYY-MM-DD'),
-					tourId: this.props.tour._id,
+					tourId: this.state.tourId,
 					tour_detail: this.state.tour_detail,
 					metafields: this.state.metafields
 				};

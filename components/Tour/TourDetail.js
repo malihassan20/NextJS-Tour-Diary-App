@@ -32,11 +32,7 @@ class TourDetail extends Component {
 								this.props.tour_details.map(tour => (
 									<li key={tour.slug}>
 										<div style={{ width: 300, background: 'white' }}>
-											<img
-												style={{ width: 300, objectFit: 'contain' }}
-												alt={tour.slug}
-												src={tour.metadata.image.url}
-											/>
+											<img className="timeline-img" alt={tour.slug} src={tour.metadata.image.url} />
 											<p style={{ paddingTop: '15px', paddingLeft: '15px', marginBottom: '5px' }}>
 												<b>{tour.title}</b>{' '}
 												<span style={{ float: 'right' }}>
