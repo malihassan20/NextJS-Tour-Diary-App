@@ -91,7 +91,6 @@ class Tour extends Component {
 			<Spin
 				size="large"
 				spinning={
-					//true ||
 					this.props.getTourStatus.loading ||
 					this.props.addTourStatus.loading ||
 					this.props.updateTourStatus.loading ||

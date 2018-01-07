@@ -83,6 +83,25 @@ const Wrapper = props => (
 				.ant-spin-container {
 					overflow: visible !important;
 				}
+				.ant-spin-lg .ant-spin-dot {
+					width: 80px !important;
+					height: 80px !important;
+				}
+				.ant-spin-lg .ant-spin-dot i {
+					width: 30px !important;
+					height: 30px !important;
+				}
+
+				.ant-spin-nested-loading > div > .ant-spin .ant-spin-dot {
+					position: fixed !important;
+					top: 40% !important;
+				}
+				.ant-spin-blur {
+					opacity: 0.2 !important;
+				}
+				.ant-spin-blur:after {
+					content: none !important;
+				}
 
 				.timeline-img {
 					width: 300px;
