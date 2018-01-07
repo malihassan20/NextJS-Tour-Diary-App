@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button, Form, Input, Icon, DatePicker, Upload } from 'antd';
 import moment from 'moment';
+import cookie from 'react-cookies';
 
 import { getCurrentDate } from '../../Helper/Helper';
 import { toggleTourDetailModal, addTourDetail, updateTourDetail } from '../../store/actions';
@@ -21,9 +22,16 @@ class TourModal extends Component {
 			is_new: true,
 			fileList: [],
 			modalState: false,
-			tourId: 0,
+			tour: '',
 			metafields: ''
 		};
+	}
+
+	componentDidMount() {
+		const parentTour = cookie.load('tour') || cookie.save('tour', this.props.tour);
+		this.setState({
+			tour: parentTour
+		});
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -33,7 +41,6 @@ class TourModal extends Component {
 				date: nextProps.tour_detail.metadata.date,
 				is_new: false,
 				modalState: nextProps.toggleTourDetailModalState,
-				tourId: nextProps.tour_detail.metadata.tour_id._id,
 				tour_detail: nextProps.tour_detail,
 				metafields: nextProps.tour_detail.metafields
 			});
@@ -66,7 +73,7 @@ class TourModal extends Component {
 				const values = {
 					...fieldsValue,
 					date: fieldsValue.date.format('YYYY-MM-DD'),
-					tourId: this.state.tourId,
+					tourId: this.state.tour._id,
 					tour_detail: this.state.tour_detail,
 					metafields: this.state.metafields
 				};

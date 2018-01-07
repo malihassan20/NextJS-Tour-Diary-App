@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Layout } from 'antd';
+
 import { withReduxSaga } from '../store/store';
 import { getTour } from '../store/actions';
 
@@ -10,7 +11,7 @@ const { Content } = Layout;
 
 class Index extends Component {
 	static async getInitialProps({ store }) {
-		store.dispatch(getTour());
+		await store.dispatch(getTour());
 	}
 	render() {
 		return (

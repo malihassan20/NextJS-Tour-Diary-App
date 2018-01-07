@@ -15,6 +15,7 @@ class Tour extends Component {
 		) {
 			notification.error({
 				message: 'Error',
+				placement: 'bottomRight',
 				description: 'Unable to get the list of tours. Please try again!'
 			});
 		}
@@ -24,6 +25,7 @@ class Tour extends Component {
 		) {
 			notification.error({
 				message: 'Error',
+				placement: 'bottomRight',
 				description: 'Unable to add new tour. Please check your data!'
 			});
 		}
@@ -33,6 +35,7 @@ class Tour extends Component {
 		) {
 			notification.error({
 				message: 'Error',
+				placement: 'bottomRight',
 				description: 'Unable to update the tour. Please check your data!'
 			});
 		}
@@ -42,25 +45,18 @@ class Tour extends Component {
 		) {
 			notification.error({
 				message: 'Error',
+				placement: 'bottomRight',
 				description: 'Unable to delete the tour. Please try again!'
 			});
 		}
 
-		if (
-			nextProps.getTourStatus.success &&
-			nextProps.getTourStatus.success !== this.props.getTourStatus.success
-		) {
-			notification.success({
-				message: 'Success',
-				description: 'Getting tour list successfull.'
-			});
-		}
 		if (
 			nextProps.addTourStatus.success &&
 			nextProps.addTourStatus.success !== this.props.addTourStatus.success
 		) {
 			notification.success({
 				message: 'Success',
+				placement: 'bottomRight',
 				description: 'New tour added successfully.'
 			});
 		}
@@ -70,6 +66,7 @@ class Tour extends Component {
 		) {
 			notification.success({
 				message: 'Success',
+				placement: 'bottomRight',
 				description: 'Tour updated successfully.'
 			});
 		}
@@ -79,6 +76,7 @@ class Tour extends Component {
 		) {
 			notification.success({
 				message: 'Success',
+				placement: 'bottomRight',
 				description: 'Tour deleted successfully.'
 			});
 		}

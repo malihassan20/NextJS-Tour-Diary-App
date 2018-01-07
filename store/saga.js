@@ -105,9 +105,29 @@ function* addNewTour(action) {
 
 function* deleteTour(action) {
 	try {
+		//lets first delete all the tour images entries
+		let params = {
+			type_slug: 'tour-details',
+			metafield_key: 'tour_id',
+			metafield_object_slug: action.payloadData._id
+		};
+		const tourData = yield call(cosmic, 'GET_TYPE', params);
+		if (tourData !== undefined) {
+			yield* tourData.map(function* (tourImg) {
+				yield call(deleteMedia, tourImg.metafields[2].id);
+
+				const param = {
+					write_key: config.bucket.write_key,
+					slug: tourImg.slug
+				};
+
+				yield call(cosmic, 'DELETE', param);
+			});
+		}
+
 		yield call(deleteMedia, action.payloadData.metafields[3].id);
 
-		const params = {
+		params = {
 			write_key: config.bucket.write_key,
 			slug: action.payloadData.slug
 		};

@@ -10,7 +10,7 @@ const { Content } = Layout;
 
 class TourDetail extends Component {
 	static async getInitialProps({ store, query }) {
-		store.dispatch(getTourDetail(query.tourId));
+		await store.dispatch(getTourDetail(query.tourId));
 	}
 	render() {
 		return (
