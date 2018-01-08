@@ -4,7 +4,7 @@ import { Modal, Button, Form, Input, Icon, DatePicker, Upload } from 'antd';
 import moment from 'moment';
 import cookie from 'react-cookies';
 
-import { getCurrentDate, disabledDate } from '../../Helper/Helper';
+import { getCurrentDate, disabledDate, allowSpecificDates } from '../../Helper/Helper';
 import { toggleTourDetailModal, addTourDetail, updateTourDetail } from '../../store/actions';
 
 const FormItem = Form.Item;
@@ -22,9 +22,15 @@ class TourModal extends Component {
 			is_new: true,
 			fileList: [],
 			modalState: false,
-			tour: cookie.load('tour'),
+			tour: '',
 			metafields: ''
 		};
+	}
+
+	componentDidMount() {
+		this.setState({
+			tour: cookie.load('tour')
+		});
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -145,15 +151,17 @@ class TourModal extends Component {
 						</FormItem>
 						<FormItem {...formItemLayout} label={<span>Date</span>}>
 							{getFieldDecorator('date', {
-								initialValue: moment(this.state.date),
+								initialValue: moment(
+									this.state.tour ? this.state.tour.metadata.start_date : this.state.date
+								),
 								rules: [
 									{
 										type: 'object',
 										required: true,
-										message: 'Please enter image taken date'
+										message: 'Please enter date'
 									}
 								]
-							})(<DatePicker disabledDate={disabledDate} name="date" />)}
+							})(<DatePicker disabledDate={allowSpecificDates} name="date" />)}
 						</FormItem>
 
 						<FormItem {...formItemLayout} label="Image">

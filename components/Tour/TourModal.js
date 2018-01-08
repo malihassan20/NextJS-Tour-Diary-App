@@ -230,7 +230,7 @@ class TourModal extends Component {
 								/>
 							)}
 						</FormItem>
-						<FormItem {...formItemLayout} label="Image">
+						<FormItem {...formItemLayout} label="Featured Image">
 							{getFieldDecorator('featured_image', {
 								rules: [
 									{

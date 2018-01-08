@@ -21,7 +21,7 @@ class TourDetail extends Component {
 			notification.error({
 				message: 'Error',
 				placement: 'bottomRight',
-				description: 'Unable to get the list of tour images. Please try again!'
+				description: 'Unable to get the list of timeline. Please try again!'
 			});
 		}
 		if (
@@ -31,7 +31,7 @@ class TourDetail extends Component {
 			notification.error({
 				message: 'Error',
 				placement: 'bottomRight',
-				description: 'Unable to add new tour image. Please check your data!'
+				description: 'Unable to add new timeline. Please check your data!'
 			});
 		}
 		if (
@@ -41,7 +41,7 @@ class TourDetail extends Component {
 			notification.error({
 				message: 'Error',
 				placement: 'bottomRight',
-				description: 'Unable to update the image details. Please check your data!'
+				description: 'Unable to update the timeline. Please check your data!'
 			});
 		}
 		if (
@@ -51,7 +51,7 @@ class TourDetail extends Component {
 			notification.error({
 				message: 'Error',
 				placement: 'bottomRight',
-				description: 'Unable to delete the tour image. Please try again!'
+				description: 'Unable to delete the timeline. Please try again!'
 			});
 		}
 
@@ -62,7 +62,7 @@ class TourDetail extends Component {
 			notification.success({
 				message: 'Success',
 				placement: 'bottomRight',
-				description: 'New tour image added successfully.'
+				description: 'New timeline added successfully.'
 			});
 		}
 		if (
@@ -72,7 +72,7 @@ class TourDetail extends Component {
 			notification.success({
 				message: 'Success',
 				placement: 'bottomRight',
-				description: 'Tour image details updated successfully.'
+				description: 'Timeline updated successfully.'
 			});
 		}
 		if (
@@ -82,7 +82,7 @@ class TourDetail extends Component {
 			notification.success({
 				message: 'Success',
 				placement: 'bottomRight',
-				description: 'Tour image deleted successfully.'
+				description: 'Timeline deleted successfully.'
 			});
 		}
 	}
@@ -110,9 +110,17 @@ class TourDetail extends Component {
 								icon="plus"
 								onClick={() => this.props.onToggleTourDetailModal()}
 							>
-								Add Image
+								Add Timeline
 							</Button>
 						</Col>
+					</Row>
+
+					<Row className="main-row-stl">
+						{/* <Col span={24}>
+							<Col span={12} style={{ textAlign: 'left' }}>
+								<h1 style={{ color: 'white', fontSize: '30px' }}>{this.state.tour.title}</h1>
+							</Col>
+						</Col> */}
 					</Row>
 
 					<Row className="middle-row" gutter={gutters} style={{ marginBottom: '40px' }}>
@@ -138,14 +146,14 @@ class TourDetail extends Component {
 												<p style={{ paddingTop: '15px', paddingLeft: '15px', marginBottom: '5px' }}>
 													<b>{tour.title}</b>{' '}
 													<span style={{ float: 'right' }}>
-														<Tooltip className="icon-pad" placement="top" title="Edit">
+														<Tooltip placement="top" title="Edit">
 															<Icon
 																className="icon-pad"
 																type="form"
 																onClick={() => this.props.editTourDetail(tour)}
 															/>
 														</Tooltip>{' '}
-														<Tooltip className="icon-pad" placement="top" title="Delete">
+														<Tooltip placement="top" title="Delete">
 															<Icon
 																className="icon-pad"
 																type="delete"

@@ -56,6 +56,27 @@ const Wrapper = props => (
 					text-overflow: ellipsis;
 				}
 
+				a {
+					color: black !important;
+				}
+
+				.anticon-delete:hover {
+					color: red !important;
+				}
+
+				.anticon-form:hover {
+					color: #1890ff !important;
+				}
+				footer {
+					text-align: center;
+					background: rgb(112, 169, 112);
+					position: absolute;
+					width: 100%;
+					height: 35px;
+					bottom: 0;
+					padding: 5px;
+				}
+
 				.main-row-stl {
 					margin-bottom: 40px;
 					padding-top: 50px;
@@ -198,6 +219,15 @@ const Wrapper = props => (
 		</style>
 
 		{props.children}
+
+		<footer>
+			<p>
+				Powered by{' '}
+				<a href="https://cosmicjs.com/" rel="cosmic" target="_blank">
+					Cosmic JS
+				</a>
+			</p>
+		</footer>
 	</div>
 );
 

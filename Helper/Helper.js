@@ -1,4 +1,4 @@
-import moment from 'moment';
+import cookie from 'react-cookies';
 
 export function getCurrentDate() {
 	const today = new Date();
@@ -17,6 +17,20 @@ export function getCurrentDate() {
 }
 
 export function disabledDate(current) {
+	//disable future dates
+	return current && current.valueOf() > Date.now();
+}
+
+export function allowSpecificDates(current) {
+	const tour = cookie.load('tour');
+	//enable dates which are within the tour range dates
+	if (tour) {
+		return !(
+			current.valueOf() >= new Date(tour.metadata.start_date) &&
+			current.valueOf() <= new Date(tour.metadata.end_date)
+		);
+	}
+
 	//disable future dates
 	return current && current.valueOf() > Date.now();
 }

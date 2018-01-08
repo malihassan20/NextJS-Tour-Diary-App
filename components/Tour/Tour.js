@@ -57,7 +57,7 @@ class Tour extends Component {
 			notification.success({
 				message: 'Success',
 				placement: 'bottomRight',
-				description: 'New tour added successfully.'
+				description: 'New tour added successfully. To add timeline go to the tour detail page.'
 			});
 		}
 		if (
@@ -185,7 +185,14 @@ class Tour extends Component {
 									]}
 								>
 									<Meta
-										title={tour.title}
+										title={
+											<Link
+												as={`/tour-detail/${tour.slug}`}
+												href={`/tour-detail?tourId=${tour._id}`}
+											>
+												{tour.title}
+											</Link>
+										}
 										//description={ReactHtmlParser(tour.content)}
 									/>
 									<br />
