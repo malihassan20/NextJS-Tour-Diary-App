@@ -22,16 +22,9 @@ class TourModal extends Component {
 			is_new: true,
 			fileList: [],
 			modalState: false,
-			tour: '',
+			tour: cookie.load('tour'),
 			metafields: ''
 		};
-	}
-
-	componentDidMount() {
-		const parentTour = cookie.load('tour') || cookie.save('tour', this.props.tour);
-		this.setState({
-			tour: parentTour
-		});
 	}
 
 	componentWillReceiveProps(nextProps) {

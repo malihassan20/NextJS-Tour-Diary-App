@@ -125,7 +125,10 @@ class Tour extends Component {
 					)}
 					{this.props.tours.length > 0 && (
 						<Row className="main-row-stl">
-							<Col span={24} style={{ textAlign: 'right' }}>
+							<Col span={12} style={{ textAlign: 'left' }}>
+								<h1 style={{ color: 'white', fontSize: '30px' }}>Tours</h1>
+							</Col>
+							<Col span={12} style={{ textAlign: 'right' }}>
 								<Button
 									type="primary"
 									size="large"
