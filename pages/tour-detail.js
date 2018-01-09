@@ -15,7 +15,7 @@ class TourDetail extends Component {
 	render() {
 		return (
 			<Wrapper title="Tour Detail">
-				<Layout className="layout">
+				<Layout className="layout content-body-adj">
 					<Content>
 						<TourDetails />
 					</Content>

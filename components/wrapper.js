@@ -7,7 +7,7 @@ const defaultOGURL = '';
 const defaultOGImage = '';
 
 const Wrapper = props => (
-	<div style={{ minHeight: '100%' }}>
+	<div style={{ minHeight: '100%', position: 'relative' }}>
 		<NextHead>
 			<meta charSet="UTF-8" />
 			<title>{props.title || 'CosmicJs Tour Diary App'}</title>
@@ -73,7 +73,7 @@ const Wrapper = props => (
 				.anticon-form:hover {
 					color: #1890ff !important;
 				}
-				footer {
+				.footer {
 					text-align: center;
 					background: rgb(112, 169, 112);
 					position: absolute;
@@ -221,12 +221,17 @@ const Wrapper = props => (
 						border-color: transparent #fff transparent transparent;
 					}
 				}
+
+				.content-body-adj {
+					min-height: 100vh;
+					padding-bottom: 50px;
+				}
 			`}
 		</style>
 
 		{props.children}
 
-		<footer>
+		<footer className="footer">
 			Powered by{' '}
 			<a href="https://cosmicjs.com/" rel="noopener noreferrer" target="_blank">
 				Cosmic JS
