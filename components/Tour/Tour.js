@@ -190,7 +190,7 @@ class Tour extends Component {
 												as={`/tour-detail/${tour.slug}`}
 												href={`/tour-detail?tourId=${tour._id}`}
 											>
-												{tour.title}
+												<a>{tour.title}</a>
 											</Link>
 										}
 										//description={ReactHtmlParser(tour.content)}

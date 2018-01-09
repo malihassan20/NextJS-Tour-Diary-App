@@ -162,7 +162,7 @@ class TourModal extends Component {
 			<div>
 				<Modal
 					title="Add New Tour"
-					width="60%"
+					width="65%"
 					visible={this.state.modalState}
 					onOk={this.handleSubmit}
 					okText="Add"

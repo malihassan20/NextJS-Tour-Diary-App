@@ -13,6 +13,7 @@
 		"babel-plugin-import": "^1.6.3",
 		"babel-plugin-inline-import": "^2.0.6",
 		"cosmicjs": "^2.4.22",
+		"dotenv": "^4.0.0",
 		"draft-js": "^0.10.4",
 		"draftjs-to-html": "^0.8.1",
 		"eslint": "^4.14.0",

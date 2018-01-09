@@ -118,7 +118,7 @@ class TourDetail extends Component {
 					<Row className="main-row-stl">
 						{/* <Col span={24}>
 							<Col span={12} style={{ textAlign: 'left' }}>
-								<h1 style={{ color: 'white', fontSize: '30px' }}>{this.state.tour.title}</h1>
+								<h1 style={{ color: 'white', fontSize: '30px' }}>{this.props.tour.title}</h1>
 							</Col>
 						</Col> */}
 					</Row>

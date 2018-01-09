@@ -7,7 +7,7 @@ const defaultOGURL = '';
 const defaultOGImage = '';
 
 const Wrapper = props => (
-	<div>
+	<div style={{ minHeight: '100%' }}>
 		<NextHead>
 			<meta charSet="UTF-8" />
 			<title>{props.title || 'CosmicJs Tour Diary App'}</title>
@@ -35,9 +35,15 @@ const Wrapper = props => (
 
 		<style jsx global>
 			{`
+				html {
+					height: 100%;
+				}
 				body {
 					height: 100%;
 					background: darkseagreen !important;
+					position: relative;
+					padding-bottom: 6rem;
+					min-height: 100%;
 				}
 				.ant-layout,
 				.layout {
@@ -74,7 +80,7 @@ const Wrapper = props => (
 					width: 100%;
 					height: 35px;
 					bottom: 0;
-					padding: 5px;
+					padding-top: 5px;
 				}
 
 				.main-row-stl {
@@ -221,12 +227,10 @@ const Wrapper = props => (
 		{props.children}
 
 		<footer>
-			<p>
-				Powered by{' '}
-				<a href="https://cosmicjs.com/" rel="cosmic" target="_blank">
-					Cosmic JS
-				</a>
-			</p>
+			Powered by{' '}
+			<a href="https://cosmicjs.com/" rel="noopener noreferrer" target="_blank">
+				Cosmic JS
+			</a>
 		</footer>
 	</div>
 );
