@@ -1,32 +1,27 @@
-const express = require('express');
 const next = require('next');
 const routes = require('./routes');
+const { createServer } = require('http');
+const { parse } = require('url');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 const handler = routes.getRequestHandler(app);
 
-app
-	.prepare()
-	.then(() => {
-		const server = express();
-		server.use(handler);
+app.prepare().then(() => {
+	createServer(handler, (req, res) => {
+		// Be sure to pass `true` as the second argument to `url.parse`.
+		// This tells it to parse the query portion of the URL.
+		const parsedUrl = parse(req.url, true);
+		const { pathname, query } = parsedUrl;
 
-		server.get('/tour-detail/:tourId', (req, res) => {
-			const actualPage = '/tour-detail';
-			const queryParams = { tourId: req.params.tourId };
-			app.render(req, res, actualPage, queryParams);
-		});
-
-		server.get('*', (req, res) => handle(req, res));
-
-		server.listen(3000, err => {
-			if (err) throw err;
-			console.log('> Ready on http://localhost:3000');
-		});
-	})
-	.catch(ex => {
-		console.error(ex.stack);
-		process.exit(1);
+		if (pathname === '/tour-detail/:tourId') {
+			app.render(req, res, '/tour-detail', query);
+		} else {
+			handle(req, res, parsedUrl);
+		}
+	}).listen(3000, err => {
+		if (err) throw err;
+		console.log('> Ready on http://localhost:3000');
 	});
+});

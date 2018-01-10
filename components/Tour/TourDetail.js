@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Row, Col, Button, Icon, Tooltip, notification, Spin } from 'antd';
 import ImageZoom from 'react-medium-image-zoom';
+import cookie from 'react-cookies';
+import ReactHtmlParser from 'react-html-parser';
 
 import TourModal from './TourModal';
 import TourDetailModal from './TourDetailModal';
@@ -86,6 +88,63 @@ class TourDetail extends Component {
 			});
 		}
 	}
+
+	renderTour = () => {
+		let tour;
+		if (this.props.tour) {
+			tour = this.props.tour;
+		} else {
+			tour = cookie.load('tour');
+		}
+		console.log(tour);
+		return (
+			<div>
+				<Row>
+					<Col span={12} style={{ textAlign: 'left' }}>
+						{/* <span style={{ color: 'white', fontSize: '25px', paddingRight: 20 }}>{tour.title}</span>
+						<Tooltip placement="top" title="Edit">
+							<Icon
+								style={{ fontSize: 18 }}
+								className="icon-pad"
+								type="form"
+								onClick={() => this.props.editTour(tour)}
+							/>
+						</Tooltip> */}
+					</Col>
+					<Col span={12} style={{ textAlign: 'right' }}>
+						<Button
+							type="primary"
+							size="large"
+							icon="plus"
+							onClick={() => this.props.onToggleTourDetailModal()}
+						>
+							Add Timeline
+						</Button>
+					</Col>
+				</Row>
+				{/* <Row style={{ paddingTop: 10 }}>
+					<Col span={3}>
+						<span className="tour-font" style={{ color: 'white' }}>
+							<Icon type="compass" /> {tour.metadata.location}
+						</span>
+					</Col>
+					<Col span={6}>
+						<span className="tour-font" style={{ color: 'white' }}>
+							<Icon type="calendar" /> {tour.metadata.start_date} - {tour.metadata.end_date}
+						</span>
+					</Col>
+				</Row>
+				<Row style={{ paddingTop: 10 }}>
+					<Col span={18}>
+						<span className="tour-font" style={{ color: 'white' }}>
+							{ReactHtmlParser(tour.content)}
+						</span>
+					</Col>
+				</Row> */}
+			</div>
+		);
+	};
+
 	render() {
 		const gutters = 16;
 
@@ -102,26 +161,7 @@ class TourDetail extends Component {
 				<div>
 					<TourModal />
 					<TourDetailModal />
-					<Row className="main-row-stl">
-						<Col span={24} style={{ textAlign: 'right' }}>
-							<Button
-								type="primary"
-								size="large"
-								icon="plus"
-								onClick={() => this.props.onToggleTourDetailModal()}
-							>
-								Add Timeline
-							</Button>
-						</Col>
-					</Row>
-
-					<Row className="main-row-stl">
-						{/* <Col span={24}>
-							<Col span={12} style={{ textAlign: 'left' }}>
-								<h1 style={{ color: 'white', fontSize: '30px' }}>{this.props.tour.title}</h1>
-							</Col>
-						</Col> */}
-					</Row>
+					<Row className="main-row-stl">{this.renderTour()}</Row>
 
 					<Row className="middle-row" gutter={gutters} style={{ marginBottom: '40px' }}>
 						<section className="timeline">
@@ -188,8 +228,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	onToggleTourDetailModal: () => dispatch(toggleTourDetailModal()),
 	editTour: tour => dispatch(editTour(tour)),
+	onToggleTourDetailModal: () => dispatch(toggleTourDetailModal()),
 	editTourDetail: tour => dispatch(editTourDetail(tour)),
 	deleteTourDetail: slug => dispatch(deleteTourDetail(slug))
 });

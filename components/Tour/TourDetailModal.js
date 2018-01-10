@@ -4,7 +4,7 @@ import { Modal, Button, Form, Input, Icon, DatePicker, Upload } from 'antd';
 import moment from 'moment';
 import cookie from 'react-cookies';
 
-import { getCurrentDate, disabledDate, allowSpecificDates } from '../../Helper/Helper';
+import { getCurrentDate, allowSpecificDates } from '../../Helper/Helper';
 import { toggleTourDetailModal, addTourDetail, updateTourDetail } from '../../store/actions';
 
 const FormItem = Form.Item;
@@ -28,8 +28,9 @@ class TourModal extends Component {
 	}
 
 	componentDidMount() {
+		const _tour = cookie.load('tour');
 		this.setState({
-			tour: cookie.load('tour')
+			tour: _tour
 		});
 	}
 

@@ -226,6 +226,10 @@ const Wrapper = props => (
 					min-height: 100vh;
 					padding-bottom: 50px;
 				}
+
+				.tour-font {
+					font-size: 16px;
+				}
 			`}
 		</style>
 

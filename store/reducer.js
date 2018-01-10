@@ -158,15 +158,12 @@ function reducer(state = initialState, action) {
 			};
 		}
 		case actionTypes.UPDATE_TOUR_SUCCESS: {
-			cookie.save('tour', action.payloadData);
 			const updatedTours = state.tours.filter(tour => tour.slug !== action.payloadData.slug);
 
-			//update this tour cookie if exists
-			const tourCookie = cookie.load('tour');
-			if (tourCookie && tourCookie._id === action.payloadData._id) {
+			if (cookie.load('tour')) {
 				cookie.remove('tour');
-				cookie.save('tour', action.payloadData);
 			}
+			cookie.save('tour', action.payloadData);
 
 			return {
 				...state,
@@ -207,9 +204,7 @@ function reducer(state = initialState, action) {
 		case actionTypes.DELETE_TOUR_SUCCESS: {
 			const updatedTours = state.tours.filter(tour => tour.slug !== action.slug);
 
-			//remove this tour cookie if exists
-			const tourCookie = cookie.load('tour');
-			if (tourCookie && tourCookie.slug === action.slug) {
+			if (cookie.load('tour')) {
 				cookie.remove('tour');
 			}
 
@@ -251,6 +246,9 @@ function reducer(state = initialState, action) {
 		}
 		case actionTypes.GET_TOUR_DETAIL_SUCCESS: {
 			const parentTour = state.tours.filter(tour => tour._id === action.payloadData.tourId);
+			if (cookie.load('tour')) {
+				cookie.remove('tour');
+			}
 			//save the parent tour in cookie so that we can retrieve it when the page gets reloaded
 			//and the store get created again
 			cookie.save('tour', parentTour[0]);
