@@ -226,7 +226,6 @@ function* getTourDetail(action) {
 			metafield_object_slug: action.tourId
 		};
 		const tourData = yield call(cosmic, 'GET_TYPE', params);
-		console.log("TOUR: DATA: ", tourData)
 		yield put(
 			getTourDetailSuccess(
 				tourData !== undefined
@@ -411,7 +410,5 @@ function* rootSaga() {
 }
 
 export default function* rootSagas() {
-    yield [
-      fork(rootSaga),
-    ]
+	yield [fork(rootSaga)];
 }

@@ -54,6 +54,10 @@ export const initialState = {
 function reducer(state = initialState, action) {
 	switch (action.type) {
 		case actionTypes.GET_TOUR: {
+			//remove cookie which we have set for a specific tour details
+			if (cookie.load('tour')) {
+				cookie.remove('tour');
+			}
 			return {
 				...state,
 				...{
@@ -66,11 +70,6 @@ function reducer(state = initialState, action) {
 			};
 		}
 		case actionTypes.GET_TOUR_SUCCESS: {
-			//remove cookie which we have set for a specific tour details
-			if (cookie.load('tour')) {
-				cookie.remove('tour');
-			}
-
 			return {
 				...state,
 				...{
@@ -84,10 +83,6 @@ function reducer(state = initialState, action) {
 			};
 		}
 		case actionTypes.GET_TOUR_FAIL: {
-			//remove cookie which we have set for a specific tour details
-			if (cookie.load('tour')) {
-				cookie.remove('tour');
-			}
 			return {
 				...state,
 				...{
@@ -246,14 +241,21 @@ function reducer(state = initialState, action) {
 		}
 		case actionTypes.GET_TOUR_DETAIL_SUCCESS: {
 			let parentTour = state.tours.filter(tour => tour._id === action.payloadData.tourId);
-			// if (cookie.load('tour')) {
-			// 	cookie.remove('tour');
-			// }
-			if(!parentTour[0]) parentTour = action.payloadData.result[0].metadata.tour_id;
-			else parentTour = parentTour[0];
-			//save the parent tour in cookie so that we can retrieve it when the page gets reloaded
-			//and the store get created again
-			// cookie.save('tour', parentTour[0]);
+
+			const tem = cookie.load('tour');
+			if (tem !== undefined && tem._id !== action.payloadData.tourId) {
+				cookie.remove('tour');
+				if (!parentTour[0]) parentTour = action.payloadData.result[0].metadata.tour_id;
+				else parentTour = parentTour[0];
+				cookie.save('tour', parentTour);
+			} else if (tem === undefined) {
+				if (!parentTour[0]) parentTour = action.payloadData.result[0].metadata.tour_id;
+				else parentTour = parentTour[0];
+				cookie.save('tour', parentTour);
+			} else {
+				parentTour = tem;
+			}
+
 			return {
 				...state,
 				...{
