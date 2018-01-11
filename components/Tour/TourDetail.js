@@ -90,13 +90,15 @@ class TourDetail extends Component {
 	}
 
 	renderTour = () => {
-		let tour;
-		if (this.props.tour) {
-			tour = this.props.tour;
-		} else {
-			tour = cookie.load('tour');
-		}
-		console.log(tour);
+		let tour = this.props.tour;
+		// console.log(this.props)
+		// if (this.props.tour) {
+		// 	tour = this.props.tour;
+		// } else {
+		// 	tour = cookie.load('tour');
+		// }
+
+		console.log("Tour: ", tour);
 		return (
 			<div>
 				<Row>
@@ -122,7 +124,7 @@ class TourDetail extends Component {
 						</Button>
 					</Col>
 				</Row>
-				{/* <Row style={{ paddingTop: 10 }}>
+				<Row style={{ paddingTop: 10 }}>
 					<Col span={3}>
 						<span className="tour-font" style={{ color: 'white' }}>
 							<Icon type="compass" /> {tour.metadata.location}
@@ -140,7 +142,7 @@ class TourDetail extends Component {
 							{ReactHtmlParser(tour.content)}
 						</span>
 					</Col>
-				</Row> */}
+				</Row>
 			</div>
 		);
 	};
@@ -161,7 +163,7 @@ class TourDetail extends Component {
 				<div>
 					<TourModal />
 					<TourDetailModal />
-					<Row className="main-row-stl">{this.renderTour()}</Row>
+					<Row className="main-row-stl">{!!this.props.tour && this.renderTour()}</Row>
 
 					<Row className="middle-row" gutter={gutters} style={{ marginBottom: '40px' }}>
 						<section className="timeline">

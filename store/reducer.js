@@ -245,18 +245,20 @@ function reducer(state = initialState, action) {
 			};
 		}
 		case actionTypes.GET_TOUR_DETAIL_SUCCESS: {
-			const parentTour = state.tours.filter(tour => tour._id === action.payloadData.tourId);
-			if (cookie.load('tour')) {
-				cookie.remove('tour');
-			}
+			let parentTour = state.tours.filter(tour => tour._id === action.payloadData.tourId);
+			// if (cookie.load('tour')) {
+			// 	cookie.remove('tour');
+			// }
+			if(!parentTour[0]) parentTour = action.payloadData.result[0].metadata.tour_id;
+			else parentTour = parentTour[0];
 			//save the parent tour in cookie so that we can retrieve it when the page gets reloaded
 			//and the store get created again
-			cookie.save('tour', parentTour[0]);
+			// cookie.save('tour', parentTour[0]);
 			return {
 				...state,
 				...{
 					tour_details: sortArr(action.payloadData.result),
-					tour: parentTour[0],
+					tour: parentTour,
 					getTourDetailStatus: {
 						loading: false,
 						success: true,

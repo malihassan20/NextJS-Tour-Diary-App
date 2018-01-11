@@ -4,14 +4,14 @@ import nextReduxSaga from 'next-redux-saga';
 import createSagaMiddleware from 'redux-saga';
 
 import rootReducer, { initialState } from './reducer';
-import rootSaga from './saga';
+import rootSagas from './saga';
 
 const sagaMiddleware = createSagaMiddleware();
 
 export function configureStore(state = initialState) {
 	const store = createStore(rootReducer, state, applyMiddleware(sagaMiddleware));
 
-	store.sagaTask = sagaMiddleware.run(rootSaga);
+	store.sagaTask = sagaMiddleware.run(rootSagas);
 	return store;
 }
 

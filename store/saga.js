@@ -1,4 +1,4 @@
-import { put, call, takeEvery, all } from 'redux-saga/effects';
+import { put, call, fork, takeEvery, all } from 'redux-saga/effects';
 
 import config from '../cosmic/config';
 import cosmic from '../cosmic/cosmic';
@@ -226,6 +226,7 @@ function* getTourDetail(action) {
 			metafield_object_slug: action.tourId
 		};
 		const tourData = yield call(cosmic, 'GET_TYPE', params);
+		console.log("TOUR: DATA: ", tourData)
 		yield put(
 			getTourDetailSuccess(
 				tourData !== undefined
@@ -409,4 +410,8 @@ function* rootSaga() {
 	]);
 }
 
-export default rootSaga;
+export default function* rootSagas() {
+    yield [
+      fork(rootSaga),
+    ]
+}
