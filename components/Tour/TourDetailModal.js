@@ -171,7 +171,13 @@ class TourModal extends Component {
 										message: 'Please enter date'
 									}
 								]
-							})(<DatePicker disabledDate={allowSpecificDates} name="date" />)}
+							})(
+								<DatePicker
+									value={this.state.tour ? this.state.tour.metadata.start_date : this.state.date}
+									disabledDate={allowSpecificDates}
+									name="date"
+								/>
+							)}
 						</FormItem>
 
 						<FormItem {...formItemLayout} label="Image">
