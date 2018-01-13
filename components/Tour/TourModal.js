@@ -210,7 +210,6 @@ class TourModal extends Component {
 						</FormItem>
 						<FormItem {...formItemLayout} label="Description">
 							{getFieldDecorator('content', {
-								initialValue: this.state.content,
 								rules: [
 									{
 										type: 'object',

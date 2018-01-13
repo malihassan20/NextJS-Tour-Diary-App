@@ -245,12 +245,10 @@ function reducer(state = initialState, action) {
 			const tem = cookie.load('tour');
 			if (tem !== undefined && tem._id !== action.payloadData.tourId) {
 				cookie.remove('tour');
-				if (!parentTour[0]) parentTour = action.payloadData.result[0].metadata.tour_id;
-				else parentTour = parentTour[0];
+				parentTour = parentTour[0];
 				cookie.save('tour', parentTour);
 			} else if (tem === undefined) {
-				if (!parentTour[0]) parentTour = action.payloadData.result[0].metadata.tour_id;
-				else parentTour = parentTour[0];
+				parentTour = parentTour[0];
 				cookie.save('tour', parentTour);
 			} else {
 				parentTour = tem;
