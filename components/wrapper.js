@@ -136,10 +136,12 @@ const Wrapper = props => (
 				.ant-spin-blur:after {
 					content: none !important;
 				}
-
+				img {
+					object-fit: contain;
+				}
 				.timeline-img {
 					width: 300px;
-					object-fit: fill;
+					object-fit: cover !important;
 					height: 230px;
 				}
 
