@@ -81,6 +81,7 @@ const Wrapper = props => (
 					height: 35px;
 					bottom: 0;
 					padding-top: 5px;
+					padding-bottom: 5px;
 				}
 
 				.main-row-stl {
