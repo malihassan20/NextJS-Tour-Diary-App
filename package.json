@@ -2,11 +2,11 @@
 	"name": "nextjs-tour-diary-app",
 	"description": "A Next.js project",
 	"version": "1.0.0",
-	"author": "Ali Hassan <malihassan20@gmail.com>",
+	"author": "Ali Hassan <contact@alihassan.io>",
 	"scripts": {
 		"dev": "node server.js",
 		"build": "next build",
-		"start": "next start"
+		"start": "node server.js"
 	},
 	"dependencies": {
 		"antd": "^3.0.3",
