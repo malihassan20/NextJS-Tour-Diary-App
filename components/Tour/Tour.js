@@ -193,7 +193,6 @@ class Tour extends Component {
 												<a>{tour.title}</a>
 											</Link>
 										}
-										//description={ReactHtmlParser(tour.content)}
 									/>
 									<br />
 									<Icon type="environment-o" /> {tour.metadata.location}

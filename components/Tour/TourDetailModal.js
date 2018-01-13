@@ -51,6 +51,14 @@ class TourModal extends Component {
 		}
 	}
 
+	onKeyPress = e => {
+		if (e.keyCode === 13) {
+			this.handleSubmit();
+		} else if (e.keyCode === 27) {
+			this.handleClose();
+		}
+	};
+
 	handleClose = () => {
 		this.setState({
 			tour_detail: '',
@@ -136,6 +144,7 @@ class TourModal extends Component {
 					onOk={this.handleSubmit}
 					okText="Add"
 					onCancel={this.handleClose}
+					onKeyPress={this.onKeyPress}
 				>
 					<Form layout="vertical">
 						<FormItem {...formItemLayout} label={<span>Caption</span>}>

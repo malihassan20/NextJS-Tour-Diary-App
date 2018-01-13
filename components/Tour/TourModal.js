@@ -66,6 +66,15 @@ class TourModal extends Component {
 		});
 	};
 
+	onKeyPress = e => {
+		console.log(e.keyCode === 13);
+		if (e.keyCode === 13) {
+			this.handleSubmit(e);
+		} else if (e.keyCode === 27) {
+			this.handleClose();
+		}
+	};
+
 	handleClose = () => {
 		this.setState({
 			title: '',
@@ -167,6 +176,7 @@ class TourModal extends Component {
 					onOk={this.handleSubmit}
 					okText="Add"
 					onCancel={this.handleClose}
+					onKeyPress={this.onKeyPress}
 				>
 					<Form layout="vertical">
 						<FormItem {...formItemLayout} label={<span>Title</span>}>
@@ -200,6 +210,7 @@ class TourModal extends Component {
 						</FormItem>
 						<FormItem {...formItemLayout} label="Description">
 							{getFieldDecorator('content', {
+								initialValue: this.state.content,
 								rules: [
 									{
 										type: 'object',
