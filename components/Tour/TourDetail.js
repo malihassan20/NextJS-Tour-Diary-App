@@ -122,6 +122,7 @@ class TourDetail extends Component {
 					</Col>
 				</Row>
 				<Row>
+					<br />
 					<Col span={12} style={{ textAlign: 'left' }}>
 						{!!tour && (
 							<div>
