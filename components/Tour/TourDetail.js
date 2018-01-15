@@ -4,6 +4,7 @@ import { Row, Col, Button, Icon, Tooltip, notification, Spin } from 'antd';
 import ImageZoom from 'react-medium-image-zoom';
 import cookie from 'react-cookies';
 import ReactHtmlParser from 'react-html-parser';
+import Router from 'next/router';
 
 import TourModal from './TourModal';
 import TourDetailModal from './TourDetailModal';
@@ -100,6 +101,28 @@ class TourDetail extends Component {
 			<div>
 				<Row>
 					<Col span={12} style={{ textAlign: 'left' }}>
+						<Button
+							type="primary"
+							size="large"
+							icon="arrow-left"
+							onClick={() => Router.replace("/")}
+						>
+							Back
+						</Button>
+					</Col>
+					<Col span={12} style={{ textAlign: 'right' }}>
+						<Button
+							type="primary"
+							size="large"
+							icon="plus"
+							onClick={() => this.props.onToggleTourDetailModal()}
+						>
+							Add Timeline
+						</Button>
+					</Col>
+				</Row>
+				<Row>
+					<Col span={12} style={{ textAlign: 'left' }}>
 						{!!tour && (
 							<div>
 								<span style={{ color: 'white', fontSize: '25px', paddingRight: 20 }}>
@@ -115,16 +138,6 @@ class TourDetail extends Component {
 								</Tooltip>
 							</div>
 						)}
-					</Col>
-					<Col span={12} style={{ textAlign: 'right' }}>
-						<Button
-							type="primary"
-							size="large"
-							icon="plus"
-							onClick={() => this.props.onToggleTourDetailModal()}
-						>
-							Add Timeline
-						</Button>
 					</Col>
 				</Row>
 				{!!tour && (
