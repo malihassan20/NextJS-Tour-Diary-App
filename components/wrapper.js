@@ -10,7 +10,7 @@ const Wrapper = props => (
 	<div style={{ minHeight: '100%', position: 'relative' }}>
 		<NextHead>
 			<meta charSet="UTF-8" />
-			<title>{props.title || 'CosmicJs Tour Diary App'}</title>
+			<title>{props.title || 'CosmicJS Tour Diary App'}</title>
 			<meta name="description" content="Created by Ali Hassan" />
 			<meta name="viewport" content="width=device-width, initial-scale=1" />
 			<link rel="icon" sizes="192x192" href="/static/favicon.png" />

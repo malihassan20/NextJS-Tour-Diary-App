@@ -2,9 +2,9 @@
 ================================ */
 export default {
 	bucket: {
-		slug: 'tour-diary',
-		read_key: 'uen3jxDap4vvYpOQZVZrVFy53Yn4U93x2kOuA8Z9RnH4nJHbix',
-		write_key: 'O04B8sfdHrgcW22ntAX97wfU40piE7TZzDLFLhetKQG2laU9Y6'
+		slug: process.env.COSMIC_BUCKET,
+		read_key: process.env.COSMIC_READ_KEY,
+		write_key: process.env.COSMIC_WRITE_KEY
 	},
 	image_folder: 'tour-images'
 };

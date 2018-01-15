@@ -1,7 +1,7 @@
 {
 	"presets": ["next/babel"],
 	"plugins": [
-		"transform-decorators-legacy",
+		["transform-decorators-legacy"],
 		[
 			"inline-import",
 			{
@@ -11,6 +11,9 @@
 			{
 				"libraryName": "antd"
 			}
-		]
+		],
+		["inline-dotenv"]
 	]
 }
+
+
