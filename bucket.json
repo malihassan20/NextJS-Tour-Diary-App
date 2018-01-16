@@ -1,0 +1,314 @@
+{
+  "bucket": {
+    "_id": "5a3d62322ed76bce3e000174",
+    "slug": "tour-diary",
+    "title": "Tour Diary App",
+    "object_types": [
+      {
+        "title": "Tours",
+        "slug": "tours",
+        "singular": "Tour",
+        "metafields": [
+          {
+            "required": true,
+            "value": "",
+            "key": "featured_image",
+            "title": "Featured Image",
+            "type": "file",
+            "children": null
+          },
+          {
+            "required": true,
+            "value": "",
+            "key": "start_date",
+            "title": "Start Date",
+            "type": "date",
+            "children": null
+          },
+          {
+            "required": true,
+            "value": "",
+            "key": "end_date",
+            "title": "End Date",
+            "type": "date",
+            "children": null
+          },
+          {
+            "value": "",
+            "key": "location",
+            "title": "Location",
+            "type": "text",
+            "children": null
+          }
+        ],
+        "options": {
+          "slug_field": 1,
+          "content_editor": 1
+        },
+        "preview_link": "",
+        "priority_locale": null,
+        "localization": false,
+        "locales": null
+      },
+      {
+        "title": "Tour Details",
+        "slug": "tour-details",
+        "singular": "Tour Detail",
+        "metafields": [
+          {
+            "required": true,
+            "object_type": "tours",
+            "value": "",
+            "key": "tour_id",
+            "title": "Tour Id",
+            "type": "object",
+            "children": null
+          },
+          {
+            "required": true,
+            "value": "",
+            "key": "date",
+            "title": "Date",
+            "type": "date",
+            "children": null
+          },
+          {
+            "required": true,
+            "value": "",
+            "key": "image",
+            "title": "Image",
+            "type": "file",
+            "children": null
+          }
+        ],
+        "options": {
+          "slug_field": 0,
+          "content_editor": 0
+        },
+        "preview_link": "",
+        "priority_locale": null,
+        "localization": false,
+        "locales": null
+      }
+    ],
+    "objects": [
+      {
+        "_id": "5a59fd6dda0a7a4b79000044",
+        "slug": "patriata",
+        "title": "Patriata",
+        "content": "<p>I love this tour. It was fun to take a cabel cart ride there.&nbsp;</p>\n",
+        "metafields": [
+          {
+            "value": "2018-01-16",
+            "type": "text",
+            "key": "start_date",
+            "title": "Start Date"
+          },
+          {
+            "value": "2018-01-16",
+            "type": "text",
+            "key": "end_date",
+            "title": "End Date"
+          },
+          {
+            "value": "Pakistan",
+            "type": "text",
+            "key": "location",
+            "title": "Location"
+          },
+          {
+            "type": "file",
+            "key": "featured_image",
+            "title": "Featured Image",
+            "value": "733bc280-f85e-11e7-b797-afc7d68fbdc7-IMG_20160528_104351.jpg",
+            "id": "5a59fd6cda0a7a4b79000043",
+            "url": "https://s3-us-west-2.amazonaws.com/cosmicjs/733bc280-f85e-11e7-b797-afc7d68fbdc7-IMG_20160528_104351.jpg",
+            "imgix_url": "https://cosmic-s3.imgix.net/733bc280-f85e-11e7-b797-afc7d68fbdc7-IMG_20160528_104351.jpg"
+          }
+        ],
+        "bucket": "5a3d62322ed76bce3e000174",
+        "type_slug": "tours",
+        "created": "2018-01-13T12:37:01.086Z",
+        "created_at": "2018-01-13T12:37:01.086Z",
+        "modified_at": "2018-01-13T12:37:01.086Z",
+        "user_id": null,
+        "status": "published",
+        "order": null
+      },
+      {
+        "_id": "5a5a0cc5da0a7a4b79000051",
+        "slug": "love-this-picture",
+        "title": "Love this picture :)",
+        "content": null,
+        "metafields": [
+          {
+            "object_type": "tours",
+            "value": "5a59fd6dda0a7a4b79000044",
+            "key": "tour_id",
+            "title": "Tour Id",
+            "type": "object",
+            "object": true
+          },
+          {
+            "value": "2016-09-07",
+            "type": "text",
+            "key": "date",
+            "title": "Date"
+          },
+          {
+            "key": "image",
+            "type": "file",
+            "value": "97c21b50-f867-11e7-b797-afc7d68fbdc7-IMG_20160628_090001.jpg",
+            "id": "5a5a0cc3da0a7a4b79000050",
+            "url": "https://s3-us-west-2.amazonaws.com/cosmicjs/97c21b50-f867-11e7-b797-afc7d68fbdc7-IMG_20160628_090001.jpg",
+            "imgix_url": "https://cosmic-s3.imgix.net/97c21b50-f867-11e7-b797-afc7d68fbdc7-IMG_20160628_090001.jpg"
+          }
+        ],
+        "bucket": "5a3d62322ed76bce3e000174",
+        "type_slug": "tour-details",
+        "created": "2018-01-13T13:42:29.046Z",
+        "created_at": "2018-01-13T13:42:29.046Z",
+        "modified_at": "2018-01-13T13:42:29.046Z",
+        "user_id": null,
+        "status": "published",
+        "order": null
+      },
+      {
+        "_id": "5a5a0ca4da0a7a4b7900004f",
+        "slug": "random-shots-1515850916269-dxo1s0i2ih",
+        "title": "Random Shots",
+        "content": null,
+        "metafields": [
+          {
+            "object_type": "tours",
+            "value": "5a59fd6dda0a7a4b79000044",
+            "key": "tour_id",
+            "title": "Tour Id",
+            "type": "object",
+            "object": true
+          },
+          {
+            "value": "2016-09-08",
+            "type": "text",
+            "key": "date",
+            "title": "Date"
+          },
+          {
+            "key": "image",
+            "type": "file",
+            "value": "84a73500-f867-11e7-b797-afc7d68fbdc7-IMG_20160528_122440.jpg",
+            "id": "5a5a0ca3da0a7a4b7900004e",
+            "url": "https://s3-us-west-2.amazonaws.com/cosmicjs/84a73500-f867-11e7-b797-afc7d68fbdc7-IMG_20160528_122440.jpg",
+            "imgix_url": "https://cosmic-s3.imgix.net/84a73500-f867-11e7-b797-afc7d68fbdc7-IMG_20160528_122440.jpg",
+            "title": "image"
+          }
+        ],
+        "bucket": "5a3d62322ed76bce3e000174",
+        "type_slug": "tour-details",
+        "created": "2018-01-13T13:41:56.269Z",
+        "created_at": "2018-01-13T13:41:56.269Z",
+        "modified_at": "2018-01-13T13:41:56.269Z",
+        "user_id": null,
+        "status": "published"
+      },
+      {
+        "_id": "5a5a0c6f9073644a5b000322",
+        "slug": "looking-the-view-from-top",
+        "title": "Looking the view from top",
+        "content": null,
+        "metafields": [
+          {
+            "object_type": "tours",
+            "value": "5a59fd6dda0a7a4b79000044",
+            "key": "tour_id",
+            "title": "Tour Id",
+            "type": "object",
+            "object": true
+          },
+          {
+            "value": "2016-09-06",
+            "type": "text",
+            "key": "date",
+            "title": "Date"
+          },
+          {
+            "key": "image",
+            "type": "file",
+            "value": "651e6460-f867-11e7-a756-a3e8cfad49fa-IMG_20160528_104351.jpg",
+            "id": "5a5a0c6e9073644a5b000321",
+            "url": "https://s3-us-west-2.amazonaws.com/cosmicjs/651e6460-f867-11e7-a756-a3e8cfad49fa-IMG_20160528_104351.jpg",
+            "imgix_url": "https://cosmic-s3.imgix.net/651e6460-f867-11e7-a756-a3e8cfad49fa-IMG_20160528_104351.jpg"
+          }
+        ],
+        "bucket": "5a3d62322ed76bce3e000174",
+        "type_slug": "tour-details",
+        "created": "2018-01-13T13:41:03.069Z",
+        "created_at": "2018-01-13T13:41:03.069Z",
+        "modified_at": "2018-01-13T13:41:03.069Z",
+        "user_id": null,
+        "status": "published",
+        "order": null
+      }
+    ],
+    "media": [
+      {
+        "_id": "5a59fd6cda0a7a4b79000043",
+        "name": "733bc280-f85e-11e7-b797-afc7d68fbdc7-IMG_20160528_104351.jpg",
+        "original_name": "IMG_20160528_104351.jpg",
+        "size": 131941,
+        "type": "image/jpeg",
+        "bucket": "5a3d62322ed76bce3e000174",
+        "created": "2018-01-13T12:37:00.273Z",
+        "location": "https://s3-us-west-2.amazonaws.com/cosmicjs",
+        "url": "https://s3-us-west-2.amazonaws.com/cosmicjs/733bc280-f85e-11e7-b797-afc7d68fbdc7-IMG_20160528_104351.jpg",
+        "imgix_url": "https://cosmic-s3.imgix.net/733bc280-f85e-11e7-b797-afc7d68fbdc7-IMG_20160528_104351.jpg",
+        "folder": "tour-images"
+      },
+      {
+        "_id": "5a5a0ca3da0a7a4b7900004e",
+        "name": "84a73500-f867-11e7-b797-afc7d68fbdc7-IMG_20160528_122440.jpg",
+        "original_name": "IMG_20160528_122440.jpg",
+        "size": 282295,
+        "type": "image/jpeg",
+        "bucket": "5a3d62322ed76bce3e000174",
+        "created": "2018-01-13T13:41:55.004Z",
+        "location": "https://s3-us-west-2.amazonaws.com/cosmicjs",
+        "url": "https://s3-us-west-2.amazonaws.com/cosmicjs/84a73500-f867-11e7-b797-afc7d68fbdc7-IMG_20160528_122440.jpg",
+        "imgix_url": "https://cosmic-s3.imgix.net/84a73500-f867-11e7-b797-afc7d68fbdc7-IMG_20160528_122440.jpg",
+        "folder": "tour-images"
+      },
+      {
+        "_id": "5a5a0c6e9073644a5b000321",
+        "name": "651e6460-f867-11e7-a756-a3e8cfad49fa-IMG_20160528_104351.jpg",
+        "original_name": "IMG_20160528_104351.jpg",
+        "size": 131941,
+        "type": "image/jpeg",
+        "bucket": "5a3d62322ed76bce3e000174",
+        "created": "2018-01-13T13:41:02.035Z",
+        "location": "https://s3-us-west-2.amazonaws.com/cosmicjs",
+        "url": "https://s3-us-west-2.amazonaws.com/cosmicjs/651e6460-f867-11e7-a756-a3e8cfad49fa-IMG_20160528_104351.jpg",
+        "imgix_url": "https://cosmic-s3.imgix.net/651e6460-f867-11e7-a756-a3e8cfad49fa-IMG_20160528_104351.jpg",
+        "folder": "tour-images"
+      },
+      {
+        "_id": "5a5a0cc3da0a7a4b79000050",
+        "name": "97c21b50-f867-11e7-b797-afc7d68fbdc7-IMG_20160628_090001.jpg",
+        "original_name": "IMG_20160628_090001.jpg",
+        "size": 278884,
+        "type": "image/jpeg",
+        "bucket": "5a3d62322ed76bce3e000174",
+        "created": "2018-01-13T13:42:27.093Z",
+        "location": "https://s3-us-west-2.amazonaws.com/cosmicjs",
+        "url": "https://s3-us-west-2.amazonaws.com/cosmicjs/97c21b50-f867-11e7-b797-afc7d68fbdc7-IMG_20160628_090001.jpg",
+        "imgix_url": "https://cosmic-s3.imgix.net/97c21b50-f867-11e7-b797-afc7d68fbdc7-IMG_20160628_090001.jpg",
+        "folder": "tour-images"
+      }
+    ],
+    "media_folders": [
+      {
+        "title": "Tour Images",
+        "slug": "tour-images"
+      }
+    ]
+  }
+}
