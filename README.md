@@ -1,5 +1,11 @@
 # Tour Diary App
 
+![nextjs-tour-diary-app](#)
+
+> [See live demo](#)
+
+> [Read full tutorial on the app](#)
+
 ## Build Setup
 
 ```bash
