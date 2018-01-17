@@ -11,7 +11,7 @@ const FormItem = Form.Item;
 
 const currDate = moment(getCurrentDate());
 
-class TourModal extends Component {
+class TourDetailModal extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -215,4 +215,4 @@ const mapDispatchToProps = dispatch => ({
 	onTourDetailUpdateFormSubmit: payloadData => dispatch(updateTourDetail(payloadData))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(TourModal));
+export default connect(mapStateToProps, mapDispatchToProps)(Form.create()(TourDetailModal));
