@@ -1,43 +1,43 @@
 {
-  "name": "nextjs-tour-diary-app",
-  "description": "A Next.js project",
-  "version": "1.0.0",
-  "author": "Ali Hassan <contact@alihassan.io>",
-  "scripts": {
-    "dev": "node server.js",
-    "build": "next build",
-    "start": "cross-env NODE_ENV=production node server.js"
-  },
-  "dependencies": {
-    "antd": "^3.0.3",
-    "babel-plugin-import": "^1.6.3",
-    "babel-plugin-inline-dotenv": "^1.1.2",
-    "babel-plugin-inline-import": "^2.0.6",
-    "cosmicjs": "^2.4.22",
-    "cross-env": "^5.1.3",
-    "draft-js": "^0.10.4",
-    "draftjs-to-html": "^0.8.1",
-    "eslint": "^4.14.0",
-    "html-to-draftjs": "^1.1.1",
-    "immutable": "^3.8.2",
-    "moment": "^2.20.1",
-    "next": "4.2.1",
-    "next-redux-saga": "^1.0.1",
-    "next-redux-wrapper": "^1.3.5",
-    "next-routes": "^1.2.0",
-    "react": "16.2.0",
-    "react-cookies": "^0.1.0",
-    "react-dom": "16.2.0",
-    "react-draft-wysiwyg": "^1.12.2",
-    "react-html-parser": "^2.0.2",
-    "react-medium-image-zoom": "^3.0.5",
-    "react-redux": "^5.0.6",
-    "react-tap-event-plugin": "^3.0.2",
-    "redux": "^3.7.2",
-    "redux-saga": "^0.16.0"
-  },
-  "devDependencies": {
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "eslint-config-rallycoding": "^3.2.0"
-  }
+	"name": "nextjs-tour-diary-app",
+	"description": "A Next.js project",
+	"version": "1.0.0",
+	"author": "Ali Hassan <contact@alihassan.io>",
+	"scripts": {
+		"dev": "node server.js",
+		"build": "next build",
+		"start": "cross-env NODE_ENV=production node server.js"
+	},
+	"dependencies": {
+		"antd": "^3.0.3",
+		"babel-plugin-import": "^1.6.3",
+		"babel-plugin-inline-dotenv": "^1.1.2",
+		"babel-plugin-inline-import": "^2.0.6",
+		"cosmicjs": "^2.4.22",
+		"cross-env": "^5.1.3",
+		"draft-js": "^0.10.4",
+		"draftjs-to-html": "^0.8.1",
+		"eslint": "^4.14.0",
+		"html-to-draftjs": "^1.1.1",
+		"immutable": "^3.8.2",
+		"moment": "^2.20.1",
+		"next": "4.2.1",
+		"next-redux-saga": "^1.0.1",
+		"next-redux-wrapper": "^1.3.5",
+		"next-routes": "^1.2.0",
+		"react": "16.2.0",
+		"react-cookies": "^0.1.0",
+		"react-dom": "16.2.0",
+		"react-draft-wysiwyg": "^1.12.2",
+		"react-html-parser": "^2.0.2",
+		"react-medium-image-zoom": "^3.0.5",
+		"react-redux": "^5.0.6",
+		"react-tap-event-plugin": "^3.0.2",
+		"redux": "^3.7.2",
+		"redux-saga": "^0.16.0"
+	},
+	"devDependencies": {
+		"babel-plugin-transform-decorators-legacy": "^1.3.4",
+		"eslint-config-rallycoding": "^3.2.0"
+	}
 }

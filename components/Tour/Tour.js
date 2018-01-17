@@ -126,7 +126,7 @@ class Tour extends Component {
 					{this.props.tours.length > 0 && (
 						<Row className="main-row-stl">
 							<Col span={12} style={{ textAlign: 'left' }}>
-								<h1 style={{ color: 'white', fontSize: '30px' }}><img style={{ height: '28px', width: '28px' }} src="/static/favicon.png" />{'  '} CosmicJS Tour Diary App</h1>
+								<h1 style={{ color: 'white', fontSize: '30px' }}><img style={{ height: '35px', width: '35px' }} alt="cosmic_logo" src="/static/favicon.png" />{'  '} CosmicJS Tour Diary App</h1>
 							</Col>
 							<Col span={12} style={{ textAlign: 'right' }}>
 								<Button
