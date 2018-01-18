@@ -103,7 +103,17 @@ class Tour extends Component {
 							<Col span={24}>
 								<h1 className="adding-content-header">
 									{' '}
-									<b>Sart adding Tours to your diary!</b>
+									<div style={{ color: '#333333', fontSize: '38px', fontWeight: '500' }}>
+										<img
+											style={{ height: '52px', width: '52px', marginTop: '-8px' }}
+											alt="cosmic_logo"
+											src="/static/logo.svg"
+										/>
+										{'  '} Cosmic JS Tour Diary App
+									</div>
+									<b style={{ color: '#333333', fontSize: '24px', fontWeight: 'normal' }}>
+										Start adding Tours to your diary!
+									</b>
 								</h1>
 								<p
 									style={{
@@ -126,13 +136,13 @@ class Tour extends Component {
 					{this.props.tours.length > 0 && (
 						<Row className="main-row-stl">
 							<Col span={12} style={{ textAlign: 'left' }}>
-								<h1 style={{ color: 'white', fontSize: '30px' }}>
+								<h1 style={{ color: '#333333', fontSize: '30px' }}>
 									<img
-										style={{ height: '35px', width: '35px' }}
+										style={{ height: '42px', width: '42px' }}
 										alt="cosmic_logo"
-										src="/static/favicon.png"
+										src="/static/logo.svg"
 									/>
-									{'  '} CosmicJS Tour Diary App
+									{'  '} Cosmic JS Tour Diary App
 								</h1>
 							</Col>
 							<Col span={12} style={{ textAlign: 'right' }}>
@@ -164,7 +174,7 @@ class Tour extends Component {
 									cover={
 										<ImageZoom
 											image={{
-												src: tour.metadata.featured_image.url,
+												src: tour.metadata.featured_image.imgix_url,
 												alt: 'feature_img',
 												style: { height: '200px', objectFit: 'cover' }
 											}}

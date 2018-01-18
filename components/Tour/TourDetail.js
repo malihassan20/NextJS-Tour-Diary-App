@@ -105,7 +105,7 @@ class TourDetail extends Component {
 							type="primary"
 							size="large"
 							icon="arrow-left"
-							onClick={() => Router.replace("/")}
+							onClick={() => Router.replace('/')}
 						>
 							Back
 						</Button>
@@ -126,7 +126,9 @@ class TourDetail extends Component {
 					<Col span={12} style={{ textAlign: 'left' }}>
 						{!!tour && (
 							<div>
-								<span style={{ color: 'white', fontSize: '25px', paddingRight: 20 }}>
+								<span
+									style={{ color: '#333333', fontSize: '40px', fontWeight: 500, paddingRight: 20 }}
+								>
 									{tour.title}
 								</span>
 								<Tooltip placement="top" title="Edit">
@@ -145,23 +147,47 @@ class TourDetail extends Component {
 					<div>
 						<Row style={{ paddingTop: 10 }}>
 							<Col span={3}>
-								<span className="tour-font" style={{ color: 'white' }}>
-									<Icon type="compass" /> {tour.metadata.location}
+								<span className="tour-font" style={{ color: '#333333' }}>
+									<Icon style={{ color: '#1890ff' }} type="compass" /> {tour.metadata.location}
 								</span>
 							</Col>
 							<Col span={6}>
-								<span className="tour-font" style={{ color: 'white' }}>
-									<Icon type="calendar" /> {tour.metadata.start_date} - {tour.metadata.end_date}
+								<span className="tour-font" style={{ color: '#333333' }}>
+									<Icon style={{ color: '#1890ff' }} type="calendar" /> {tour.metadata.start_date}{' '}
+									to {tour.metadata.end_date}
 								</span>
 							</Col>
 						</Row>
-						<Row style={{ paddingTop: 10 }}>
-							<Col span={18}>
-								<span className="tour-font" style={{ color: 'white' }}>
+						<Row style={{ paddingTop: 30 }}>
+							<div
+								style={{
+									background: `url(${tour.metadata.featured_image.imgix_url})`,
+									backgroundSize: 'cover',
+									width: '90%',
+									margin: 'auto',
+									height: 550
+								}}
+							/>
+						</Row>
+						<Row style={{ paddingTop: 30 }}>
+							<Col span={24}>
+								<span style={{ fontSize: '24px', fontWeight: 'bold', color: '#333333' }}>
+									Description
+								</span>
+								<span className="tour-font" style={{ color: '#333333' }}>
 									{ReactHtmlParser(tour.content)}
 								</span>
 							</Col>
 						</Row>
+						{this.props.tour_details.length > 0 && (
+							<Row style={{ paddingTop: 30, textAlign: 'center' }}>
+								<Col span={24}>
+									<span style={{ fontSize: '38px', fontWeight: 'bold', color: '#333333' }}>
+										TIMELINE
+									</span>
+								</Col>
+							</Row>
+						)}
 					</div>
 				)}
 			</div>
@@ -192,10 +218,17 @@ class TourDetail extends Component {
 								{this.props.tour_details.length > 0 &&
 									this.props.tour_details.map(tour => (
 										<li key={tour.slug}>
-											<div style={{ width: 300, background: 'white' }}>
+											<div
+												style={{
+													width: 300,
+													background: '#1890ff',
+													color: '#ffffff',
+													boxShadow: '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)'
+												}}
+											>
 												<ImageZoom
 													image={{
-														src: tour.metadata.image.url,
+														src: tour.metadata.image.imgix_url,
 														alt: tour.slug,
 														className: 'timeline-img'
 													}}
@@ -211,7 +244,7 @@ class TourDetail extends Component {
 													<span style={{ float: 'right' }}>
 														<Tooltip placement="top" title="Edit">
 															<Icon
-																className="icon-pad"
+																className="icon-pad icon-pad-white"
 																type="form"
 																onClick={() => this.props.editTourDetail(tour)}
 															/>

@@ -40,14 +40,14 @@ const Wrapper = props => (
 				}
 				body {
 					height: 100%;
-					background: darkseagreen !important;
+					background: #f9f9f9 !important;
 					position: relative;
 					padding-bottom: 6rem;
 					min-height: 100%;
 				}
 				.ant-layout,
 				.layout {
-					background: darkseagreen !important;
+					background: #f9f9f9 !important;
 					padding: 0px 50px;
 				}
 				.ant-card-meta-description {
@@ -63,7 +63,7 @@ const Wrapper = props => (
 				}
 
 				a {
-					color: black !important;
+					color: #333333 !important;
 				}
 
 				.anticon-delete:hover {
@@ -75,7 +75,9 @@ const Wrapper = props => (
 				}
 				.footer {
 					text-align: center;
-					background: rgb(112, 169, 112);
+					font-size: 16px;
+					background: #1890ff;
+					color: #ffffff;
 					position: absolute;
 					width: 100%;
 					height: 35px;
@@ -152,7 +154,7 @@ const Wrapper = props => (
 					width: 6px;
 					margin: -20px auto;
 					padding-top: 50px;
-					background: #fff;
+					background: #1890ff;
 				}
 
 				.timeline ul li::after {
@@ -178,30 +180,30 @@ const Wrapper = props => (
 					height: 0;
 					border-style: solid;
 				}
-				.timeline ul li:nth-child(odd) div {
+				.timeline ul li:nth-child(even) div {
 					left: 45px;
 				}
 
-				.timeline ul li:nth-child(odd) div::before {
+				.timeline ul li:nth-child(even) div::before {
 					left: -15px;
 					border-width: 8px 16px 8px 0;
-					border-color: transparent #fff transparent transparent;
+					border-color: transparent #1890ff transparent transparent;
 				}
-				.timeline ul li:nth-child(even) div {
+				.timeline ul li:nth-child(odd) div {
 					left: -340px;
 				}
 
-				.timeline ul li:nth-child(even) div::before {
+				.timeline ul li:nth-child(odd) div::before {
 					right: -15px;
 					border-width: 8px 0 8px 16px;
-					border-color: transparent transparent transparent #fff;
+					border-color: transparent transparent transparent #1890ff;
 				}
 
 				@media screen and (max-width: 900px) {
 					.timeline ul li div {
 						width: 250px;
 					}
-					.timeline ul li:nth-child(even) div {
+					.timeline ul li:nth-child(odd) div {
 						left: -335px;
 					}
 				}
@@ -214,24 +216,27 @@ const Wrapper = props => (
 						width: calc(100vw - 91px);
 					}
 
-					.timeline ul li:nth-child(even) div {
+					.timeline ul li:nth-child(odd) div {
 						left: 45px;
 					}
 
-					.timeline ul li:nth-child(even) div::before {
+					.timeline ul li:nth-child(odd) div::before {
 						left: -15px;
 						border-width: 8px 16px 8px 0;
-						border-color: transparent #fff transparent transparent;
+						border-color: transparent #1890ff transparent transparent;
 					}
 				}
 
 				.content-body-adj {
 					min-height: 100vh;
-					padding-bottom: 50px;
+					padding-bottom: 60px;
 				}
 
 				.tour-font {
 					font-size: 16px;
+				}
+				.anticon-form.icon-pad-white:hover {
+					color: #ffffff !important;
 				}
 			`}
 		</style>
@@ -239,7 +244,7 @@ const Wrapper = props => (
 		{props.children}
 
 		<footer className="footer">
-			Powered by{' '}
+			Proudly Powered by{' '}
 			<a href="https://cosmicjs.com/" rel="noopener noreferrer" target="_blank">
 				Cosmic JS
 			</a>

@@ -55,7 +55,6 @@ function* addNewTour(action) {
 		if (mediaData.err) {
 			yield put(addTourFail());
 		}
-
 		params = {
 			write_key: config.bucket.write_key,
 			type_slug: 'tours',
@@ -109,10 +108,10 @@ function* deleteTour(action) {
 		let params = {
 			type_slug: 'tour-details',
 			metafield_key: 'tour_id',
-			metafield_object_slug: action.payloadData._id
+			metafield_object_slug: action.payloadData.slug
 		};
-		const tourData = yield call(cosmic, 'GET_TYPE', params);
-		if (tourData !== undefined) {
+		const tourData = yield call(cosmic, 'SEARCH_BY_TYPE', params);
+		if (tourData) {
 			yield* tourData.map(function* (tourImg) {
 				yield call(deleteMedia, tourImg.metafields[2].id);
 
@@ -124,7 +123,6 @@ function* deleteTour(action) {
 				yield call(cosmic, 'DELETE', param);
 			});
 		}
-
 		yield call(deleteMedia, action.payloadData.metafields[3].id);
 
 		params = {
