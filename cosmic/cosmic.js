@@ -12,6 +12,16 @@ export default function cosmic(type, params) {
 				}
 			});
 		});
+	} else if (type === 'SEARCH_BY_TYPE') {
+		return new Promise((resolve, reject) => {
+			Cosmic.getObjectsBySearch(config, params, (err, res) => {
+				if (!err) {
+					resolve(res.objects.all);
+				} else {
+					reject(err);
+				}
+			});
+		});
 	} else if (type === 'ADD') {
 		return new Promise((resolve, reject) => {
 			Cosmic.addObject(config, params, (err, res) => {

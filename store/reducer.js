@@ -240,10 +240,10 @@ function reducer(state = initialState, action) {
 			};
 		}
 		case actionTypes.GET_TOUR_DETAIL_SUCCESS: {
-			let parentTour = state.tours.filter(tour => tour._id === action.payloadData.tourId);
+			let parentTour = state.tours.filter(tour => tour.slug === action.payloadData.tourId);
 
 			const tem = cookie.load('tour');
-			if (tem !== undefined && tem._id !== action.payloadData.tourId) {
+			if (tem !== undefined && tem.slug !== action.payloadData.tourId) {
 				cookie.remove('tour');
 				parentTour = parentTour[0];
 				cookie.save('tour', parentTour);

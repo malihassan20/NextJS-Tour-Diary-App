@@ -126,7 +126,14 @@ class Tour extends Component {
 					{this.props.tours.length > 0 && (
 						<Row className="main-row-stl">
 							<Col span={12} style={{ textAlign: 'left' }}>
-								<h1 style={{ color: 'white', fontSize: '30px' }}><img style={{ height: '35px', width: '35px' }} alt="cosmic_logo" src="/static/favicon.png" />{'  '} CosmicJS Tour Diary App</h1>
+								<h1 style={{ color: 'white', fontSize: '30px' }}>
+									<img
+										style={{ height: '35px', width: '35px' }}
+										alt="cosmic_logo"
+										src="/static/favicon.png"
+									/>
+									{'  '} CosmicJS Tour Diary App
+								</h1>
 							</Col>
 							<Col span={12} style={{ textAlign: 'right' }}>
 								<Button
@@ -177,7 +184,10 @@ class Tour extends Component {
 											<Icon type="delete" onClick={() => this.props.deleteTour(tour)} />
 										</Tooltip>,
 
-										<Link as={`/tour-detail/${tour.slug}`} href={`/tour-detail?tourId=${tour._id}`}>
+										<Link
+											as={`/tour-detail/${tour.slug}`}
+											href={`/tour-detail?tourId=${tour.slug}`}
+										>
 											<Tooltip placement="top" title="View Detail">
 												<Icon type="ellipsis" />
 											</Tooltip>
@@ -188,7 +198,7 @@ class Tour extends Component {
 										title={
 											<Link
 												as={`/tour-detail/${tour.slug}`}
-												href={`/tour-detail?tourId=${tour._id}`}
+												href={`/tour-detail?tourId=${tour.slug}`}
 											>
 												<a>{tour.title}</a>
 											</Link>
