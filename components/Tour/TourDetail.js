@@ -161,7 +161,7 @@ class TourDetail extends Component {
 						<Row style={{ paddingTop: 30 }}>
 							<div
 								style={{
-									background: `url(${tour.metadata.featured_image.imgix_url})`,
+									background: `url(${tour.metadata.featured_image.imgix_url}) no-repeat`,
 									backgroundSize: 'cover',
 									width: '90%',
 									margin: 'auto',
