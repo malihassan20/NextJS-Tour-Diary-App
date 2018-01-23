@@ -119,7 +119,7 @@ class TourModal extends Component {
 		const { getFieldDecorator } = this.props.form;
 		const rangeConfig = {
 			initialValue:
-				this.props.tour != null
+				this.props.tourOldData != null
 					? [moment(this.state.start_date), moment(this.state.end_date)]
 					: [currDate, currDate],
 			rules: [

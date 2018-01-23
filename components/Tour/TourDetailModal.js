@@ -22,7 +22,7 @@ class TourDetailModal extends Component {
 			is_new: true,
 			fileList: [],
 			modalState: false,
-			tour: '',
+			tour: null,
 			metafields: ''
 		};
 	}
@@ -30,7 +30,8 @@ class TourDetailModal extends Component {
 	componentDidMount() {
 		const _tour = cookie.load('tour');
 		this.setState({
-			tour: _tour
+			tour: _tour,
+			date: _tour.metadata.start_date
 		});
 	}
 
@@ -64,7 +65,7 @@ class TourDetailModal extends Component {
 			tour_detail: '',
 			title: '',
 			image: '',
-			date: currDate,
+			date: this.state.tour !== null ? this.state.tour.metadata.start_date : currDate,
 			is_new: true,
 			fileList: [],
 			modalState: this.props.toggleTourDetailModalState,
@@ -162,7 +163,9 @@ class TourDetailModal extends Component {
 						<FormItem {...formItemLayout} label={<span>Date</span>}>
 							{getFieldDecorator('date', {
 								initialValue: moment(
-									this.state.tour ? this.state.tour.metadata.start_date : this.state.date
+									this.props.tour_detail !== null
+										? this.state.tour_detail.metadata.date
+										: this.state.date
 								),
 								rules: [
 									{
@@ -171,13 +174,7 @@ class TourDetailModal extends Component {
 										message: 'Please enter date'
 									}
 								]
-							})(
-								<DatePicker
-									value={this.state.tour ? this.state.tour.metadata.start_date : this.state.date}
-									disabledDate={allowSpecificDates}
-									name="date"
-								/>
-							)}
+							})(<DatePicker disabledDate={allowSpecificDates} name="date" />)}
 						</FormItem>
 
 						<FormItem {...formItemLayout} label="Image">
@@ -205,8 +202,7 @@ class TourDetailModal extends Component {
 
 const mapStateToProps = state => ({
 	toggleTourDetailModalState: state.toggleTourDetailModal,
-	tour_detail: state.tour_detail,
-	tour: state.tour
+	tour_detail: state.tour_detail
 });
 
 const mapDispatchToProps = dispatch => ({
