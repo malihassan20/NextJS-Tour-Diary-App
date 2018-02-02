@@ -123,7 +123,7 @@ class TourDetail extends Component {
 				</Row>
 				<Row>
 					<br />
-					<Col span={12} style={{ textAlign: 'left' }}>
+					<Col span={24} style={{ textAlign: 'left' }}>
 						{!!tour && (
 							<div>
 								<span
@@ -161,7 +161,7 @@ class TourDetail extends Component {
 						<Row style={{ paddingTop: 30 }}>
 							<div
 								style={{
-									background: `url(${tour.metadata.featured_image.imgix_url}) no-repeat`,
+									backgroundImage: `url(${tour.metadata.featured_image.imgix_url})`,
 									backgroundSize: 'cover',
 									width: '90%',
 									margin: 'auto',
@@ -170,7 +170,7 @@ class TourDetail extends Component {
 							/>
 						</Row>
 						<Row style={{ paddingTop: 30 }}>
-							<Col span={24}>
+							<Col span={24} style={{ width: '90%', margin: 'auto', float: 'none' }}>
 								<span style={{ fontSize: '24px', fontWeight: 'bold', color: '#333333' }}>
 									Description
 								</span>
