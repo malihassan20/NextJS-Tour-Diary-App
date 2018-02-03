@@ -39,3 +39,21 @@ export function sortArr(arr) {
 	//ascending order
 	return arr.sort((a, b) => new Date(a.metadata.date) - new Date(b.metadata.date));
 }
+
+export function getTourStartDate() {
+	const tour = cookie.load('tour');
+	//enable dates which are within the tour range dates
+	if (tour) {
+		return new Date(tour.metadata.start_date);
+	}
+
+	return getCurrentDate();
+}
+
+export function getCurrentTour() {
+	const tour = cookie.load('tour');
+	if (tour) {
+		return tour;
+	}
+	return null;
+}

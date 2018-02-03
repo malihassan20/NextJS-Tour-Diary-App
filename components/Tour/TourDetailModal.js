@@ -2,15 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Modal, Button, Form, Input, Icon, DatePicker, Upload } from 'antd';
 import moment from 'moment';
-import cookie from 'react-cookies';
 
-import { getCurrentDate, allowSpecificDates } from '../../Helper/Helper';
+import { allowSpecificDates, getTourStartDate, getCurrentTour } from '../../Helper/Helper';
 import { toggleTourDetailModal, addTourDetail, updateTourDetail } from '../../store/actions';
 
 const FormItem = Form.Item;
-
-const currDate = moment(getCurrentDate());
-
 class TourDetailModal extends Component {
 	constructor(props) {
 		super(props);
@@ -18,21 +14,12 @@ class TourDetailModal extends Component {
 			tour_detail: '',
 			title: '',
 			image: '',
-			date: currDate,
+			date: moment(getTourStartDate()),
 			is_new: true,
 			fileList: [],
 			modalState: false,
-			tour: null,
 			metafields: ''
 		};
-	}
-
-	componentDidMount() {
-		const _tour = cookie.load('tour');
-		this.setState({
-			tour: _tour,
-			date: _tour.metadata.start_date
-		});
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -65,7 +52,7 @@ class TourDetailModal extends Component {
 			tour_detail: '',
 			title: '',
 			image: '',
-			date: this.state.tour !== null ? this.state.tour.metadata.start_date : currDate,
+			date: moment(getTourStartDate()),
 			is_new: true,
 			fileList: [],
 			modalState: this.props.toggleTourDetailModalState,
@@ -79,10 +66,11 @@ class TourDetailModal extends Component {
 		e.preventDefault();
 		this.props.form.validateFields((err, fieldsValue) => {
 			if (!err) {
+				const tour = getCurrentTour();
 				const values = {
 					...fieldsValue,
 					date: fieldsValue.date.format('YYYY-MM-DD'),
-					tourId: this.state.tour._id,
+					tourId: tour._id,
 					tour_detail: this.state.tour_detail,
 					metafields: this.state.metafields
 				};
@@ -162,11 +150,10 @@ class TourDetailModal extends Component {
 						</FormItem>
 						<FormItem {...formItemLayout} label={<span>Date</span>}>
 							{getFieldDecorator('date', {
-								initialValue: moment(
+								initialValue:
 									this.props.tour_detail !== null
-										? this.state.tour_detail.metadata.date
-										: this.state.date
-								),
+										? moment(this.state.tour_detail.metadata.date)
+										: moment(getTourStartDate()),
 								rules: [
 									{
 										type: 'object',
