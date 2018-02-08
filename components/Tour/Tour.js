@@ -172,19 +172,18 @@ class Tour extends Component {
 							>
 								<Card
 									cover={
-										<ImageZoom
-											image={{
-												src: tour.metadata.featured_image.imgix_url,
-												alt: 'feature_img',
-												style: { height: '200px', objectFit: 'cover' }
-											}}
-											defaultStyles={{
-												overlay: {
-													opacity: 0.9,
-													backgroundColor: 'black'
-												}
-											}}
-										/>
+										<Link
+											as={`/tour-detail/${tour.slug}`}
+											href={`/tour-detail?tourId=${tour.slug}`}
+										>
+											<a>
+												<img
+													alt="feature_img"
+													style={{ height: '200px', objectFit: 'cover' }}
+													src={tour.metadata.featured_image.imgix_url}
+												/>
+											</a>
+										</Link>
 									}
 									actions={[
 										<Tooltip placement="top" title="Edit">
@@ -192,16 +191,7 @@ class Tour extends Component {
 										</Tooltip>,
 										<Tooltip placement="top" title="Delete">
 											<Icon type="delete" onClick={() => this.props.deleteTour(tour)} />
-										</Tooltip>,
-
-										<Link
-											as={`/tour-detail/${tour.slug}`}
-											href={`/tour-detail?tourId=${tour.slug}`}
-										>
-											<Tooltip placement="top" title="View Detail">
-												<Icon type="ellipsis" />
-											</Tooltip>
-										</Link>
+										</Tooltip>
 									]}
 								>
 									<Meta
