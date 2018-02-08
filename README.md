@@ -4,7 +4,7 @@
 
 > [See live demo](http://tour-diary.cosmicapp.co/)
 
-> [Read full tutorial on the app](https://cosmicjs.com/articles/how-to-build-a-tour-diary-app-using-next-js-and-cosmic-js-jci5wyod)
+> [Read full tutorial here](https://cosmicjs.com/articles/how-to-build-a-tour-diary-app-using-next-js-and-cosmic-js-jci5wyod)
 
 ## Build Setup
 
