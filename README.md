@@ -1,6 +1,6 @@
 # Tour Diary App
 
-![nextjs-tour-diary-app](https://cosmic-s3.imgix.net/be02a690-0d11-11e8-9463-8d9ca34919d0-Cosmic JS Tour Diary App.png)
+![nextjs-tour-diary-app](https://cosmic-s3.imgix.net/16c03db0-0d12-11e8-9463-8d9ca34919d0-main.png)
 
 > [See live demo](#)
 
